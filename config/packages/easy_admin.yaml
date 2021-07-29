@@ -1,0 +1,12 @@
+easy_admin:
+    entities:
+        # List the entity class name you want to manage
+        - App\Entity\Player
+        - App\Entity\Npc
+        - App\Entity\Creature
+        - App\Entity\Location
+        - App\Entity\Item
+        - App\Entity\Other
+        - App\Entity\Admin
+        - App\Entity\User
+        

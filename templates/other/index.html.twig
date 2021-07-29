@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Other index{% endblock %}
+
+{% block body %}
+    <h1>Other index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Heading</th>
+                <th>Description</th>
+                <th>Notes</th>
+                <th>ShowPlayers</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for other in others %}
+            <tr>
+                <td>{{ other.id }}</td>
+                <td>{{ other.heading }}</td>
+                <td>{{ other.description }}</td>
+                <td>{{ other.notes }}</td>
+                <td>{{ other.showPlayers ? 'Yes' : 'No' }}</td>
+                <td>
+                    <a href="{{ path('other_show', {'id': other.id}) }}">show</a>
+                    <a href="{{ path('other_edit', {'id': other.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('other_new') }}">Create new</a>
+{% endblock %}

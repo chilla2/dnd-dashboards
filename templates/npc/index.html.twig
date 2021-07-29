@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}NPC index{% endblock %}
+
+{% block body %}
+    <h1>NPC index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Notes</th>
+                <th>ShowPlayers</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for npc in npcs %}
+            <tr>
+                <td>{{ npc.id }}</td>
+                <td>{{ npc.name }}</td>
+                <td>{{ npc.description }}</td>
+                <td>{{ npc.notes }}</td>
+                <td>{{ npc.showPlayers ? 'Yes' : 'No' }}</td>
+                <td>
+                    <a href="{{ path('npc_show', {'id': npc.id}) }}">show</a>
+                    <a href="{{ path('npc_edit', {'id': npc.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('npc_new') }}">Create new</a>
+{% endblock %}
