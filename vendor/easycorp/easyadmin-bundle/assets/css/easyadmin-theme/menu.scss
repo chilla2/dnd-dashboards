@@ -1,0 +1,147 @@
+// Sidebar navigation menu
+// ----------------------------------------------------------------------------
+
+#main-menu .menu {
+    padding-left: 0;
+
+    li { list-style: none; }
+
+    a {
+        color: var(--text-color-dark);
+        display: block;
+        line-height: 18px;
+        padding: 3px 5px 6px 0;
+    }
+
+    .menu-header {
+        color: var(--gray-600);
+        font-size: 12px;
+        font-weight: 500;
+        margin-top: 15px;
+        padding: 7px 5px 7px 0;
+        text-transform: uppercase;
+
+        &:first-child { margin-top: 0; }
+    }
+
+    .menu-item {
+        padding-right: 15px;
+        position: relative;
+
+        .submenu-toggle-icon {
+            color: var(--gray-700);
+            position: absolute;
+            top: 6px;
+            right: 1px;
+            transition: transform 0.25s ease;
+            width: auto;
+        }
+
+        &.active {
+            font-weight: 500;
+        }
+
+        &.active:not(.expanded) a, &.active:not(.expanded) .menu-icon {
+            color: var(--color-primary);
+        }
+
+        &.has-submenu.expanded .submenu-toggle-icon {
+            transform: rotate(90deg);
+        }
+    }
+
+    .menu-icon {
+        color: var(--gray-600);
+        font-size: 16px;
+        margin-right: 4px;
+        vertical-align: middle;
+        width: 20px;
+    }
+}
+
+#main-menu .submenu {
+    // padding must be 0 for the element that slides up/down;
+    // if some padding is needed, create another HTML element inside this one
+    padding: 0;
+    overflow: hidden;
+    transition: max-height 150ms linear;
+
+    a {
+        color: var(--text-color);
+        font-size: var(--font-size-sm);
+        padding: 3px 5px 3px 26px;
+    }
+
+    .menu-header {
+        padding-left: 26px;
+    }
+}
+
+#main-menu .menu .menu-item.has-submenu:not(.expanded) .submenu {
+    // don't use 'display: none' to hide submenus; it breaks the menu accordion
+    max-height: 0px;
+}
+
+body.ea-sidebar-width-compact .main-sidebar {
+    overflow: visible;
+
+    @media(min-width: 1024px) {
+        width: 24px;
+    }
+}
+
+@media(min-width: 1024px) {
+    body.ea-sidebar-width-compact #main-menu .menu {
+        a {
+            padding: 7px 5px 7px 0;
+        }
+
+        li {
+            position: relative;
+            padding-right: 0;
+
+            span, .submenu-toggle-icon, .submenu { display: none; }
+            span { position: static; }
+
+            .menu-icon { font-size: 21px; width: 24px; }
+            .submenu .menu-icon { font-size: 16px; position: relative; left: -4px; width: 21px; }
+
+            .submenu {
+                max-height: initial !important;
+                padding-top: 5px;
+                padding-bottom: 5px;
+            }
+
+            &:hover {
+                background: var(--body-bg);
+                border-radius: var(--border-radius);
+                width: var(--sidebar-max-width);
+                z-index: $zindex-modal-backdrop;
+
+                span, .submenu {
+                    background: var(--body-bg);
+                    display: block;
+                    left: 32px;
+                    position: absolute;
+                    top: 7px;
+                }
+
+                .submenu {
+                    top: 32px;
+                    margin-left: 0;
+                    width: calc(var(--sidebar-max-width) - 32px);
+                }
+                .submenu a {
+                    padding: 3px 5px 3px 11px;
+                }
+            }
+        }
+
+        .menu-header {
+            height: 0;
+            overflow: hidden;
+            padding: 0;
+            width: 0;
+        }
+    }
+}

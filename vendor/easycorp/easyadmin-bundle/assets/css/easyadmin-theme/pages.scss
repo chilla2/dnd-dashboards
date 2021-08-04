@@ -1,0 +1,65 @@
+// Page templates available or custom backends
+// ----------------------------------------------------------------------------
+
+body.page-login {
+    align-items: center;
+    display: flex;
+    height: 100vh;
+    justify-content: center;
+    overflow: hidden;
+    position: absolute;
+    width: 100vw;
+}
+
+.login-wrapper {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    max-width: 28rem;
+    width: 100%;
+}
+.login-wrapper .main-header {
+    display: block;
+    padding-right: 0;
+}
+.login-wrapper .main-header #header-logo {
+    color: var(--text-color-dark);
+    font-size: 30px;
+    font-weight: 700;
+    line-height: 1.2;
+    text-align: center;
+}
+.login-wrapper .content {
+    background-color: var(--white);
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow-lg);
+    padding: 2rem 2.5rem;
+    width: 100%;
+}
+.login-wrapper .form-widget {
+    flex: 100%;
+    padding-left: 0;
+}
+.login-wrapper .form-widget-with-icon {
+    align-items: baseline;
+    display: flex;
+    flex-direction: row;
+}
+.login-wrapper .form-widget-with-icon i {
+    color: var(--gray-500);
+    font-size: 18px;
+    margin-right: 10px;
+}
+.login-wrapper .form-widget input {
+    font-size: var(--font-size-lg);
+    height: 38px;
+    line-height: 38px;
+}
+
+.page-blank .content-wrapper {
+    display: block;
+}
+
+.page-content-with-padding .content-body {
+    padding: 18px 20px;
+}

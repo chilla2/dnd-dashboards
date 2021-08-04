@@ -13,7 +13,7 @@ security:
         # used to reload user from session & other features (e.g. switch_user)
         app_user_provider:
             entity:
-                class: App\Entity\User
+                class: App\Entity\Admin
                 property: username
         # used to reload user from session & other features (e.g. switch_user)
     firewalls:
@@ -43,4 +43,5 @@ security:
     access_control:
         - { path: ^/admin/login, roles: PUBLIC_ACCESS }
         - { path: ^/admin, roles: ROLE_ADMIN }
+        - { path: ^/private-dashboard, roles: ROLE_ADMIN }
        # { path: ^/profile, roles: ROLE_USER }

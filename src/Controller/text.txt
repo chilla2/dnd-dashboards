@@ -1,0 +1,998 @@
+?php
+
+
+namespace App\Controller\Admin;
+
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
+use App\Form\Type\EmployeeType;
+use App\Form\Type\BranchType;
+use App\Form\Type\DepartmentType;
+use App\Repository\EmployeeRepository;
+use App\Repository\BranchRepository;
+use App\Repository\DepartmentRepository;
+use App\Entity\Employee;
+use App\Entity\Branch;
+use App\Entity\Department;
+use Doctrine\ORM\Mapping as ORM;
+use Twig\Environment;
+use Twig\Error\LoaderError;
+use Twig\Error\RuntimeError;
+use Twig\Error\SyntaxError;
+
+class AdminController extends AbstractController
+{
+    private $twig;
+
+    public function __construct(Environment $twig)
+    {
+        $this->twig = $twig;
+    }
+
+    /**
+     * @Route("/admin", name="app_admin")
+     */
+    public function show(): Response
+    {
+        return $this->render('pages/admin.html.twig', [
+                'title' => 'Admin'
+                , 'currPage' => 'Admin'
+        ]);
+    }
+
+    /**
+     * @Route("/admin/console", name="admin_console")
+     */
+    public function adminConsole(): Response
+    {
+        return $this->render('pages/admin_console.html.twig', [
+            'title' => 'Admin Console'
+            , 'currPage' => 'Admin Console'
+        ]);
+    }
+?php
+
+
+namespace App\Controller\Admin;
+
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
+use App\Form\Type\EmployeeType;
+use App\Form\Type\BranchType;
+use App\Form\Type\DepartmentType;
+use App\Repository\EmployeeRepository;
+use App\Repository\BranchRepository;
+use App\Repository\DepartmentRepository;
+use App\Entity\Employee;
+use App\Entity\Branch;
+use App\Entity\Department;
+use Doctrine\ORM\Mapping as ORM;
+use Twig\Environment;
+use Twig\Error\LoaderError;
+use Twig\Error\RuntimeError;
+use Twig\Error\SyntaxError;
+
+class AdminController extends AbstractController
+{
+    private $twig;
+
+    public function __construct(Environment $twig)
+    {
+        $this->twig = $twig;
+    }
+
+    /**
+     * @Route("/admin", name="app_admin")
+     */
+    public function show(): Response
+    {
+        return $this->render('pages/admin.html.twig', [
+                'title' => 'Admin'
+                , 'currPage' => 'Admin'
+        ]);
+    }
+
+    /**
+     * @Route("/admin/console", name="admin_console")
+     */
+    public function adminConsole(): Response
+    {
+        return $this->render('pages/admin_console.html.twig', [
+            'title' => 'Admin Console'
+            , 'currPage' => 'Admin Console'
+        ]);
+    }
+
+    /**
+     * @Route("/admin/{objects}", name="crud_list")
+     * @param String $objects
+     * @return Response
+     * @throws LoaderError
+     * @throws RuntimeError
+     * @throws SyntaxError
+     */
+    public function crudList(String $objects): Response
+    {
+        //get entity type from the objects parameter
+        $entity = substr(ucfirst(strtolower($objects)), 0, -1);
+
+        $repository = $this->getDoctrine()
+            ->getRepository('App:' . $entity);
+
+        return new Response($this->twig->render('pages/crud_list.html.twig', [
+            'objects' => $objects,
+            'entity' => $entity,
+            'list' => $repository->findAll(),
+            'title' => $entity . ' List',
+            'currPage' => $entity . ' List'
+        ]));
+    }
+
+    /**
+     * @Route("/admin/{objects}/{id}/delete", name="delete")
+     * @param String $objects
+     * @param String $id
+     * @return Response
+     */
+    public function delete(String $objects, String $id): Response
+    {
+        //get entity type from the objects parameter
+        $entity = substr(ucfirst(strtolower($objects)), 0, -1);
+
+        $repository = $this->getDoctrine()
+            ->getRepository('App:' . $entity);
+
+        $item = $repository
+            ->find($id);
+
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->remove($item);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('crud_list', ['objects' => $objects]);
+    }
+
+    /**
+     * @Route("admin/{objects}/create", name="create_item")
+     * @param String $objects
+     * @param Request $request
+     * @return Response
+     */
+    public function create(String $objects, Request $request): Response
+    {
+        //get entity type from the objects parameter
+        $entity = substr(ucfirst(strtolower($objects)), 0, -1);
+
+        $repository = $this->getDoctrine()
+            ->getRepository('App:' . $entity);
+
+        switch ($objects) {
+            case "branches":
+                $item = new Branch();
+                $form = $this->createForm(BranchType::class, $item);
+                break;
+            case "departments":
+                $item = new Department();
+                $form = $this->createForm(DepartmentType::class, $item);
+                break;
+            case "employees":
+                $item = new Employee();
+                $form = $this->createForm(EmployeeType::class, $item);
+                break;
+            default:
+                throw $this->createNotFoundException('The entity type does not exist');
+        }
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $item = $form->getData();
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($item);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('crud_list', ['objects' => $objects]);
+        }
+
+        return $this->render('pages/new_item.html.twig', [
+            'objects' => $objects,
+            'form' => $form->createView(),
+            'title' => 'Create ' . $entity,
+            'currPage' => 'Create ' . $entity
+        ]);
+    }
+
+    /**
+     * @Route("/admin/{objects}/{id}/edit", name="edit")
+     * @param String $objects
+     * @param String $id
+     * @param Request $request
+     * @return Response
+     */
+    public function edit(String $objects, String $id, Request $request): Response
+    {
+        //get entity type from the objects parameter
+        $entity = substr(ucfirst(strtolower($objects)), 0, -1);
+
+        $repository = $this->getDoctrine()
+            ->getRepository('App:' . $entity);
+
+        $item = $repository
+            ->find($id);
+
+        switch ($objects) {
+            case "branches":
+                $form = $this->createForm(BranchType::class, $item);
+                break;
+            case "departments":
+                $form = $this->createForm(DepartmentType::class, $item);
+                break;
+            case "employees":
+                $form = $this->createForm(EmployeeType::class, $item);
+                break;
+            default:
+                throw $this->createNotFoundException('The entity type does not exist');
+        }
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $item = $form->getData();
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($item);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('crud_list', ['objects' => $objects]);
+        }
+
+        return $this->render('pages/edit_item.html.twig', [
+            'objects' => $objects,
+            'item' => $item,
+            'form' => $form->createView(),
+            'title' => 'Edit ' . $entity,
+            'currPage' => 'Edit ' . $entity
+        ]);
+    }
+
+}
+You sent Today at 5:03 PM
+{%  extends "base.html.twig" %}
+{%  block menu %}
+    {{ parent() }}
+{%  endblock %}
+{%  block content %}
+    <div class="content">
+        <div class="row">
+            {% for item in list %}
+                <div class="col-sm">
+                    <div class="card card-medium-height">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ item.getName() }}</h5>
+                            <a href="/admin/{{ objects }}/{{ item.id }}/edit" class="btn btn-primary">Edit</a>
+                            <a href="/admin/{{ objects }}/{{ item.id }}/delete" class="btn btn-secondary">Delete</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        <a href="/admin/{{ objects }}/create" class="btn btn-primary">Add</a>
+    </div>
+{% endblock %}
+You sent Today at 5:03 PM
+<?php
+
+namespace App\Controller\Admin;
+
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Entity\Employee;
+use App\Entity\User;
+use App\Form\Type\EmployeeType;
+use App\Repository\UserRepository;
+use App\Repository\EmployeeRepository;
+
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\Annotation\Route;
+use Twig\Environment;
+use Twig\Error\LoaderError;
+use Twig\Error\RuntimeError;
+use Twig\Error\SyntaxError;
+
+
+class EmployeeController extends AbstractController
+{
+    private $twig;
+
+    public function __construct(Environment $twig)
+    {
+        $this->twig = $twig;
+    }
+
+
+    public function list(EmployeeRepository $employeeRepository): Response
+    {
+        return new Response($this->twig->render('pages/employee_list.html.twig', [
+            'employees' => $employeeRepository->findAll(),
+            'title' => 'Employee List',
+            'currPage' => 'Employees'
+        ]));
+    }
+
+    /**
+     * @Route("", name="")
+     * @param Request $request
+     * @return Response
+     */
+    public function createEmployee(Request $request): Response
+    {
+
+        $employee = new Employee();
+
+        $form = $this->createForm(EmployeeType::class, $employee);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $employee = $form->getData();
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($employee);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('crud_list');
+        }
+
+        return $this->render('pages/new_employee.html.twig', [
+            'form' => $form->createView(),
+            'title' => 'Create Employee',
+            'currPage' => 'Create Employee'
+        ]);
+    }
+
+    /**
+     * @Route("", name="delete_employee")
+     * @param String $id
+     * @param EmployeeRepository $employeeRepository
+     * @return Response
+     */
+    /*public function deleteEmployee(String $id, EmployeeRepository $employeeRepository): Response
+    {
+        $employee = $employeeRepository
+            ->find($id);
+
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->remove($employee);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('crud_list');
+    }
+    */
+
+    /**
+     * @Route("", name="edit_employee")
+     * @param String $id
+     * @param EmployeeRepository $employeeRepository
+     * @param Request $request
+     * @return Response
+     */
+    /*
+    public function updateEmployee(String $id, EmployeeRepository $employeeRepository, Request $request): Response
+    {
+        $employee = $employeeRepository
+            ->find($id);
+
+        $form = $this->createForm(EmployeeType::class, $employee);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $employee = $form->getData();
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($employee);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('crud_list');
+        }
+
+        return $this->render('pages/edit_employee.html.twig', [
+            'employee' => $employee,
+            'form' => $form->createView(),
+            'title' => 'Edit Employee',
+            'currPage' => 'Edit Employee'
+        ]);
+    }
+    */
+}
+You sent Today at 5:04 PM
+<?php
+
+
+namespace App\Form\Type;
+
+use Symfony\Component\OptionsResolver\OptionsResolver;
+use App\Entity\Employee;
+use App\Entity\Branch;
+use App\Repository\BranchRepository;
+use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\ChoiceList\ChoiceList;
+
+class EmployeeType extends AbstractType
+{
+    private $repository;
+
+    public function __construct(BranchRepository $repository)
+    {
+        $this->repository = $repository;
+    }
+
+    public function buildForm(FormBuilderInterface $builder, array $options): void
+    {
+
+        //$branches = $repository->findAll();
+
+        $builder
+            ->add('firstName', TextType::class)
+            ->add('lastName', TextType::class)
+            ->add('email', EmailType::class)
+            ->add('isManager', ChoiceType::class, [
+                'choices'  => [
+                    'Yes' => true,
+                    'No' => false,
+                ],
+            ])
+            ->add('isBom', ChoiceType::class, [
+                'choices'  => [
+                    'Yes' => true,
+                    'No' => false,
+                ],
+            ])
+            //->add('branch', ChoiceType::class, [
+                //'choices' => 'Provo',
+                //'choice-value' => 'name'
+            //])
+            ->add('save', SubmitType::class)
+        ;
+    }
+}
+You sent Today at 5:04 PM
+{%  extends "base.html.twig" %}
+{%  block menu %}
+    {{ parent() }}
+{%  endblock %}
+{%  block content %}
+    <div class="content">
+        <a href="/admin/employees/" class="btn btn-primary">Employees</a>
+        <a href="/admin/departments/" class="btn btn-primary">Departments</a>
+        <a href="/admin/branches/" class="btn btn-primary">Branches</a>
+    </div>
+{% endblock %}
+You sent Today at 5:05 PM
+{% extends "base.html.twig" %}
+{% block menu %}
+    {{ parent() }}
+{% endblock %}
+{% block content %}
+    <div class="content">
+        <h1>{{ employee.firstName }} {{ employee.lastName }}</h1>
+        {{ form(form) }}
+    </div>
+{% endblock %}
+You sent Today at 5:05 PM
+{%  extends "base.html.twig" %}
+{%  block menu %}
+    {{ parent() }}
+{%  endblock %}
+{%  block content %}
+    <div class="content">
+        <div class="row">
+            {% for employee in employees %}
+                <div class="col-sm">
+                    <div class="card card-medium-height">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ employee.firstName }} {{ employee.lastName }}</h5>
+                            <h5 class="card-body">{{ employee.email }}<br>{{ employee.branch }}</h5>
+                            <a href="/admin/employees/{{ employee.id }}/edit" class="btn btn-primary">Edit</a>
+                            <a href="/admin/employees/{{ employee.id }}/delete" class="btn btn-secondary">Delete</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        <a href="/admin/employees/create" class="btn btn-primary">Add</a>
+    </div>
+{% endblock %}
+You sent Today at 5:06 PM
+{% include 'header.html.twig' %}
+    {% block menu %}
+        <nav class="navbar navbar-expand-md navbar-dark bg-dark mb-3">
+            <div class="container-fluid">
+                <a href="/" class="navbar-brand mr-3"><img src="/images/ccbanklogo-200x50.png" alt="CCBank" width="75" /></a>
+                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarCollapse">
+                    <div class="navbar-nav">
+                        <a href="/" class="nav-item nav-link {% if currPage == "home" %}active{% endif %}">Home</a>
+                    </div>
+                    <div id="searchBar" class="navbar-nav ml-auto form-group">
+                <!-- Search form -->
+                <form class="form-inline d-flex justify-content-center md-form form-sm mt-0">
+                  <i class="fas fa-search" aria-hidden="true"></i>
+                  <input class="form-control form-control-sm ml-3 w-75" type="text" placeholder="Search"
+                    aria-label="Search">
+                </form>
+                <!--<input type="text" id="searchBox" width="100" placeholder="Search" class="form-control"><button type="button" id="searchButton" class="btn btn-primary btn-sm">Search</button> -->
+                        {%  if is_granted('ROLE_USER') or is_granted('ROLE_ADMIN') %}
+                        <a href="/logout" class="nav-item nav-link">Logout</a>
+                        {%  else %}
+                        <a href="/login" class="nav-item nav-link">Login</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </nav>
+    {% endblock %}
+    {% block content %}
+
+    {% endblock %}
+{% include 'footer.html.twig' %}
+Aa
+    /**
+     * @Route("/admin/{objects}", name="crud_list")
+     * @param String $objects
+     * @return Response
+     * @throws LoaderError
+     * @throws RuntimeError
+     * @throws SyntaxError
+     */
+    public function crudList(String $objects): Response
+    {
+        //get entity type from the objects parameter
+        $entity = substr(ucfirst(strtolower($objects)), 0, -1);
+
+        $repository = $this->getDoctrine()
+            ->getRepository('App:' . $entity);
+
+        return new Response($this->twig->render('pages/crud_list.html.twig', [
+            'objects' => $objects,
+            'entity' => $entity,
+            'list' => $repository->findAll(),
+            'title' => $entity . ' List',
+            'currPage' => $entity . ' List'
+        ]));
+    }
+
+    /**
+     * @Route("/admin/{objects}/{id}/delete", name="delete")
+     * @param String $objects
+     * @param String $id
+     * @return Response
+     */
+    public function delete(String $objects, String $id): Response
+    {
+        //get entity type from the objects parameter
+        $entity = substr(ucfirst(strtolower($objects)), 0, -1);
+
+        $repository = $this->getDoctrine()
+            ->getRepository('App:' . $entity);
+
+        $item = $repository
+            ->find($id);
+
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->remove($item);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('crud_list', ['objects' => $objects]);
+    }
+
+    /**
+     * @Route("admin/{objects}/create", name="create_item")
+     * @param String $objects
+     * @param Request $request
+     * @return Response
+     */
+    public function create(String $objects, Request $request): Response
+    {
+        //get entity type from the objects parameter
+        $entity = substr(ucfirst(strtolower($objects)), 0, -1);
+
+        $repository = $this->getDoctrine()
+            ->getRepository('App:' . $entity);
+
+        switch ($objects) {
+            case "branches":
+                $item = new Branch();
+                $form = $this->createForm(BranchType::class, $item);
+                break;
+            case "departments":
+                $item = new Department();
+                $form = $this->createForm(DepartmentType::class, $item);
+                break;
+            case "employees":
+                $item = new Employee();
+                $form = $this->createForm(EmployeeType::class, $item);
+                break;
+            default:
+                throw $this->createNotFoundException('The entity type does not exist');
+        }
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $item = $form->getData();
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($item);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('crud_list', ['objects' => $objects]);
+        }
+
+        return $this->render('pages/new_item.html.twig', [
+            'objects' => $objects,
+            'form' => $form->createView(),
+            'title' => 'Create ' . $entity,
+            'currPage' => 'Create ' . $entity
+        ]);
+    }
+
+    /**
+     * @Route("/admin/{objects}/{id}/edit", name="edit")
+     * @param String $objects
+     * @param String $id
+     * @param Request $request
+     * @return Response
+     */
+    public function edit(String $objects, String $id, Request $request): Response
+    {
+        //get entity type from the objects parameter
+        $entity = substr(ucfirst(strtolower($objects)), 0, -1);
+
+        $repository = $this->getDoctrine()
+            ->getRepository('App:' . $entity);
+
+        $item = $repository
+            ->find($id);
+
+        switch ($objects) {
+            case "branches":
+                $form = $this->createForm(BranchType::class, $item);
+                break;
+            case "departments":
+                $form = $this->createForm(DepartmentType::class, $item);
+                break;
+            case "employees":
+                $form = $this->createForm(EmployeeType::class, $item);
+                break;
+            default:
+                throw $this->createNotFoundException('The entity type does not exist');
+        }
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $item = $form->getData();
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($item);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('crud_list', ['objects' => $objects]);
+        }
+
+        return $this->render('pages/edit_item.html.twig', [
+            'objects' => $objects,
+            'item' => $item,
+            'form' => $form->createView(),
+            'title' => 'Edit ' . $entity,
+            'currPage' => 'Edit ' . $entity
+        ]);
+    }
+
+}
+You sent Today at 5:03 PM
+{%  extends "base.html.twig" %}
+{%  block menu %}
+    {{ parent() }}
+{%  endblock %}
+{%  block content %}
+    <div class="content">
+        <div class="row">
+            {% for item in list %}
+                <div class="col-sm">
+                    <div class="card card-medium-height">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ item.getName() }}</h5>
+                            <a href="/admin/{{ objects }}/{{ item.id }}/edit" class="btn btn-primary">Edit</a>
+                            <a href="/admin/{{ objects }}/{{ item.id }}/delete" class="btn btn-secondary">Delete</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        <a href="/admin/{{ objects }}/create" class="btn btn-primary">Add</a>
+    </div>
+{% endblock %}
+You sent Today at 5:03 PM
+<?php
+
+namespace App\Controller\Admin;
+
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Entity\Employee;
+use App\Entity\User;
+use App\Form\Type\EmployeeType;
+use App\Repository\UserRepository;
+use App\Repository\EmployeeRepository;
+
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\Annotation\Route;
+use Twig\Environment;
+use Twig\Error\LoaderError;
+use Twig\Error\RuntimeError;
+use Twig\Error\SyntaxError;
+
+
+class EmployeeController extends AbstractController
+{
+    private $twig;
+
+    public function __construct(Environment $twig)
+    {
+        $this->twig = $twig;
+    }
+
+
+    public function list(EmployeeRepository $employeeRepository): Response
+    {
+        return new Response($this->twig->render('pages/employee_list.html.twig', [
+            'employees' => $employeeRepository->findAll(),
+            'title' => 'Employee List',
+            'currPage' => 'Employees'
+        ]));
+    }
+
+    /**
+     * @Route("", name="")
+     * @param Request $request
+     * @return Response
+     */
+    public function createEmployee(Request $request): Response
+    {
+
+        $employee = new Employee();
+
+        $form = $this->createForm(EmployeeType::class, $employee);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $employee = $form->getData();
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($employee);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('crud_list');
+        }
+
+        return $this->render('pages/new_employee.html.twig', [
+            'form' => $form->createView(),
+            'title' => 'Create Employee',
+            'currPage' => 'Create Employee'
+        ]);
+    }
+
+    /**
+     * @Route("", name="delete_employee")
+     * @param String $id
+     * @param EmployeeRepository $employeeRepository
+     * @return Response
+     */
+    /*public function deleteEmployee(String $id, EmployeeRepository $employeeRepository): Response
+    {
+        $employee = $employeeRepository
+            ->find($id);
+
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->remove($employee);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('crud_list');
+    }
+    */
+
+    /**
+     * @Route("", name="edit_employee")
+     * @param String $id
+     * @param EmployeeRepository $employeeRepository
+     * @param Request $request
+     * @return Response
+     */
+    /*
+    public function updateEmployee(String $id, EmployeeRepository $employeeRepository, Request $request): Response
+    {
+        $employee = $employeeRepository
+            ->find($id);
+
+        $form = $this->createForm(EmployeeType::class, $employee);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $employee = $form->getData();
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($employee);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('crud_list');
+        }
+
+        return $this->render('pages/edit_employee.html.twig', [
+            'employee' => $employee,
+            'form' => $form->createView(),
+            'title' => 'Edit Employee',
+            'currPage' => 'Edit Employee'
+        ]);
+    }
+    */
+}
+You sent Today at 5:04 PM
+<?php
+
+
+namespace App\Form\Type;
+
+use Symfony\Component\OptionsResolver\OptionsResolver;
+use App\Entity\Employee;
+use App\Entity\Branch;
+use App\Repository\BranchRepository;
+use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\ChoiceList\ChoiceList;
+
+class EmployeeType extends AbstractType
+{
+    private $repository;
+
+    public function __construct(BranchRepository $repository)
+    {
+        $this->repository = $repository;
+    }
+
+    public function buildForm(FormBuilderInterface $builder, array $options): void
+    {
+
+        //$branches = $repository->findAll();
+
+        $builder
+            ->add('firstName', TextType::class)
+            ->add('lastName', TextType::class)
+            ->add('email', EmailType::class)
+            ->add('isManager', ChoiceType::class, [
+                'choices'  => [
+                    'Yes' => true,
+                    'No' => false,
+                ],
+            ])
+            ->add('isBom', ChoiceType::class, [
+                'choices'  => [
+                    'Yes' => true,
+                    'No' => false,
+                ],
+            ])
+            //->add('branch', ChoiceType::class, [
+                //'choices' => 'Provo',
+                //'choice-value' => 'name'
+            //])
+            ->add('save', SubmitType::class)
+        ;
+    }
+}
+You sent Today at 5:04 PM
+{%  extends "base.html.twig" %}
+{%  block menu %}
+    {{ parent() }}
+{%  endblock %}
+{%  block content %}
+    <div class="content">
+        <a href="/admin/employees/" class="btn btn-primary">Employees</a>
+        <a href="/admin/departments/" class="btn btn-primary">Departments</a>
+        <a href="/admin/branches/" class="btn btn-primary">Branches</a>
+    </div>
+{% endblock %}
+You sent Today at 5:05 PM
+{% extends "base.html.twig" %}
+{% block menu %}
+    {{ parent() }}
+{% endblock %}
+{% block content %}
+    <div class="content">
+        <h1>{{ employee.firstName }} {{ employee.lastName }}</h1>
+        {{ form(form) }}
+    </div>
+{% endblock %}
+You sent Today at 5:05 PM
+{%  extends "base.html.twig" %}
+{%  block menu %}
+    {{ parent() }}
+{%  endblock %}
+{%  block content %}
+    <div class="content">
+        <div class="row">
+            {% for employee in employees %}
+                <div class="col-sm">
+                    <div class="card card-medium-height">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ employee.firstName }} {{ employee.lastName }}</h5>
+                            <h5 class="card-body">{{ employee.email }}<br>{{ employee.branch }}</h5>
+                            <a href="/admin/employees/{{ employee.id }}/edit" class="btn btn-primary">Edit</a>
+                            <a href="/admin/employees/{{ employee.id }}/delete" class="btn btn-secondary">Delete</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        <a href="/admin/employees/create" class="btn btn-primary">Add</a>
+    </div>
+{% endblock %}
+You sent Today at 5:06 PM
+{% include 'header.html.twig' %}
+    {% block menu %}
+        <nav class="navbar navbar-expand-md navbar-dark bg-dark mb-3">
+            <div class="container-fluid">
+                <a href="/" class="navbar-brand mr-3"><img src="/images/ccbanklogo-200x50.png" alt="CCBank" width="75" /></a>
+                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarCollapse">
+                    <div class="navbar-nav">
+                        <a href="/" class="nav-item nav-link {% if currPage == "home" %}active{% endif %}">Home</a>
+                    </div>
+                    <div id="searchBar" class="navbar-nav ml-auto form-group">
+                <!-- Search form -->
+                <form class="form-inline d-flex justify-content-center md-form form-sm mt-0">
+                  <i class="fas fa-search" aria-hidden="true"></i>
+                  <input class="form-control form-control-sm ml-3 w-75" type="text" placeholder="Search"
+                    aria-label="Search">
+                </form>
+                <!--<input type="text" id="searchBox" width="100" placeholder="Search" class="form-control"><button type="button" id="searchButton" class="btn btn-primary btn-sm">Search</button> -->
+                        {%  if is_granted('ROLE_USER') or is_granted('ROLE_ADMIN') %}
+                        <a href="/logout" class="nav-item nav-link">Logout</a>
+                        {%  else %}
+                        <a href="/login" class="nav-item nav-link">Login</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </nav>
+    {% endblock %}
+    {% block content %}
+
+    {% endblock %}
+{% include 'footer.html.twig' %}
