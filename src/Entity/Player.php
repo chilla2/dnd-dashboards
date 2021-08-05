@@ -37,6 +37,11 @@ class Player
      */
     private $notes;
 
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $showDm;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -86,6 +91,18 @@ class Player
     public function setNotes(?string $notes): self
     {
         $this->notes = $notes;
+
+        return $this;
+    }
+
+    public function getShowDm(): ?bool
+    {
+        return $this->showDm;
+    }
+
+    public function setShowDm(bool $showDm): self
+    {
+        $this->showDm = $showDm;
 
         return $this;
     }

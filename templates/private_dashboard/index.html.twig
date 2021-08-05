@@ -4,22 +4,22 @@
 
 {% block body %}
 <div class="container-fluid mw-100"> <!--  container to hold whole grid -->
-    <div class="row bg-dark"> <!--  start row 1 of grid 1 -->
-        <div class="col-sm-3 bg-dark"> <!--  start of col 1 of grid 1 -->
-            <div class="container-sm p-0 m-0 bg-dark">
-                <div class="accordion accordion-flush bg-dark" id="accordionFlushExample">
-                    <div class="accordion-item">
-                        <h2 class="accordion-header bg-dark" id="flush-headingOne">
-                            <button class="accordion-button collapsed bg-dark text-white" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+    <div class="row custom-dark"> <!--  start row 1 of grid 1 -->
+        <div class="col-sm-1 custom-dark m-0"> <!--  start of col 1 of grid 1 -->
+            <div class="container-sm p-0 m-0 custom-dark">
+                <div class="accordion accordion-flush custom-dark m-0" id="accordionFlushExample">
+                    <div class="accordion-item custom-dark">
+                        <h2 class="accordion-header custom-dark" id="flush-headingOne">
+                            <button class="accordion-button collapsed custom-dark text-white" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
                                 Players
                             </button>
                         </h2>
-                        <div id="flush-collapseOne" class="accordion-collapse collapse bg-dark text-white" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
-                            <div class="accordion-body p-0">
+                        <div id="flush-collapseOne" class="accordion-collapse collapse custom-dark text-white" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                            <div class="accordion-body p-0 custom-dark">
                                 <ul class="list-group">
                                     {% for player in players %}
                                     {% set playernames = player.name|split(' ') %}
-                                        <li class="list-group-item list-group-item-action bg-dark text-white m-0 p-0" type="button" data-bs-toggle="collapse" data-bs-target="#{{ playernames|join('-') }}">{{ player.name }}</li>
+                                        <li class="list-group-item list-group-item-action custom-dark text-white m-0 p-0" type="button" data-bs-toggle="collapse" data-bs-target="#{{ playernames|join('-') }}">{{ player.name }}</li>
                                     {% endfor %}
                                 </ul>
                             </div>
@@ -27,16 +27,16 @@
                     </div>
                     <div class="accordion-item">
                         <h2 class="accordion-header" id="flush-headingTwo">
-                            <button class="accordion-button collapsed bg-dark text-white" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+                            <button class="accordion-button collapsed custom-dark text-white" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
                                 NPCs
                             </button>
                         </h2>
-                        <div id="flush-collapseTwo" class="accordion-collapse collapse bg-dark text-white" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
+                        <div id="flush-collapseTwo" class="accordion-collapse collapse custom-dark text-white" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
                             <div class="accordion-body p-0">
                                 <ul class="list-group">
                                     {% for npc in npcs %}
                                     {% set npcnames = npc.name|split(' ') %}
-                                        <li class="list-group-item list-group-item-action bg-dark text-white m-0 p-0" type="button" data-bs-toggle="collapse" data-bs-target="#{{ npcnames|join('-') }}">{{ npc.name }}</li>
+                                        <li class="list-group-item list-group-item-action custom-dark text-white m-0 p-0" type="button" data-bs-toggle="collapse" data-bs-target="#{{ npcnames|join('-') }}">{{ npc.name }}</li>
                                     {% endfor %}
                                 </ul>
                             </div>
@@ -44,16 +44,16 @@
                     </div>
                     <div class="accordion-item">
                         <h2 class="accordion-header" id="flush-headingThree">
-                            <button class="accordion-button collapsed bg-dark text-white" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
+                            <button class="accordion-button collapsed custom-dark text-white" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
                                 Creatures
                             </button>
                         </h2>
-                        <div id="flush-collapseThree" class="accordion-collapse collapse bg-dark text-white" aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
+                        <div id="flush-collapseThree" class="accordion-collapse collapse custom-dark text-white" aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
                             <div class="accordion-body p-0">
                                 <ul class="list-group">
                                     {% for creature in creatures %}
                                     {% set creaturenames = creature.name|split(' ') %}
-                                        <li class="list-group-item list-group-item-action bg-dark text-white m-0 p-0" type="button" data-bs-toggle="collapse" data-bs-target="#{{ creaturenames|join('-') }}">{{ creature.name }}</li>
+                                        <li class="list-group-item list-group-item-action custom-dark text-white m-0 p-0" type="button" data-bs-toggle="collapse" data-bs-target="#{{ creaturenames|join('-') }}">{{ creature.name }}</li>
                                     {% endfor %}
                                 </ul>
                             </div>
@@ -61,16 +61,16 @@
                     </div>
                     <div class="accordion-item">
                         <h2 class="accordion-header" id="flush-headingFour">
-                            <button class="accordion-button collapsed bg-dark text-white" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFour" aria-expanded="false" aria-controls="flush-collapseFour">
+                            <button class="accordion-button collapsed custom-dark text-white" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFour" aria-expanded="false" aria-controls="flush-collapseFour">
                                 Locations
                             </button>
                         </h2>
-                        <div id="flush-collapseFour" class="accordion-collapse collapse bg-dark text-white" aria-labelledby="flush-headingFour" data-bs-parent="#accordionFlushExample">
+                        <div id="flush-collapseFour" class="accordion-collapse collapse custom-dark text-white" aria-labelledby="flush-headingFour" data-bs-parent="#accordionFlushExample">
                             <div class="accordion-body p-0">
                                 <ul class="list-group">
                                     {% for location in locations %}
                                     {% set locationnames = location.name|split(' ') %}
-                                        <li class="list-group-item list-group-item-action bg-dark text-white m-0 p-0" type="button" data-bs-toggle="collapse" data-bs-target="#{{ locationnames|join('-') }}">{{ location.name }}</li>
+                                        <li class="list-group-item list-group-item-action custom-dark text-white m-0 p-0" type="button" data-bs-toggle="collapse" data-bs-target="#{{ locationnames|join('-') }}">{{ location.name }}</li>
                                     {% endfor %}
                                 </ul>
                             </div>
@@ -78,16 +78,16 @@
                     </div>
                     <div class="accordion-item">
                         <h2 class="accordion-header" id="flush-headingFive">
-                            <button class="accordion-button collapsed bg-dark text-white" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFive" aria-expanded="false" aria-controls="flush-collapseFive">
+                            <button class="accordion-button collapsed custom-dark text-white" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFive" aria-expanded="false" aria-controls="flush-collapseFive">
                                 Items
                             </button>
                         </h2>
-                        <div id="flush-collapseFive" class="accordion-collapse collapse bg-dark text-white" aria-labelledby="flush-headingFive" data-bs-parent="#accordionFlushExample">
+                        <div id="flush-collapseFive" class="accordion-collapse collapse custom-dark text-white" aria-labelledby="flush-headingFive" data-bs-parent="#accordionFlushExample">
                             <div class="accordion-body p-0">
                                 <ul class="list-group">
                                     {% for item in items %}
                                     {% set itemnames = item.name|split(' ') %}
-                                        <li class="list-group-item list-group-item-action bg-dark text-white m-0 p-0" type="button" data-bs-toggle="collapse" data-bs-target="#{{ itemnames|join('-') }}">{{ item.name }}</li>
+                                        <li class="list-group-item list-group-item-action custom-dark text-white m-0 p-0" type="button" data-bs-toggle="collapse" data-bs-target="#{{ itemnames|join('-') }}">{{ item.name }}</li>
                                     {% endfor %}
                                 </ul>
                             </div>
@@ -95,16 +95,16 @@
                     </div>
                     <div class="accordion-item">
                         <h2 class="accordion-header" id="flush-headingSix">
-                            <button class="accordion-button collapsed bg-dark text-white" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseSix" aria-expanded="false" aria-controls="flush-collapseSix">
+                            <button class="accordion-button collapsed custom-dark text-white" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseSix" aria-expanded="false" aria-controls="flush-collapseSix">
                                 Other
                             </button>
                         </h2>
-                        <div id="flush-collapseSix" class="accordion-collapse collapse bg-dark text-white" aria-labelledby="flush-headingSix" data-bs-parent="#accordionFlushExample">
+                        <div id="flush-collapseSix" class="accordion-collapse collapse custom-dark text-white" aria-labelledby="flush-headingSix" data-bs-parent="#accordionFlushExample">
                             <div class="accordion-body p-0">
                                 <ul class="list-group">
                                     {% for other in others %}
                                     {% set othernames = other.name|split(' ') %}
-                                        <li class="list-group-item list-group-item-action m-0 p-0 bg-dark text-white" type="button" data-bs-toggle="collapse" data-bs-target="#{{ othernames|join('-') }}">{{ other.name }}</li>
+                                        <li class="list-group-item list-group-item-action m-0 p-0 custom-dark text-white" type="button" data-bs-toggle="collapse" data-bs-target="#{{ othernames|join('-') }}">{{ other.name }}</li>
                                     {% endfor %}
                                 </ul>
                             </div>
@@ -113,7 +113,7 @@
                 </div>
             </div>
         </div> <!--  end of col 1 of grid 1 -->
-        <div class="col-sm-8"> <!--  start col 2 of grid 1 and start of grid 2 -->
+        <div class="col-sm-10"> <!--  start col 2 of grid 1 and start of grid 2 -->
             <div class="row"> <!--  start row 1 of grid 2 -->
                 <div class="container">
                     <ul class="nav justify-content-center">
@@ -186,8 +186,8 @@
                 {% for player in players %}
                 {% set playernames = player.name|split(' ') %}
                 <div class="col collapse multi-collapse" id="{{ playernames|join('-') }}">
-                    <div class="card shadow p-3 mb-5 bg-body rounded">
-                        <div class="card-body">
+                    <div class="card shadow p-3 mb-5 rounded custom-dark">
+                        <div class="card-body custom-dark">
                             <button type="button" class="btn-close" aria-label="Close"></button>
                             <h6 class="card-title">{{ player.name }}</h6>
                             <div class="card-title">{{ player.description }}</div>
@@ -200,8 +200,8 @@
                 {% for npc in npcs %}
                 {% set npcnames = npc.name|split(' ') %}
                 <div class="col collapse multi-collapse " id="{{ npcnames|join('-') }}">
-                    <div class="card shadow p-3 mb-5 bg-body rounded">
-                        <div class="card-body">
+                    <div class="card shadow p-3 mb-5 custom-dark rounded">
+                        <div class="card-body custom-dark">
                             <button type="button" class="btn-close" aria-label="Close"></button>
                             <h6 class="card-title">{{ npc.name }}</h6>
                             <div class="card-title">{{ npc.description }}</div>
@@ -218,8 +218,8 @@
                 {% for creature in creatures %}
                 {% set creaturenames = creature.name|split(' ') %}
                 <div class="col collapse multi-collapse" id="{{ creaturenames|join('-') }}">
-                    <div class="card shadow p-3 mb-5 bg-body rounded">
-                        <div class="card-body">
+                    <div class="card shadow p-3 mb-5 custom-dark rounded">
+                        <div class="card-body custom-dark">
                             <button type="button" class="btn-close" aria-label="Close"></button>
                             <h6 class="card-title">{{ creature.name }}</h6>
                             <div class="card-title">{{ creature.description }}</div>
@@ -232,8 +232,8 @@
                 {% for location in locations %}
                 {% set locationnames = location.name|split(' ') %}
                 <div class="col collapse multi-collapse" id="{{ locationnames|join('-') }}">
-                    <div class="card shadow p-3 mb-5 bg-body rounded">
-                        <div class="card-body">
+                    <div class="card shadow p-3 mb-5 custom-dark rounded">
+                        <div class="card-body custom-dark">
                             <button type="button" class="btn-close" aria-label="Close"></button>
                             <h6 class="card-title">{{ location.name }}</h6>
                             <div class="card-title">{{ location.description }}</div>
@@ -246,8 +246,8 @@
                 {% for item in items %}
                 {% set itemnames = item.name|split(' ') %}
                 <div class="col collapse multi-collapse" id="{{ itemnames|join('-') }}">
-                    <div class="card shadow p-3 mb-5 bg-body rounded">
-                        <div class="card-body">
+                    <div class="card shadow p-3 mb-5 custom-dark rounded">
+                        <div class="card-body custom-dark">
                             <button type="button" class="btn-close" aria-label="Close"></button>
                             <h6 class="card-title">{{ item.name }}</h6>
                             <div class="card-title">{{ item.description }}</div>
@@ -260,8 +260,8 @@
                 {% for other in others %}
                 {% set othernames = other.name|split(' ') %}
                 <div class="col collapse multi-collapse" id="{{ othernames|join('-') }}">
-                    <div class="card shadow p-3 mb-5 bg-body rounded">
-                        <div class="card-body">
+                    <div class="card shadow p-3 mb-5 custom-dark rounded">
+                        <div class="card-body custom-dark">
                             <button type="button" class="btn-close" aria-label="Close"></button>
                             <h6 class="card-title">{{ other.name }}</h6>
                             <div class="card-title">{{ other.description }}</div>
@@ -273,8 +273,8 @@
             <div class="row row-cols-3">
                 {% for session in sessions %}
                 <div class="col collapse multi-collapse" id="{{ session.id }}">
-                    <div class="card shadow p-3 mb-5 bg-body rounded">
-                        <div class="card-body">
+                    <div class="card shadow p-3 mb-5 custom-dark rounded">
+                        <div class="card-body custom-dark">
                             <button type="button" class="btn-close" aria-label="Close"></button>
                             <h6 class="card-title">{{ session.id }}</h6>
                         </div>
@@ -283,15 +283,13 @@
                 {% endfor %}
             </div>
         </div> <!--  end col 2 of grid 1 and end of grid 2 -->
-        <div class="col-sm-1"> <!--  start col 3 of grid 1 -->
+        <!--
+        <div class="col-sm-1"> <!-  start col 3 of grid 1 ->
             Test
         </div>
+        -->
     </div>
 </div>
-
-
-
-
 
 
 {% endblock %}

@@ -74,8 +74,11 @@ return [
                     .'|/edit(*:360)'
                     .'|(*:368)'
                 .')'
-                .'|/([^/]++)/([^/]++)/show\\-players(*:409)'
-                .'|/_error/(\\d+)(?:\\.([^/]++))?(*:445)'
+                .'|/([^/]++)/([^/]++)/show\\-(?'
+                    .'|dm(*:407)'
+                    .'|players(*:422)'
+                .')'
+                .'|/_error/(\\d+)(?:\\.([^/]++))?(*:459)'
             .')/?$}sDu',
     ],
     [ // $dynamicRoutes
@@ -100,8 +103,9 @@ return [
         347 => [[['_route' => 'other_show', '_controller' => 'App\\Controller\\OtherController::show'], ['id'], ['GET' => 0], null, false, true, null]],
         360 => [[['_route' => 'other_edit', '_controller' => 'App\\Controller\\OtherController::edit'], ['id'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
         368 => [[['_route' => 'other_delete', '_controller' => 'App\\Controller\\OtherController::delete'], ['id'], ['POST' => 0], null, false, true, null]],
-        409 => [[['_route' => 'show_players', '_controller' => 'App\\Controller\\PrivateDashboardController::showPlayers'], ['object', 'id'], ['GET' => 0], null, false, false, null]],
-        445 => [
+        407 => [[['_route' => 'show_dm', '_controller' => 'App\\Controller\\PrivateDashboardController::showDm'], ['object', 'id'], ['GET' => 0], null, false, false, null]],
+        422 => [[['_route' => 'show_players', '_controller' => 'App\\Controller\\PrivateDashboardController::showPlayers'], ['object', 'id'], ['GET' => 0], null, false, false, null]],
+        459 => [
             [['_route' => '_preview_error', '_controller' => 'error_controller::preview', '_format' => 'html'], ['code', '_format'], null, null, false, true, null],
             [null, null, null, null, false, false, 0],
         ],

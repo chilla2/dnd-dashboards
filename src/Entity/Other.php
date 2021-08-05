@@ -37,6 +37,7 @@ class Other
      */
     private $showPlayers;
 
+
     public function __toString(): string {
         return (string) $this->getName().' - '.$this->getDescription();
     }

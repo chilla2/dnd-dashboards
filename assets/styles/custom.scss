@@ -1,0 +1,25 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;500;600;700;800&display=swap");
+
+//custom colors
+$custom-black: #0C070D;
+$custom-red: #841F42;
+$custom-red-orange: #F15855;
+$custom-orange: #F15855;
+$custom-yellow: #F6BE3C;
+$custom-cyan: #05B37F;
+$custom-blue: #06B4DB;
+$custom-green: #61B045;
+$custom-purple: #A74BBE;
+$custom-magenta: #C149A5;
+
+@import "/node_modules/bootstrap/scss/bootstrap";
+
+body {
+    font-family: 'Montserrat', sans-serif;
+}
+
+.custom-dark {
+    background-color: #02040F !important;
+    color: white !important;
+}
+

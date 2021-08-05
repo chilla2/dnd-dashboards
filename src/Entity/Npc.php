@@ -33,7 +33,7 @@ class Npc
     private $notes;
 
     /**
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="boolean", nullable=true)
      */
     private $showPlayers;
 
@@ -46,6 +46,11 @@ class Npc
      * @ORM\Column(type="boolean", nullable=true)
      */
     private $initiative;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $showDm;
 
     public function __toString(): string {
         return (string) $this->getName().' - '.$this->getDescription();
@@ -124,6 +129,18 @@ class Npc
     public function setInitiative(?bool $initiative): self
     {
         $this->initiative = $initiative;
+
+        return $this;
+    }
+
+    public function getShowDm(): ?bool
+    {
+        return $this->showDm;
+    }
+
+    public function setShowDm(bool $showDm): self
+    {
+        $this->showDm = $showDm;
 
         return $this;
     }

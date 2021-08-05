@@ -42,6 +42,7 @@ return [
     'other_delete' => [['id'], ['_controller' => 'App\\Controller\\OtherController::delete'], [], [['variable', '/', '[^/]++', 'id', true], ['text', '/other']], [], []],
     'player' => [[], ['_controller' => 'App\\Controller\\PlayerController::index'], [], [['text', '/player']], [], []],
     'private_dashboard' => [[], ['_controller' => 'App\\Controller\\PrivateDashboardController::index'], [], [['text', '/dm-screen']], [], []],
+    'show_dm' => [['object', 'id'], ['_controller' => 'App\\Controller\\PrivateDashboardController::showDm'], [], [['text', '/show-dm'], ['variable', '/', '[^/]++', 'id', true], ['variable', '/', '[^/]++', 'object', true]], [], []],
     'show_players' => [['object', 'id'], ['_controller' => 'App\\Controller\\PrivateDashboardController::showPlayers'], [], [['text', '/show-players'], ['variable', '/', '[^/]++', 'id', true], ['variable', '/', '[^/]++', 'object', true]], [], []],
     'public_dashboard' => [[], ['_controller' => 'App\\Controller\\PublicDashboardController::index'], [], [['text', '/public/dashboard']], [], []],
     'app_register' => [[], ['_controller' => 'App\\Controller\\RegistrationController::register'], [], [['text', '/register']], [], []],

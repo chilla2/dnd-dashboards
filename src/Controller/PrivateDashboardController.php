@@ -18,6 +18,7 @@ class PrivateDashboardController extends AbstractController
     public function __construct(Environment $twig)
     {
         $this->twig = $twig;
+        $this->twig->addFunction(new \Twig\TwigFunction('showPlayers', 'showPlayers'));
     }
 
     /**
@@ -26,6 +27,30 @@ class PrivateDashboardController extends AbstractController
     public function index(): Response
     {
         return $this->render('private_dashboard/index.html.twig');
+    }
+
+    /**
+     * @Route("/{object}/{id}/show-dm", name="show_dm", methods={"GET"})
+     * @param String $object
+     * @param String $id
+     * @param Request $request
+     * @return Response
+     */
+    public function showDm(String $object, String $id, Request $request): Response
+    {
+        $entity = ucfirst(strtolower($object));
+        $repository = $this->getDoctrine()->getRepository('App\Entity\\' . ucfirst($entity));
+        $entityManager = $this->getDoctrine()->getManager();
+        $item = $repository
+            ->find($id);
+        if ($item->getShowDm() == TRUE) {
+            $item->setShowDm(FALSE);
+        } else {
+            $item->setShowDm(TRUE);
+        }
+        $entityManager->persist($item);
+        $entityManager->flush();
+        return $this->redirectToRoute('private_dashboard');
     }
 
     /**

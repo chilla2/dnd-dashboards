@@ -42,6 +42,7 @@ class ComposerStaticInitc5e8283a042f03251b7b577b10bd907a
         ),
         'S' => 
         array (
+            'Symfony\\WebpackEncoreBundle\\' => 28,
             'Symfony\\Runtime\\Symfony\\Component\\' => 34,
             'Symfony\\Polyfill\\Uuid\\' => 22,
             'Symfony\\Polyfill\\Php81\\' => 23,
@@ -184,6 +185,10 @@ class ComposerStaticInitc5e8283a042f03251b7b577b10bd907a
         'Twig\\' => 
         array (
             0 => __DIR__ . '/..' . '/twig/twig/src',
+        ),
+        'Symfony\\WebpackEncoreBundle\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/webpack-encore-bundle/src',
         ),
         'Symfony\\Runtime\\Symfony\\Component\\' => 
         array (
@@ -640,7 +645,9 @@ class ComposerStaticInitc5e8283a042f03251b7b577b10bd907a
         'App\\Form\\LocationType' => __DIR__ . '/../..' . '/src/Form/LocationType.php',
         'App\\Form\\NpcType' => __DIR__ . '/../..' . '/src/Form/NpcType.php',
         'App\\Form\\OtherType' => __DIR__ . '/../..' . '/src/Form/OtherType.php',
+        'App\\Form\\PlayerFormType' => __DIR__ . '/../..' . '/src/Form/PlayerFormType.php',
         'App\\Form\\RegistrationFormType' => __DIR__ . '/../..' . '/src/Form/RegistrationFormType.php',
+        'App\\Form\\SessionFormType' => __DIR__ . '/../..' . '/src/Form/SessionFormType.php',
         'App\\Kernel' => __DIR__ . '/../..' . '/src/Kernel.php',
         'App\\Repository\\AdminRepository' => __DIR__ . '/../..' . '/src/Repository/AdminRepository.php',
         'App\\Repository\\CreatureRepository' => __DIR__ . '/../..' . '/src/Repository/CreatureRepository.php',
@@ -6231,6 +6238,23 @@ class ComposerStaticInitc5e8283a042f03251b7b577b10bd907a
         'Symfony\\Runtime\\Symfony\\Component\\HttpFoundation\\RequestRuntime' => __DIR__ . '/..' . '/symfony/runtime/Internal/HttpFoundation/RequestRuntime.php',
         'Symfony\\Runtime\\Symfony\\Component\\HttpFoundation\\ResponseRuntime' => __DIR__ . '/..' . '/symfony/runtime/Internal/HttpFoundation/ResponseRuntime.php',
         'Symfony\\Runtime\\Symfony\\Component\\HttpKernel\\HttpKernelInterfaceRuntime' => __DIR__ . '/..' . '/symfony/runtime/Internal/HttpKernel/HttpKernelInterfaceRuntime.php',
+        'Symfony\\WebpackEncoreBundle\\Asset\\EntrypointLookup' => __DIR__ . '/..' . '/symfony/webpack-encore-bundle/src/Asset/EntrypointLookup.php',
+        'Symfony\\WebpackEncoreBundle\\Asset\\EntrypointLookupCollection' => __DIR__ . '/..' . '/symfony/webpack-encore-bundle/src/Asset/EntrypointLookupCollection.php',
+        'Symfony\\WebpackEncoreBundle\\Asset\\EntrypointLookupCollectionInterface' => __DIR__ . '/..' . '/symfony/webpack-encore-bundle/src/Asset/EntrypointLookupCollectionInterface.php',
+        'Symfony\\WebpackEncoreBundle\\Asset\\EntrypointLookupInterface' => __DIR__ . '/..' . '/symfony/webpack-encore-bundle/src/Asset/EntrypointLookupInterface.php',
+        'Symfony\\WebpackEncoreBundle\\Asset\\IntegrityDataProviderInterface' => __DIR__ . '/..' . '/symfony/webpack-encore-bundle/src/Asset/IntegrityDataProviderInterface.php',
+        'Symfony\\WebpackEncoreBundle\\Asset\\TagRenderer' => __DIR__ . '/..' . '/symfony/webpack-encore-bundle/src/Asset/TagRenderer.php',
+        'Symfony\\WebpackEncoreBundle\\CacheWarmer\\EntrypointCacheWarmer' => __DIR__ . '/..' . '/symfony/webpack-encore-bundle/src/CacheWarmer/EntrypointCacheWarmer.php',
+        'Symfony\\WebpackEncoreBundle\\DependencyInjection\\Configuration' => __DIR__ . '/..' . '/symfony/webpack-encore-bundle/src/DependencyInjection/Configuration.php',
+        'Symfony\\WebpackEncoreBundle\\DependencyInjection\\WebpackEncoreExtension' => __DIR__ . '/..' . '/symfony/webpack-encore-bundle/src/DependencyInjection/WebpackEncoreExtension.php',
+        'Symfony\\WebpackEncoreBundle\\EventListener\\ExceptionListener' => __DIR__ . '/..' . '/symfony/webpack-encore-bundle/src/EventListener/ExceptionListener.php',
+        'Symfony\\WebpackEncoreBundle\\EventListener\\PreLoadAssetsEventListener' => __DIR__ . '/..' . '/symfony/webpack-encore-bundle/src/EventListener/PreLoadAssetsEventListener.php',
+        'Symfony\\WebpackEncoreBundle\\Event\\RenderAssetTagEvent' => __DIR__ . '/..' . '/symfony/webpack-encore-bundle/src/Event/RenderAssetTagEvent.php',
+        'Symfony\\WebpackEncoreBundle\\Exception\\EntrypointNotFoundException' => __DIR__ . '/..' . '/symfony/webpack-encore-bundle/src/Exception/EntrypointNotFoundException.php',
+        'Symfony\\WebpackEncoreBundle\\Exception\\UndefinedBuildException' => __DIR__ . '/..' . '/symfony/webpack-encore-bundle/src/Exception/UndefinedBuildException.php',
+        'Symfony\\WebpackEncoreBundle\\Twig\\EntryFilesTwigExtension' => __DIR__ . '/..' . '/symfony/webpack-encore-bundle/src/Twig/EntryFilesTwigExtension.php',
+        'Symfony\\WebpackEncoreBundle\\Twig\\StimulusTwigExtension' => __DIR__ . '/..' . '/symfony/webpack-encore-bundle/src/Twig/StimulusTwigExtension.php',
+        'Symfony\\WebpackEncoreBundle\\WebpackEncoreBundle' => __DIR__ . '/..' . '/symfony/webpack-encore-bundle/src/WebpackEncoreBundle.php',
         'TheSeer\\Tokenizer\\Exception' => __DIR__ . '/..' . '/theseer/tokenizer/src/Exception.php',
         'TheSeer\\Tokenizer\\NamespaceUri' => __DIR__ . '/..' . '/theseer/tokenizer/src/NamespaceUri.php',
         'TheSeer\\Tokenizer\\NamespaceUriException' => __DIR__ . '/..' . '/theseer/tokenizer/src/NamespaceUriException.php',

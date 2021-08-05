@@ -33,9 +33,14 @@ class Location
     private $notes;
 
     /**
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="boolean", nullable=true)
      */
     private $showPlayers;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $showDm;
 
     public function __toString(): string {
         return (string) $this->getName().' - '.$this->getDescription();
@@ -90,6 +95,18 @@ class Location
     public function setShowPlayers(bool $showPlayers): self
     {
         $this->showPlayers = $showPlayers;
+
+        return $this;
+    }
+
+    public function getShowDm(): ?bool
+    {
+        return $this->showDm;
+    }
+
+    public function setShowDm(bool $showDm): self
+    {
+        $this->showDm = $showDm;
 
         return $this;
     }
