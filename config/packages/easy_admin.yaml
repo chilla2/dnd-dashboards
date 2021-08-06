@@ -9,4 +9,4 @@ easy_admin:
         - App\Entity\Other
         - App\Entity\Admin
         - App\Entity\User
-        
+        - App\Entity\Dashboard

@@ -16,7 +16,6 @@ use Symfony\Component\HttpKernel\Event\ControllerEvent;
 
 class TwigEventSubscriber implements EventSubscriberInterface
 {
-
     private $twig;
     private $npcRepository;
     private $playerRepository;

@@ -16,6 +16,12 @@ class CreatureType extends AbstractType
             ->add('description')
             ->add('notes')
             ->add('showPlayers')
+            ->add('imageFileName')
+            ->add('initiativeRoll')
+            ->add('initiative')
+            ->add('armorClass')
+            ->add('hp')
+            ->add('conditions')
         ;
     }
 

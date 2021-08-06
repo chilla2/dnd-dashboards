@@ -16,6 +16,11 @@ class PlayerFormType extends AbstractType
             ->add('initiative')
             ->add('description')
             ->add('notes')
+            ->add('imageFileName')
+            ->add('initiativeRoll')
+            ->add('armorClass')
+            ->add('hp')
+            ->add('conditions')
         ;
     }
 

@@ -16,6 +16,7 @@ class ItemType extends AbstractType
             ->add('description')
             ->add('notes')
             ->add('showPlayers')
+            ->add('imageFileName')
         ;
     }
 

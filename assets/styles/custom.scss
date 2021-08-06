@@ -15,11 +15,53 @@ $custom-magenta: #C149A5;
 @import "/node_modules/bootstrap/scss/bootstrap";
 
 body {
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'Montserrat', sans-serif !important;
 }
 
 .custom-dark {
     background-color: #02040F !important;
     color: white !important;
 }
+
+.show-players {
+    background-color: #C149A5 !important;
+}
+
+.custom-color-red {
+    background-color: #841F42 !important;
+    color: white !important;
+}
+.custom-color-red-orange {
+    background-color: #F15855 !important;
+    color: #0C070D !important;
+}
+.custom-color-orange {
+    background-color: #F48B49 !important;
+    color: #0C070D !important;
+}
+.custom-color-yellow {
+    background-color: #F6BE3C !important;
+    color: #0C070D !important;
+}
+.custom-color-green {
+    background-color: #61B045 !important;
+    color: #0C070D !important;
+}
+.custom-color-cyan {
+    background-color: #05B37F !important;
+    color: #0C070D !important;
+}
+.custom-color-blue {
+    background-color: #06B4DB !important;
+    color: #0C070D !important;
+}
+.custom-color-purple {
+    background-color: #A74BBE !important;
+    color: white !important;
+}
+.custom-color-magenta {
+    background-color: #C149A5 !important;
+    color: white !important;
+}
+
 

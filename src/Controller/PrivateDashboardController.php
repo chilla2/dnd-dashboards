@@ -62,7 +62,7 @@ class PrivateDashboardController extends AbstractController
      */
     public function showPlayers(String $object, String $id, Request $request): Response
     {
-        $entity = ucfirst(strtolower($object));
+        $entity = strtolower($object);
         $repository = $this->getDoctrine()->getRepository('App\Entity\\' . ucfirst($entity));
         $entityManager = $this->getDoctrine()->getManager();
         $item = $repository

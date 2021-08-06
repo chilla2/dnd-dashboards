@@ -439,6 +439,21 @@
         <argument type="service" id=".service_locator.W9y3dzm.App\Controller\CreatureController"/>
       </call>
     </service>
+    <service id="App\Controller\DashboardController" class="App\Controller\DashboardController" public="true" autowire="true" autoconfigure="true">
+      <tag name="controller.service_arguments"/>
+      <tag name="container.service_subscriber"/>
+      <argument type="service" id="twig"/>
+      <call method="setContainer">
+        <argument type="service" id=".service_locator.W9y3dzm.App\Controller\DashboardController"/>
+      </call>
+    </service>
+    <service id="App\Controller\GameController" class="App\Controller\GameController" public="true" autowire="true" autoconfigure="true">
+      <tag name="controller.service_arguments"/>
+      <tag name="container.service_subscriber"/>
+      <call method="setContainer">
+        <argument type="service" id=".service_locator.W9y3dzm.App\Controller\GameController"/>
+      </call>
+    </service>
     <service id="App\Controller\ItemController" class="App\Controller\ItemController" public="true" autowire="true" autoconfigure="true">
       <tag name="controller.service_arguments"/>
       <tag name="container.service_subscriber"/>
@@ -525,6 +540,9 @@
     <service id="App\Form\CreatureType" class="App\Form\CreatureType" autowire="true" autoconfigure="true">
       <tag name="form.type"/>
     </service>
+    <service id="App\Form\GameType" class="App\Form\GameType" autowire="true" autoconfigure="true">
+      <tag name="form.type"/>
+    </service>
     <service id="App\Form\ItemType" class="App\Form\ItemType" autowire="true" autoconfigure="true">
       <tag name="form.type"/>
     </service>
@@ -550,7 +568,23 @@
       <tag name="doctrine.repository_service"/>
       <argument type="service" id="doctrine"/>
     </service>
+    <service id="App\Repository\ConditionRepository" class="App\Repository\ConditionRepository" autowire="true" autoconfigure="true">
+      <tag name="doctrine.repository_service"/>
+      <argument type="service" id="doctrine"/>
+    </service>
     <service id="App\Repository\CreatureRepository" class="App\Repository\CreatureRepository" autowire="true" autoconfigure="true">
+      <tag name="doctrine.repository_service"/>
+      <argument type="service" id="doctrine"/>
+    </service>
+    <service id="App\Repository\DashboardRepository" class="App\Repository\DashboardRepository" autowire="true" autoconfigure="true">
+      <tag name="doctrine.repository_service"/>
+      <argument type="service" id="doctrine"/>
+    </service>
+    <service id="App\Repository\GameRepository" class="App\Repository\GameRepository" autowire="true" autoconfigure="true">
+      <tag name="doctrine.repository_service"/>
+      <argument type="service" id="doctrine"/>
+    </service>
+    <service id="App\Repository\ImageRepository" class="App\Repository\ImageRepository" autowire="true" autoconfigure="true">
       <tag name="doctrine.repository_service"/>
       <argument type="service" id="doctrine"/>
     </service>
@@ -1185,6 +1219,7 @@
       </argument>
       <argument type="collection">
         <argument>App\Form\CreatureType</argument>
+        <argument>App\Form\GameType</argument>
         <argument>App\Form\ItemType</argument>
         <argument>App\Form\LocationType</argument>
         <argument>App\Form\NpcType</argument>
@@ -1604,7 +1639,7 @@
       <argument type="service" id="form.registry"/>
     </service>
     <service id="form.extension" class="Symfony\Component\Form\Extension\DependencyInjection\DependencyInjectionExtension">
-      <argument type="service" id=".service_locator.IEiBYOs"/>
+      <argument type="service" id=".service_locator.PxZUg00"/>
       <argument type="collection">
         <argument key="Symfony\Component\Form\Extension\Core\Type\FormType" type="iterator">
           <argument type="service" id="form.type_extension.form.transformation_failure_handling"/>
@@ -4806,7 +4841,7 @@
       <factory class="Doctrine\ORM\EntityManager" method="create"/>
     </service>
     <service id="doctrine.orm.container_repository_factory" class="Doctrine\Bundle\DoctrineBundle\Repository\ContainerRepositoryFactory">
-      <argument type="service" id=".service_locator.BZ33vWm"/>
+      <argument type="service" id=".service_locator.fDOAJ0E"/>
     </service>
     <service id="doctrine.orm.manager_configurator.abstract" class="Doctrine\Bundle\DoctrineBundle\ManagerConfigurator" abstract="true">
       <argument type="collection"/>
@@ -6526,6 +6561,12 @@
     <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\CreatureController" class="App\Controller\CreatureController" autowire="true" abstract="true"/>
     <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\CreatureController" class="App\Controller\CreatureController" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Controller\CreatureController" class="App\Controller\CreatureController" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\DashboardController" class="App\Controller\DashboardController" autowire="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\DashboardController" class="App\Controller\DashboardController" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Controller\DashboardController" class="App\Controller\DashboardController" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\GameController" class="App\Controller\GameController" autowire="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\GameController" class="App\Controller\GameController" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Controller\GameController" class="App\Controller\GameController" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\ItemController" class="App\Controller\ItemController" autowire="true" abstract="true"/>
     <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\ItemController" class="App\Controller\ItemController" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Controller\ItemController" class="App\Controller\ItemController" autowire="true" autoconfigure="true" abstract="true"/>
@@ -6560,6 +6601,8 @@
     <service id=".abstract.instanceof.App\EventSubscriber\TwigEventSubscriber" class="App\EventSubscriber\TwigEventSubscriber" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\CreatureType" class="App\Form\CreatureType" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Form\CreatureType" class="App\Form\CreatureType" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\GameType" class="App\Form\GameType" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Form\GameType" class="App\Form\GameType" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\ItemType" class="App\Form\ItemType" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Form\ItemType" class="App\Form\ItemType" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\LocationType" class="App\Form\LocationType" autowire="true" abstract="true"/>
@@ -6576,8 +6619,16 @@
     <service id=".abstract.instanceof.App\Form\SessionFormType" class="App\Form\SessionFormType" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\AdminRepository" class="App\Repository\AdminRepository" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Repository\AdminRepository" class="App\Repository\AdminRepository" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\ConditionRepository" class="App\Repository\ConditionRepository" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Repository\ConditionRepository" class="App\Repository\ConditionRepository" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\CreatureRepository" class="App\Repository\CreatureRepository" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Repository\CreatureRepository" class="App\Repository\CreatureRepository" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\DashboardRepository" class="App\Repository\DashboardRepository" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Repository\DashboardRepository" class="App\Repository\DashboardRepository" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\GameRepository" class="App\Repository\GameRepository" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Repository\GameRepository" class="App\Repository\GameRepository" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\ImageRepository" class="App\Repository\ImageRepository" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Repository\ImageRepository" class="App\Repository\ImageRepository" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\ItemRepository" class="App\Repository\ItemRepository" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Repository\ItemRepository" class="App\Repository\ItemRepository" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\LocationRepository" class="App\Repository\LocationRepository" autowire="true" abstract="true"/>
@@ -7065,6 +7116,24 @@
         <argument key="creature" type="service_closure" id=".errored..service_locator.BwK8duM.App\Entity\Creature"/>
       </argument>
     </service>
+    <service id=".service_locator.Fh7HpEG" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="dashboardRepository" type="service_closure" id="App\Repository\DashboardRepository"/>
+      </argument>
+    </service>
+    <service id=".service_locator.hA3ZfRw" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="gameRepository" type="service_closure" id="App\Repository\GameRepository"/>
+      </argument>
+    </service>
+    <service id=".service_locator.gBwNVTZ" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="game" type="service_closure" id=".errored..service_locator.gBwNVTZ.App\Entity\Game"/>
+      </argument>
+    </service>
     <service id=".service_locator.Rib71Kf" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
@@ -7132,7 +7201,7 @@
         <argument key="authenticationUtils" type="service_closure" id="security.authentication_utils"/>
       </argument>
     </service>
-    <service id=".service_locator.oD2YPnh" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.SO7aEQ1" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="App\Controller\Admin\AdminCrudController::autocomplete" type="service_closure" id=".service_locator.ZOQ9v2d"/>
@@ -7329,6 +7398,11 @@
         <argument key="App\Controller\CreatureController::edit" type="service_closure" id=".service_locator.BwK8duM"/>
         <argument key="App\Controller\CreatureController::index" type="service_closure" id=".service_locator.dPbpGJg"/>
         <argument key="App\Controller\CreatureController::show" type="service_closure" id=".service_locator.BwK8duM"/>
+        <argument key="App\Controller\DashboardController::index" type="service_closure" id=".service_locator.Fh7HpEG"/>
+        <argument key="App\Controller\GameController::delete" type="service_closure" id=".service_locator.gBwNVTZ"/>
+        <argument key="App\Controller\GameController::edit" type="service_closure" id=".service_locator.gBwNVTZ"/>
+        <argument key="App\Controller\GameController::index" type="service_closure" id=".service_locator.hA3ZfRw"/>
+        <argument key="App\Controller\GameController::show" type="service_closure" id=".service_locator.gBwNVTZ"/>
         <argument key="App\Controller\ItemController::delete" type="service_closure" id=".service_locator.83t1iHB"/>
         <argument key="App\Controller\ItemController::edit" type="service_closure" id=".service_locator.83t1iHB"/>
         <argument key="App\Controller\ItemController::index" type="service_closure" id=".service_locator.Rib71Kf"/>
@@ -7548,6 +7622,11 @@
         <argument key="App\Controller\CreatureController:edit" type="service_closure" id=".service_locator.BwK8duM"/>
         <argument key="App\Controller\CreatureController:index" type="service_closure" id=".service_locator.dPbpGJg"/>
         <argument key="App\Controller\CreatureController:show" type="service_closure" id=".service_locator.BwK8duM"/>
+        <argument key="App\Controller\DashboardController:index" type="service_closure" id=".service_locator.Fh7HpEG"/>
+        <argument key="App\Controller\GameController:delete" type="service_closure" id=".service_locator.gBwNVTZ"/>
+        <argument key="App\Controller\GameController:edit" type="service_closure" id=".service_locator.gBwNVTZ"/>
+        <argument key="App\Controller\GameController:index" type="service_closure" id=".service_locator.hA3ZfRw"/>
+        <argument key="App\Controller\GameController:show" type="service_closure" id=".service_locator.gBwNVTZ"/>
         <argument key="App\Controller\ItemController:delete" type="service_closure" id=".service_locator.83t1iHB"/>
         <argument key="App\Controller\ItemController:edit" type="service_closure" id=".service_locator.83t1iHB"/>
         <argument key="App\Controller\ItemController:index" type="service_closure" id=".service_locator.Rib71Kf"/>
@@ -7641,10 +7720,11 @@
       <argument type="service" id="debug.argument_resolver.not_tagged_controller.inner"/>
       <argument type="service" id="debug.stopwatch"/>
     </service>
-    <service id=".service_locator.IEiBYOs" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.PxZUg00" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="App\Form\CreatureType" type="service_closure" id="App\Form\CreatureType"/>
+        <argument key="App\Form\GameType" type="service_closure" id="App\Form\GameType"/>
         <argument key="App\Form\ItemType" type="service_closure" id="App\Form\ItemType"/>
         <argument key="App\Form\LocationType" type="service_closure" id="App\Form\LocationType"/>
         <argument key="App\Form\NpcType" type="service_closure" id="App\Form\NpcType"/>
@@ -7845,11 +7925,15 @@
       <argument type="service" id="cache.doctrine.orm.default.result"/>
       <factory class="Doctrine\Common\Cache\Psr6\DoctrineProvider" method="wrap"/>
     </service>
-    <service id=".service_locator.BZ33vWm" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.fDOAJ0E" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="App\Repository\AdminRepository" type="service_closure" id="App\Repository\AdminRepository"/>
+        <argument key="App\Repository\ConditionRepository" type="service_closure" id="App\Repository\ConditionRepository"/>
         <argument key="App\Repository\CreatureRepository" type="service_closure" id="App\Repository\CreatureRepository"/>
+        <argument key="App\Repository\DashboardRepository" type="service_closure" id="App\Repository\DashboardRepository"/>
+        <argument key="App\Repository\GameRepository" type="service_closure" id="App\Repository\GameRepository"/>
+        <argument key="App\Repository\ImageRepository" type="service_closure" id="App\Repository\ImageRepository"/>
         <argument key="App\Repository\ItemRepository" type="service_closure" id="App\Repository\ItemRepository"/>
         <argument key="App\Repository\LocationRepository" type="service_closure" id="App\Repository\LocationRepository"/>
         <argument key="App\Repository\NpcRepository" type="service_closure" id="App\Repository\NpcRepository"/>
@@ -8068,6 +8152,18 @@
       <argument type="service" id="service_container"/>
       <factory service=".service_locator.W9y3dzm" method="withContext"/>
     </service>
+    <service id=".service_locator.W9y3dzm.App\Controller\DashboardController" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator_context" id="App\Controller\DashboardController"/>
+      <argument>App\Controller\DashboardController</argument>
+      <argument type="service" id="service_container"/>
+      <factory service=".service_locator.W9y3dzm" method="withContext"/>
+    </service>
+    <service id=".service_locator.W9y3dzm.App\Controller\GameController" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator_context" id="App\Controller\GameController"/>
+      <argument>App\Controller\GameController</argument>
+      <argument type="service" id="service_container"/>
+      <factory service=".service_locator.W9y3dzm" method="withContext"/>
+    </service>
     <service id=".service_locator.W9y3dzm.App\Controller\ItemController" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator_context" id="App\Controller\ItemController"/>
       <argument>App\Controller\ItemController</argument>
@@ -8249,12 +8345,12 @@
       <argument type="service" id="EasyCorp\Bundle\EasyAdminBundle\Router\AdminUrlGenerator"/>
     </service>
     <service id="debug.argument_resolver.service.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver">
-      <argument type="service" id=".service_locator.oD2YPnh"/>
+      <argument type="service" id=".service_locator.SO7aEQ1"/>
     </service>
     <service id="debug.argument_resolver.default.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver"/>
     <service id="debug.argument_resolver.variadic.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\VariadicValueResolver"/>
     <service id="debug.argument_resolver.not_tagged_controller.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\NotTaggedControllerValueResolver">
-      <argument type="service" id=".service_locator.oD2YPnh"/>
+      <argument type="service" id=".service_locator.SO7aEQ1"/>
     </service>
     <service id=".debug.http_client.inner" class="Symfony\Contracts\HttpClient\HttpClientInterface">
       <argument type="collection"/>
@@ -8289,6 +8385,7 @@
     <service id=".errored..service_locator.2dc0eaX.EasyCorp\Bundle\EasyAdminBundle\Config\KeyValueStore" class="EasyCorp\Bundle\EasyAdminBundle\Config\KeyValueStore"/>
     <service id=".errored..service_locator.q6hA_O0.Symfony\Component\Security\Core\User\UserInterface" class="Symfony\Component\Security\Core\User\UserInterface"/>
     <service id=".errored..service_locator.BwK8duM.App\Entity\Creature" class="App\Entity\Creature"/>
+    <service id=".errored..service_locator.gBwNVTZ.App\Entity\Game" class="App\Entity\Game"/>
     <service id=".errored..service_locator.83t1iHB.App\Entity\Item" class="App\Entity\Item"/>
     <service id=".errored..service_locator.mR1eFSc.App\Entity\Location" class="App\Entity\Location"/>
     <service id=".errored..service_locator.QgUGWNm.App\Entity\Npc" class="App\Entity\Npc"/>
@@ -9228,7 +9325,7 @@
     <service id="Symfony\WebpackEncoreBundle\Asset\EntrypointLookupInterface" alias="webpack_encore.entrypoint_lookup[_default]"/>
     <service id="container.env_var_processors_locator" alias=".service_locator.0GV1BZZ" public="true"/>
     <service id="twig.loader.filesystem" alias="twig.loader.native_filesystem"/>
-    <service id="argument_resolver.controller_locator" alias=".service_locator.oD2YPnh"/>
+    <service id="argument_resolver.controller_locator" alias=".service_locator.SO7aEQ1"/>
     <service id="session" alias=".session.do-not-use" public="true">
       <deprecated package="symfony/framework-bundle" version="5.3">The "%alias_id%" service and "SessionInterface" alias are deprecated, use "$requestStack-&gt;getSession()" instead.</deprecated>
     </service>
@@ -9285,6 +9382,9 @@
     <service id=".service_locator.vS1lpro" alias=".service_locator.q6hA_O0"/>
     <service id=".service_locator._jLe.e." alias=".service_locator.dPbpGJg"/>
     <service id=".service_locator.dgYrLfk" alias=".service_locator.BwK8duM"/>
+    <service id=".service_locator.TKjQ1zv" alias=".service_locator.Fh7HpEG"/>
+    <service id=".service_locator.LC0HKB5" alias=".service_locator.hA3ZfRw"/>
+    <service id=".service_locator.m3K3WLF" alias=".service_locator.gBwNVTZ"/>
     <service id=".service_locator.qxJ8eTB" alias=".service_locator.Rib71Kf"/>
     <service id=".service_locator.qkMG8CA" alias=".service_locator.83t1iHB"/>
     <service id=".service_locator.dkvIqRt" alias=".service_locator.uok6LHy"/>

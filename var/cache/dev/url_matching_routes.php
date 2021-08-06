@@ -16,6 +16,14 @@ return [
         '/admin' => [[['_route' => 'admin', '_controller' => 'App\\Controller\\Admin\\DashboardController::index'], null, null, null, false, false, null]],
         '/creature' => [[['_route' => 'creature_index', '_controller' => 'App\\Controller\\CreatureController::index'], null, ['GET' => 0], null, true, false, null]],
         '/creature/new' => [[['_route' => 'creature_new', '_controller' => 'App\\Controller\\CreatureController::new'], null, ['GET' => 0, 'POST' => 1], null, false, false, null]],
+        '/dashboards' => [[['_route' => 'dashboard_index', '_controller' => 'App\\Controller\\DashboardController::index'], null, ['GET' => 0], null, true, false, null]],
+        '/dashboards/player-display' => [[['_route' => 'player_display', '_controller' => 'App\\Controller\\DashboardController::playerDisplay'], null, ['GET' => 0], null, false, false, null]],
+        '/dashboards/player-display-control' => [[['_route' => 'player_display_control', '_controller' => 'App\\Controller\\DashboardController::playerDisplayControl'], null, ['GET' => 0], null, false, false, null]],
+        '/dashboards/player-display-control/combat-mode' => [[['_route' => 'combat_mode', '_controller' => 'App\\Controller\\DashboardController::combatMode'], null, ['GET' => 0], null, false, false, null]],
+        '/dashboards/player-display-control/hide-all' => [[['_route' => 'player_hide_all', '_controller' => 'App\\Controller\\DashboardController::hideAll'], null, ['GET' => 0], null, false, false, null]],
+        '/dashboards/new' => [[['_route' => 'dashboard_new', '_controller' => 'App\\Controller\\DashboardController::new'], null, ['GET' => 0, 'POST' => 1], null, false, false, null]],
+        '/game' => [[['_route' => 'game_index', '_controller' => 'App\\Controller\\GameController::index'], null, ['GET' => 0], null, true, false, null]],
+        '/game/new' => [[['_route' => 'game_new', '_controller' => 'App\\Controller\\GameController::new'], null, ['GET' => 0, 'POST' => 1], null, false, false, null]],
         '/item' => [[['_route' => 'item_index', '_controller' => 'App\\Controller\\ItemController::index'], null, ['GET' => 0], null, true, false, null]],
         '/item/new' => [[['_route' => 'item_new', '_controller' => 'App\\Controller\\ItemController::new'], null, ['GET' => 0, 'POST' => 1], null, false, false, null]],
         '/location' => [[['_route' => 'location_index', '_controller' => 'App\\Controller\\LocationController::index'], null, ['GET' => 0], null, true, false, null]],
@@ -54,31 +62,37 @@ return [
                     .'|/edit(*:168)'
                     .'|(*:176)'
                 .')'
+                .'|/dashboards/player\\-display\\-control/([^/]++)/([^/]++)/show\\-hide(*:250)'
+                .'|/game/([^/]++)(?'
+                    .'|(*:275)'
+                    .'|/edit(*:288)'
+                    .'|(*:296)'
+                .')'
                 .'|/item/([^/]++)(?'
-                    .'|(*:202)'
-                    .'|/edit(*:215)'
-                    .'|(*:223)'
+                    .'|(*:322)'
+                    .'|/edit(*:335)'
+                    .'|(*:343)'
                 .')'
                 .'|/location/([^/]++)(?'
-                    .'|(*:253)'
-                    .'|/edit(*:266)'
-                    .'|(*:274)'
+                    .'|(*:373)'
+                    .'|/edit(*:386)'
+                    .'|(*:394)'
                 .')'
                 .'|/npc/([^/]++)(?'
-                    .'|(*:299)'
-                    .'|/edit(*:312)'
-                    .'|(*:320)'
+                    .'|(*:419)'
+                    .'|/edit(*:432)'
+                    .'|(*:440)'
                 .')'
                 .'|/other/([^/]++)(?'
-                    .'|(*:347)'
-                    .'|/edit(*:360)'
-                    .'|(*:368)'
+                    .'|(*:467)'
+                    .'|/edit(*:480)'
+                    .'|(*:488)'
                 .')'
                 .'|/([^/]++)/([^/]++)/show\\-(?'
-                    .'|dm(*:407)'
-                    .'|players(*:422)'
+                    .'|dm(*:527)'
+                    .'|players(*:542)'
                 .')'
-                .'|/_error/(\\d+)(?:\\.([^/]++))?(*:459)'
+                .'|/_error/(\\d+)(?:\\.([^/]++))?(*:579)'
             .')/?$}sDu',
     ],
     [ // $dynamicRoutes
@@ -91,21 +105,25 @@ return [
         155 => [[['_route' => 'creature_show', '_controller' => 'App\\Controller\\CreatureController::show'], ['id'], ['GET' => 0], null, false, true, null]],
         168 => [[['_route' => 'creature_edit', '_controller' => 'App\\Controller\\CreatureController::edit'], ['id'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
         176 => [[['_route' => 'creature_delete', '_controller' => 'App\\Controller\\CreatureController::delete'], ['id'], ['POST' => 0], null, false, true, null]],
-        202 => [[['_route' => 'item_show', '_controller' => 'App\\Controller\\ItemController::show'], ['id'], ['GET' => 0], null, false, true, null]],
-        215 => [[['_route' => 'item_edit', '_controller' => 'App\\Controller\\ItemController::edit'], ['id'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
-        223 => [[['_route' => 'item_delete', '_controller' => 'App\\Controller\\ItemController::delete'], ['id'], ['POST' => 0], null, false, true, null]],
-        253 => [[['_route' => 'location_show', '_controller' => 'App\\Controller\\LocationController::show'], ['id'], ['GET' => 0], null, false, true, null]],
-        266 => [[['_route' => 'location_edit', '_controller' => 'App\\Controller\\LocationController::edit'], ['id'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
-        274 => [[['_route' => 'location_delete', '_controller' => 'App\\Controller\\LocationController::delete'], ['id'], ['POST' => 0], null, false, true, null]],
-        299 => [[['_route' => 'npc_show', '_controller' => 'App\\Controller\\NpcController::show'], ['id'], ['GET' => 0], null, false, true, null]],
-        312 => [[['_route' => 'npc_edit', '_controller' => 'App\\Controller\\NpcController::edit'], ['id'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
-        320 => [[['_route' => 'npc_delete', '_controller' => 'App\\Controller\\NpcController::delete'], ['id'], ['POST' => 0], null, false, true, null]],
-        347 => [[['_route' => 'other_show', '_controller' => 'App\\Controller\\OtherController::show'], ['id'], ['GET' => 0], null, false, true, null]],
-        360 => [[['_route' => 'other_edit', '_controller' => 'App\\Controller\\OtherController::edit'], ['id'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
-        368 => [[['_route' => 'other_delete', '_controller' => 'App\\Controller\\OtherController::delete'], ['id'], ['POST' => 0], null, false, true, null]],
-        407 => [[['_route' => 'show_dm', '_controller' => 'App\\Controller\\PrivateDashboardController::showDm'], ['object', 'id'], ['GET' => 0], null, false, false, null]],
-        422 => [[['_route' => 'show_players', '_controller' => 'App\\Controller\\PrivateDashboardController::showPlayers'], ['object', 'id'], ['GET' => 0], null, false, false, null]],
-        459 => [
+        250 => [[['_route' => 'player_display_show', '_controller' => 'App\\Controller\\DashboardController::showPlayers'], ['object', 'id'], ['GET' => 0], null, false, false, null]],
+        275 => [[['_route' => 'game_show', '_controller' => 'App\\Controller\\GameController::show'], ['id'], ['GET' => 0], null, false, true, null]],
+        288 => [[['_route' => 'game_edit', '_controller' => 'App\\Controller\\GameController::edit'], ['id'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
+        296 => [[['_route' => 'game_delete', '_controller' => 'App\\Controller\\GameController::delete'], ['id'], ['POST' => 0], null, false, true, null]],
+        322 => [[['_route' => 'item_show', '_controller' => 'App\\Controller\\ItemController::show'], ['id'], ['GET' => 0], null, false, true, null]],
+        335 => [[['_route' => 'item_edit', '_controller' => 'App\\Controller\\ItemController::edit'], ['id'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
+        343 => [[['_route' => 'item_delete', '_controller' => 'App\\Controller\\ItemController::delete'], ['id'], ['POST' => 0], null, false, true, null]],
+        373 => [[['_route' => 'location_show', '_controller' => 'App\\Controller\\LocationController::show'], ['id'], ['GET' => 0], null, false, true, null]],
+        386 => [[['_route' => 'location_edit', '_controller' => 'App\\Controller\\LocationController::edit'], ['id'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
+        394 => [[['_route' => 'location_delete', '_controller' => 'App\\Controller\\LocationController::delete'], ['id'], ['POST' => 0], null, false, true, null]],
+        419 => [[['_route' => 'npc_show', '_controller' => 'App\\Controller\\NpcController::show'], ['id'], ['GET' => 0], null, false, true, null]],
+        432 => [[['_route' => 'npc_edit', '_controller' => 'App\\Controller\\NpcController::edit'], ['id'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
+        440 => [[['_route' => 'npc_delete', '_controller' => 'App\\Controller\\NpcController::delete'], ['id'], ['POST' => 0], null, false, true, null]],
+        467 => [[['_route' => 'other_show', '_controller' => 'App\\Controller\\OtherController::show'], ['id'], ['GET' => 0], null, false, true, null]],
+        480 => [[['_route' => 'other_edit', '_controller' => 'App\\Controller\\OtherController::edit'], ['id'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
+        488 => [[['_route' => 'other_delete', '_controller' => 'App\\Controller\\OtherController::delete'], ['id'], ['POST' => 0], null, false, true, null]],
+        527 => [[['_route' => 'show_dm', '_controller' => 'App\\Controller\\PrivateDashboardController::showDm'], ['object', 'id'], ['GET' => 0], null, false, false, null]],
+        542 => [[['_route' => 'show_players', '_controller' => 'App\\Controller\\PrivateDashboardController::showPlayers'], ['object', 'id'], ['GET' => 0], null, false, false, null]],
+        579 => [
             [['_route' => '_preview_error', '_controller' => 'error_controller::preview', '_format' => 'html'], ['code', '_format'], null, null, false, true, null],
             [null, null, null, null, false, false, 0],
         ],

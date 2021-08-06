@@ -42,6 +42,11 @@ class Location
      */
     private $showDm;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $imageFileName;
+
     public function __toString(): string {
         return (string) $this->getName().' - '.$this->getDescription();
     }
@@ -107,6 +112,18 @@ class Location
     public function setShowDm(bool $showDm): self
     {
         $this->showDm = $showDm;
+
+        return $this;
+    }
+
+    public function getImageFileName(): ?string
+    {
+        return $this->imageFileName;
+    }
+
+    public function setImageFileName(?string $imageFileName): self
+    {
+        $this->imageFileName = $imageFileName;
 
         return $this;
     }

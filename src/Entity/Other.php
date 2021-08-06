@@ -37,6 +37,11 @@ class Other
      */
     private $showPlayers;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $imageFileName;
+
 
     public function __toString(): string {
         return (string) $this->getName().' - '.$this->getDescription();
@@ -91,6 +96,18 @@ class Other
     public function setShowPlayers(?bool $showPlayers): self
     {
         $this->showPlayers = $showPlayers;
+
+        return $this;
+    }
+
+    public function getImageFileName(): ?string
+    {
+        return $this->imageFileName;
+    }
+
+    public function setImageFileName(?string $imageFileName): self
+    {
+        $this->imageFileName = $imageFileName;
 
         return $this;
     }

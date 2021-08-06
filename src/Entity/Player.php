@@ -42,6 +42,36 @@ class Player
      */
     private $showDm;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $imageFileName;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $armorClass;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $hp;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $damage;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $initiativeRoll;
+
+    /**
+     * @ORM\Column(type="array", nullable=true)
+     */
+    private $conditions = [];
+
     public function getId(): ?int
     {
         return $this->id;
@@ -103,6 +133,78 @@ class Player
     public function setShowDm(bool $showDm): self
     {
         $this->showDm = $showDm;
+
+        return $this;
+    }
+
+    public function getImageFileName(): ?string
+    {
+        return $this->imageFileName;
+    }
+
+    public function setImageFileName(?string $imageFileName): self
+    {
+        $this->imageFileName = $imageFileName;
+
+        return $this;
+    }
+
+    public function getArmorClass(): ?int
+    {
+        return $this->armorClass;
+    }
+
+    public function setArmorClass(?int $armorClass): self
+    {
+        $this->armorClass = $armorClass;
+
+        return $this;
+    }
+
+    public function getHp(): ?int
+    {
+        return $this->hp;
+    }
+
+    public function setHp(?int $hp): self
+    {
+        $this->hp = $hp;
+
+        return $this;
+    }
+
+    public function getDamage(): ?int
+    {
+        return $this->damage;
+    }
+
+    public function setDamage(?int $damage): self
+    {
+        $this->damage = $damage;
+
+        return $this;
+    }
+
+    public function getInitiativeRoll(): ?int
+    {
+        return $this->initiativeRoll;
+    }
+
+    public function setInitiativeRoll(?int $initiativeRoll): self
+    {
+        $this->initiativeRoll = $initiativeRoll;
+
+        return $this;
+    }
+
+    public function getConditions(): ?array
+    {
+        return $this->conditions;
+    }
+
+    public function setConditions(?array $conditions): self
+    {
+        $this->conditions = $conditions;
 
         return $this;
     }
