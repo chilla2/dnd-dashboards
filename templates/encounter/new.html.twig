@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Encounter{% endblock %}
+
+{% block body %}
+    <h1>Create new Encounter</h1>
+
+    {{ include('encounter/_form.html.twig') }}
+
+    <a href="{{ path('encounter_index') }}">back to list</a>
+{% endblock %}

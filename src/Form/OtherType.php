@@ -6,6 +6,7 @@ use App\Entity\Other;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Vich\UploaderBundle\Form\Type\VichImageType;
 
 class OtherType extends AbstractType
 {
@@ -16,6 +17,11 @@ class OtherType extends AbstractType
             ->add('description')
             ->add('notes')
             ->add('showPlayers')
+            ->add('imageFile', VichImageType::class, [
+                'required' => false,
+                'allow_delete' => true,
+                'asset_helper' => true,
+            ]);
         ;
     }
 

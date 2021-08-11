@@ -13,8 +13,12 @@
            and uncomment the following Encore helpers to start using Symfony UX #}
 
     </head>
+    {% if game.combatMode == TRUE %}
+    <body class="custom-dark combat-mode">
+    {% else %}
     <body class="custom-dark">
-        {% block body %}{% endblock %}
+    {% endif %}
+    {% block body %}{% endblock %}
         {% block javascripts %}
             {{ encore_entry_script_tags('app') }}
         {% endblock %}

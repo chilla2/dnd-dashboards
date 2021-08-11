@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Dash{% endblock %}
+
+{% block body %}
+    <h1>Dash</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ dash.id }}</td>
+            </tr>
+            <tr>
+                <th>CombatMode</th>
+                <td>{{ dash.combatMode ? 'Yes' : 'No' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('dash_index') }}">back to list</a>
+
+    <a href="{{ path('dash_edit', {'id': dash.id}) }}">edit</a>
+
+    {{ include('dash/_delete_form.html.twig') }}
+{% endblock %}

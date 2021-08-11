@@ -1,0 +1,328 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Player Dashboard Controls{% endblock %}
+
+{% block body %}
+<div class="container-fluid mw-100">
+    <div class="row custom-dark">
+        <div class="col-2 custom-dark m-0">
+            <div class="list-group">
+                <div class="list-group-item custom-color-red p-1">
+                    NPCs
+                </div>
+                {% for npc in npcs %}
+                {% set npcnames = npc.name|split(' ') %}
+                    {% if npc.showPlayers == TRUE %}
+                        <div class="show-players p-1 list-group-item">
+                            {{ npc.name }}
+                            <a href="/dash/player-display-control/npc/{{ npc.id }}/show-hide">
+                                <i class="bi bi-person-x show-hide-icon"></i>
+                            </a>
+                            {% if npc.showDm == TRUE %}
+                                <a href="/dash/player-display-control/npc/{{ npc.id }}/toggle-dm">
+                                    <i class="bi bi-eye-slash show-hide-icon"></i>
+                                </a>
+                            {% else %}
+                                <a href="/dash/player-display-control/npc/{{ npc.id }}/toggle-dm">
+                                    <i class="bi bi-eye show-hide-icon"></i>
+                                </a>
+                            {% endif %}
+                        </div>
+                    {% else %}
+                        <div class="p-1 list-group-item">
+                            {{ npc.name }}
+                            <a href="/dash/player-display-control/npc/{{ npc.id }}/show-hide">
+                                <i class="bi bi-person-check show-hide-icon"></i>
+                            </a>
+                            {% if npc.showDm == TRUE %}
+                            <a href="/dash/player-display-control/npc/{{ npc.id }}/toggle-dm">
+                                <i class="bi bi-eye-slash show-hide-icon"></i>
+                            </a>
+                            {% else %}
+                            <a href="/dash/player-display-control/npc/{{ npc.id }}/toggle-dm">
+                                <i class="bi bi-eye show-hide-icon"></i>
+                            </a>
+                            {% endif %}
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+            <div class="list-group">
+                <div class="list-group-item custom-color-red-orange p-1">
+                    Creatures
+                </div>
+                {% for creature in creatures %}
+                {% set creaturenames = creature.name|split(' ') %}
+                {% if creature.showPlayers == TRUE %}
+                <div class="show-players p-1 list-group-item">
+                    {{ creature.name }}
+                    <a href="/dash/player-display-control/creature/{{ creature.id }}/show-hide">
+                        <i class="bi bi-person-x show-hide-icon"></i>
+                    </a>
+                    {% if creature.showDm == TRUE %}
+                    <a href="/dash/player-display-control/creature/{{ creature.id }}/toggle-dm">
+                        <i class="bi bi-eye-slash show-hide-icon"></i>
+                    </a>
+                    {% else %}
+                    <a href="/dash/player-display-control/creature/{{ creature.id }}/toggle-dm">
+                        <i class="bi bi-eye show-hide-icon"></i>
+                    </a>
+                    {% endif %}
+                </div>
+                {% else %}
+                <div class="p-1 list-group-item">
+                    {{ creature.name }}
+                    <a href="/dash/player-display-control/creature/{{ creature.id }}/show-hide">
+                        <i class="bi bi-person-check show-hide-icon"></i>
+                    </a>
+                    {% if creature.showDm == TRUE %}
+                    <a href="/dash/player-display-control/creature/{{ creature.id }}/toggle-dm">
+                        <i class="bi bi-eye-slash show-hide-icon"></i>
+                    </a>
+                    {% else %}
+                    <a href="/dash/player-display-control/creature/{{ creature.id }}/toggle-dm">
+                        <i class="bi bi-eye show-hide-icon"></i>
+                    </a>
+                    {% endif %}
+                </div>
+                {% endif %}
+                {% endfor %}
+            </div>
+            <div class="list-group">
+                <div class="list-group-item custom-color-orange p-1">
+                    Locations
+                </div>
+                {% for location in locations %}
+                {% set locationnames = location.name|split(' ') %}
+                {% if location.showPlayers == TRUE %}
+                <div class="show-players p-1 list-group-item">
+                    {{ location.name }}
+                    <a href="/dash/player-display-control/location/{{ location.id }}/show-hide">
+                        <i class="bi bi-person-x show-hide-icon"></i>
+                    </a>
+                    {% if location.showDm == TRUE %}
+                    <a href="/dash/player-display-control/location/{{ location.id }}/toggle-dm">
+                        <i class="bi bi-eye-slash show-hide-icon"></i>
+                    </a>
+                    {% else %}
+                    <a href="/dash/player-display-control/location/{{ location.id }}/toggle-dm">
+                        <i class="bi bi-eye show-hide-icon"></i>
+                    </a>
+                    {% endif %}
+                </div>
+                {% else %}
+                <div class="p-1 list-group-item">
+                    {{ location.name }}
+                    <a href="/dash/player-display-control/location/{{ location.id }}/show-hide">
+                        <i class="bi bi-person-check show-hide-icon"></i>
+                    </a>
+                    {% if location.showDm == TRUE %}
+                    <a href="/dash/player-display-control/location/{{ location.id }}/toggle-dm">
+                        <i class="bi bi-eye-slash show-hide-icon"></i>
+                    </a>
+                    {% else %}
+                    <a href="/dash/player-display-control/location/{{ location.id }}/toggle-dm">
+                        <i class="bi bi-eye show-hide-icon"></i>
+                    </a>
+                    {% endif %}
+                </div>
+                {% endif %}
+                {% endfor %}
+            </div>
+            <div class="list-group">
+                <div class="list-group-item custom-color-yellow p-1">
+                    Items
+                </div>
+                {% for item in items %}
+                {% set itemnames = item.name|split(' ') %}
+                {% if item.showPlayers == TRUE %}
+                <div class="show-players p-1 list-group-item">
+                    {{ item.name }}
+                    <a href="/dash/player-display-control/item/{{ item.id }}/show-hide">
+                        <i class="bi bi-person-x show-hide-icon"></i>
+                    </a>
+                    {% if item.showDm == TRUE %}
+                    <a href="/dash/player-display-control/item/{{ item.id }}/toggle-dm">
+                        <i class="bi bi-eye-slash show-hide-icon"></i>
+                    </a>
+                    {% else %}
+                    <a href="/dash/player-display-control/item/{{ item.id }}/toggle-dm">
+                        <i class="bi bi-eye show-hide-icon"></i>
+                    </a>
+                    {% endif %}
+                </div>
+                {% else %}
+                <div class="p-1 list-group-item">
+                    {{ item.name }}
+                    <a href="/dash/player-display-control/item/{{ item.id }}/show-hide">
+                        <i class="bi bi-person-check show-hide-icon"></i>
+                    </a>
+                    {% if item.showDm == TRUE %}
+                    <a href="/dash/player-display-control/item/{{ item.id }}/toggle-dm">
+                        <i class="bi bi-eye-slash show-hide-icon"></i>
+                    </a>
+                    {% else %}
+                    <a href="/dash/player-display-control/item/{{ item.id }}/toggle-dm">
+                        <i class="bi bi-eye show-hide-icon"></i>
+                    </a>
+                    {% endif %}
+                </div>
+                {% endif %}
+                {% endfor %}
+            </div>
+            <div class="list-group">
+                <div class="list-group-item custom-color-green p-1">
+                    Other
+                </div>
+                {% for other in others %}
+                {% set othernames = other.name|split(' ') %}
+                {% if other.showPlayers == TRUE %}
+                <div class="show-players p-1 list-group-item">
+                    {{ other.name }}
+                    <a href="/dash/player-display-control/other/{{ other.id }}/show-hide">
+                        <i class="bi bi-person-x show-hide-icon"></i>
+                    </a>
+                    {% if other.showDm == TRUE %}
+                    <a href="/dash/player-display-control/other/{{ other.id }}/toggle-dm">
+                        <i class="bi bi-eye-slash show-hide-icon"></i>
+                    </a>
+                    {% else %}
+                    <a href="/dash/player-display-control/other/{{ other.id }}/toggle-dm">
+                        <i class="bi bi-eye show-hide-icon"></i>
+                    </a>
+                    {% endif %}
+                </div>
+                {% else %}
+                <div class="p-1 list-group-item">
+                    {{ other.name }}
+                    <a href="/dash/player-display-control/other/{{ other.id }}/show-hide">
+                        <i class="bi bi-person-check show-hide-icon"></i>
+                    </a>
+                    {% if other.showDm == TRUE %}
+                    <a href="/dash/player-display-control/other/{{ other.id }}/toggle-dm">
+                        <i class="bi bi-eye-slash show-hide-icon"></i>
+                    </a>
+                    {% else %}
+                    <a href="/dash/player-display-control/other/{{ other.id }}/toggle-dm">
+                        <i class="bi bi-eye show-hide-icon"></i>
+                    </a>
+                    {% endif %}
+                </div>
+                {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+        <div class="col-10">
+            <div class="row">
+                <div class="container">
+                    <ul class="nav justify-content-center">
+                        <a href="{{ path('game_edit', {'id': '1'}) }}" type="button" class="btn custom-color-cyan nav-item">
+                            <i class="bi bi-card-image"></i>
+                        </a>
+                        <a href="/dash/player-display-control/hide-all-dm" type="button" class="btn custom-color-blue nav-item">
+                            <i class="bi bi-eye-slash-fill"></i>
+                        </a>
+                        <a href="/dash/player-display-control/hide-all" type="button" class="btn custom-color-purple nav-item">
+                            <i class="bi bi-person-x-fill"></i>
+                        </a>
+                        <a href="/dash/player-display-control/combat-mode" type="button" class="btn custom-color-magenta nav-item">
+                            <i class="bi bi-shield-fill-exclamation"></i>
+                        </a>
+                    </ul>
+                </div>
+            </div>
+            <div class="row row-col-3">
+                {% for player in players %}
+                {% set playernames = player.name|split(' ') %}
+                {% if player.showDm == TRUE %}
+                <div class="col-4" id="{{ playernames|join('-') }}">
+                    <div class="card shadow p-3 mb-5 rounded custom-color-red">
+                        <img src="{{ vich_uploader_asset(player, 'imageFile') }}" alt="{{ playre.imageName }}" class="card-img-top">
+                        <div class="card-body">
+                            <h6 class="card-title">{{ player.name }}</h6>
+                            <div class="card-text">{{ player.description }}</div>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+                {% endfor %}
+                {% for npc in npcs %}
+                {% set npcnames = npc.name|split(' ') %}
+                {% if npc.showDm == TRUE %}
+                <div class="col-4" id="{{ npcnames|join('-') }}">
+                    <div class="card shadow p-3 mb-5 rounded custom-color-red">
+                        <img src="{{ vich_uploader_asset(npc, 'imageFile') }}" alt="{{ npc.imageName }}" class="card-img-top">
+                        <div class="card-body">
+                            <h6 class="card-title">{{ npc.name }}</h6>
+                            <div class="card-text">{{ npc.description }}</div>
+                            <a class="btn" href="{{ path('npc_edit', { 'id': npc.id }) }}">Edit</a>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+                {% endfor %}
+                {% for creature in creatures %}
+                {% set creaturenames = creature.name|split(' ') %}
+                {% if creature.showDm == TRUE %}
+                <div class="col-4" id="{{ creaturenames|join('-') }}">
+                    <div class="card shadow p-3 mb-5 rounded custom-color-red-orange">
+                        <img src="{{ vich_uploader_asset(creature, 'imageFile') }}" alt="{{ creature.imageName }}" class="card-img-top">
+                        <div class="card-body  custom-color-red-orange">
+                            <h6 class="card-title">{{ creature.name }}</h6>
+                            <div class="card-text">{{ creature.description }}</div>
+                            <a class="btn" href="{{ path('creature_edit', { 'id': creature.id }) }}">Edit</a>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+                {% endfor %}
+                {% for location in locations %}
+                {% set locationnames = location.name|split(' ') %}
+                {% if location.showDm == TRUE %}
+                <div class="col-4" id="{{ locationnames|join('-') }}">
+                    <div class="card shadow p-3 mb-5 rounded  custom-color-orange">
+                        <img src="{{ vich_uploader_asset(location, 'imageFile') }}" alt="{{ location.imageName }}" class="card-img-top">
+                        <div class="card-body custom-color-orange">
+                            <h6 class="card-title">{{ location.name }}</h6>
+                            <div class="card-text">{{ location.description }}</div>
+                            <a class="btn" href="{{ path('location_edit', { 'id': location.id }) }}">Edit</a>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+                {% endfor %}
+                {% for item in items %}
+                {% set itemnames = item.name|split(' ') %}
+                {% if item.showDm == TRUE %}
+                <div class="col-4" id="{{ itemnames|join('-') }}">
+                    <div class="card shadow p-3 mb-5 rounded custom-color-yellow">
+                        <img src="{{ vich_uploader_asset(item, 'imageFile') }}" alt="{{ item.imageName }}" class="card-img-top">
+                        <div class="card-body custom-color-yellow">
+                            <h6 class="card-title">{{ item.name }}</h6>
+                            <div class="card-text">{{ item.description }}</div>
+                            <a class="btn" href="{{ path('item_edit', { 'id': item.id }) }}">Edit</a>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+                {% endfor %}
+                {% for other in others %}
+                {% set othernames = other.name|split(' ') %}
+                {% if other.showDm == TRUE %}
+                <div class="col-4" id="{{ othernames|join('-') }}">
+                    <div class="card shadow p-3 mb-5 rounded custom-color-green">
+                        <img src="{{ vich_uploader_asset(other, 'imageFile') }}" alt="{{ other.imageName }}" class="card-img-top">
+                        <div class="card-body custom-color-green">
+                            <h6 class="card-title">{{ other.name }}</h6>
+                            <div class="card-text">{{ other.description }}</div>
+                            <a class="btn" href="{{ path('other_edit', { 'id': other.id }) }}">Edit</a>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

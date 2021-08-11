@@ -1,3 +1,7 @@
 index:
     path: /
-    controller: App\Controller\PublicDashboardController::index
+    controller: App\Controller\DashController::index
+
+player-display-control:
+    path: /control
+    controller: App\Controller\DashController::playerDisplayControl

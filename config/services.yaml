@@ -4,6 +4,12 @@
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
 parameters:
+    app.path.players_images: /uploads/images/players
+    app.path.npc_images: /uploads/images/npcs
+    app.path.creature_images: /uploads/images/creatures
+    app.path.item_images: /uploads/images/items
+    app.path.location_images: /uploads/images/locations
+    app.path.other_images: /uploads/images/others
 
 services:
     # default configuration for services in *this* file

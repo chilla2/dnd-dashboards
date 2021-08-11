@@ -16,6 +16,51 @@ $custom-magenta: #C149A5;
 
 body {
     font-family: 'Montserrat', sans-serif !important;
+    margin: auto;
+}
+
+.combat-mode {
+    border-style: solid none none;
+    border-color: red;
+    border-width: 10px;
+}
+
+.background-image {
+    max-width: 100% !important;
+    max-height: 100% !important;
+    z-index: -1;
+    padding: 0;
+    margin-top: -10%;
+    background: none;
+    object-fit: contain !important;
+    overflow: hidden;
+}
+
+.player-display-container {
+    max-width: 100vw !important;
+    max-height: 100vh !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    background: none;
+}
+
+.overlay-image {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  margin: auto;
+}
+
+form {
+    max-width: 40%;
+}
+
+.show-hide-icon {
+    float: right;
 }
 
 .custom-dark {
@@ -24,7 +69,7 @@ body {
 }
 
 .show-players {
-    background-color: #C149A5 !important;
+    font-weight: 500;
 }
 
 .custom-color-red {

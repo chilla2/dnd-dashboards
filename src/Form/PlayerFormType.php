@@ -6,6 +6,7 @@ use App\Entity\Player;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Vich\UploaderBundle\Form\Type\VichImageType;
 
 class PlayerFormType extends AbstractType
 {
@@ -21,6 +22,11 @@ class PlayerFormType extends AbstractType
             ->add('armorClass')
             ->add('hp')
             ->add('conditions')
+            ->add('imageFile', VichImageType::class, [
+                'required' => false,
+                'allow_delete' => true,
+                'asset_helper' => true,
+            ]);
         ;
     }
 

@@ -24,7 +24,7 @@ class Crud
     /** @var CrudDto */
     private $dto;
 
-    private $paginatorPageSize = 15;
+    private $paginatorPageSize = 20;
     private $paginatorRangeSize = 3;
     private $paginatorFetchJoinCollection = true;
     private $paginatorUseOutputWalkers;
@@ -42,7 +42,7 @@ class Crud
     }
 
     /**
-     * @param string|callable $label The callable signature is: fn ($entityInstance, string $pageName): string
+     * @param string|callable $label The callable signature is: fn ($entityInstance, $pageName): string
      */
     public function setEntityLabelInSingular($label): self
     {
@@ -52,7 +52,7 @@ class Crud
     }
 
     /**
-     * @param string|callable $label The callable signature is: fn ($entityInstance, string $pageName): string
+     * @param string|callable $label The callable signature is: fn ($entityInstance, $pageName): string
      */
     public function setEntityLabelInPlural($label): self
     {
@@ -217,7 +217,16 @@ class Crud
 
     public function showEntityActionsAsDropdown(bool $showAsDropdown = true): self
     {
+        trigger_deprecation('easycorp/easyadmin-bundle', '3.5.0', 'The "%s" method is deprecated because the default behavior changed to render entity actions as dropdown. Use "showEntityActionsInlined()" method if you want to revert this change.', __METHOD__);
+
         $this->dto->setShowEntityActionsAsDropdown($showAsDropdown);
+
+        return $this;
+    }
+
+    public function showEntityActionsInlined(bool $showInlined = true): self
+    {
+        $this->dto->setShowEntityActionsAsDropdown(!$showInlined);
 
         return $this;
     }

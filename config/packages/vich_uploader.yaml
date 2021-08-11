@@ -1,0 +1,36 @@
+vich_uploader:
+    db_driver: orm
+
+    #mappings:
+    #    products:
+    #        uri_prefix: /images/products
+    #        upload_destination: '%kernel.project_dir%/public/images/products'
+    mappings:
+        npc_image:
+            uri_prefix: /images/npcs
+            upload_destination: '%kernel.project_dir%/public/images/npcs'
+            namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
+        player_image:
+            uri_prefix: /images/players
+            upload_destination: '%kernel.project_dir%/public/images/players'
+            namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
+        creature_image:
+            uri_prefix: /images/creatures
+            upload_destination: '%kernel.project_dir%/public/images/creatures'
+            namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
+        location_image:
+            uri_prefix: /images/location
+            upload_destination: '%kernel.project_dir%/public/images/locations'
+            namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
+        item_image:
+            uri_prefix: /images/items
+            upload_destination: '%kernel.project_dir%/public/images/items'
+            namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
+        other_image:
+            uri_prefix: /images/others
+            upload_destination: '%kernel.project_dir%/public/images/others'
+            namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
+        background_image:
+            uri_prefix: /images/background
+            upload_destination: '%kernel.project_dir%/public/images/background'
+            namer: Vich\UploaderBundle\Naming\SmartUniqueNamer

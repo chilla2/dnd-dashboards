@@ -9,6 +9,8 @@ use App\Repository\LocationRepository;
 use App\Repository\ItemRepository;
 use App\Repository\OtherRepository;
 use App\Repository\CreatureRepository;
+use App\Repository\DashRepository;
+use App\Repository\GameRepository;
 use Twig\Environment;
 
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -24,8 +26,10 @@ class TwigEventSubscriber implements EventSubscriberInterface
     private $otherRepository;
     private $creatureRepository;
     private $sessionRepository;
+    private $gameRepository;
+    private $dashRepository;
 
-    public function __construct(Environment $twig, PlayerRepository $playerRepository, NpcRepository $npcRepository, CreatureRepository $creatureRepository, SessionRepository $sessionRepository, ItemRepository $itemRepository, LocationRepository $locationRepository, OtherRepository $otherRepository)
+    public function __construct(Environment $twig, PlayerRepository $playerRepository, NpcRepository $npcRepository, CreatureRepository $creatureRepository, SessionRepository $sessionRepository, ItemRepository $itemRepository, LocationRepository $locationRepository, OtherRepository $otherRepository, DashRepository $dashRepository, GameRepository $gameRepository)
     {
         $this->twig = $twig;
         $this->playerRepository = $playerRepository;
@@ -35,6 +39,8 @@ class TwigEventSubscriber implements EventSubscriberInterface
         $this->itemRepository = $itemRepository;
         $this->locationRepository = $locationRepository;
         $this->otherRepository = $otherRepository;
+        $this->dashRepository = $dashRepository;
+        $this->gameRepository = $gameRepository;
     }
 
     public function onKernelController(ControllerEvent $event)
@@ -46,6 +52,8 @@ class TwigEventSubscriber implements EventSubscriberInterface
         $this->twig->addGlobal('items', $this->itemRepository->findAll());
         $this->twig->addGlobal('locations', $this->locationRepository->findAll());
         $this->twig->addGlobal('others', $this->otherRepository->findAll());
+        $this->twig->addGlobal('dashs', $this->dashRepository->findAll());
+        $this->twig->addGlobal('game', $this->gameRepository->findOneBy(['name' => 'current']));
     }
 
     public static function getSubscribedEvents()

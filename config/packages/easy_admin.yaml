@@ -1,12 +1,47 @@
 easy_admin:
     entities:
         # List the entity class name you want to manage
-        - App\Entity\Player
-        - App\Entity\Npc
-        - App\Entity\Creature
-        - App\Entity\Location
-        - App\Entity\Item
-        - App\Entity\Other
-        - App\Entity\Admin
-        - App\Entity\User
-        - App\Entity\Dashboard
+        Player:
+            class: App\Entity\Player
+        Npc:
+            class: App\Entity\Npc
+            form:
+              fields:
+                  - { property: 'imageFile', type: 'vich_image' }
+        Creature:
+            class: App\Entity\Creature
+            form:
+              fields:
+                  - { property: 'imageFile', type: 'vich_image' }
+        Location:
+              class: App\Entity\Location
+              form:
+                  fields:
+                      - { property: 'imageFile', type: 'vich_image' }
+        Item:
+              class: App\Entity\Item
+              form:
+                  fields:
+                      - { property: 'imageFile', type: 'vich_image' }
+        Other:
+              class: App\Entity\Other
+              form:
+                  fields:
+                      - { property: 'imageFile', type: 'vich_image' }
+        Admin:
+            class: App\Entity\Admin
+        User:
+            class: App\Entity\User
+        Game:
+              class: App\Entity\Game
+              form:
+                  fields:
+                      - { property: 'imageFile', type: 'vich_image' }
+        Dash:
+            class: App\Entity\Dash
+        Encounter:
+            class: App\Entity\Encounter
+    design:
+        form_theme:
+            - '@EasyAdmin/form/bootstrap_4.html.twig'
+            - '@VichUploader/Form/fields.html.twig'

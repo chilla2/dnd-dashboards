@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Dash{% endblock %}
+
+{% block body %}
+    <h1>Create new Dash</h1>
+
+    {{ include('dash/_form.html.twig') }}
+
+    <a href="{{ path('dash_index') }}">back to list</a>
+{% endblock %}

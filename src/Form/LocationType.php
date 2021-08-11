@@ -6,6 +6,7 @@ use App\Entity\Location;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Vich\UploaderBundle\Form\Type\VichImageType;
 
 class LocationType extends AbstractType
 {
@@ -16,6 +17,11 @@ class LocationType extends AbstractType
             ->add('description')
             ->add('notes')
             ->add('showPlayers')
+            ->add('imageFile', VichImageType::class, [
+                'required' => false,
+                'allow_delete' => true,
+                'asset_helper' => true,
+            ]);
         ;
     }
 

@@ -22,6 +22,7 @@
       <parameter key="TwigExtraBundle">Twig\Extra\TwigExtraBundle\TwigExtraBundle</parameter>
       <parameter key="EasyAdminBundle">EasyCorp\Bundle\EasyAdminBundle\EasyAdminBundle</parameter>
       <parameter key="WebpackEncoreBundle">Symfony\WebpackEncoreBundle\WebpackEncoreBundle</parameter>
+      <parameter key="VichUploaderBundle">Vich\UploaderBundle\VichUploaderBundle</parameter>
     </parameter>
     <parameter key="kernel.bundles_metadata" type="collection">
       <parameter key="FrameworkBundle" type="collection">
@@ -76,9 +77,19 @@
         <parameter key="path">/var/www/html/vendor/symfony/webpack-encore-bundle/src</parameter>
         <parameter key="namespace">Symfony\WebpackEncoreBundle</parameter>
       </parameter>
+      <parameter key="VichUploaderBundle" type="collection">
+        <parameter key="path">/var/www/html/vendor/vich/uploader-bundle</parameter>
+        <parameter key="namespace">Vich\UploaderBundle</parameter>
+      </parameter>
     </parameter>
     <parameter key="kernel.charset">UTF-8</parameter>
     <parameter key="kernel.container_class">App_KernelDevDebugContainer</parameter>
+    <parameter key="app.path.players_images">/uploads/images/players</parameter>
+    <parameter key="app.path.npc_images">/uploads/images/npcs</parameter>
+    <parameter key="app.path.creature_images">/uploads/images/creatures</parameter>
+    <parameter key="app.path.item_images">/uploads/images/items</parameter>
+    <parameter key="app.path.location_images">/uploads/images/locations</parameter>
+    <parameter key="app.path.other_images">/uploads/images/others</parameter>
     <parameter key="event_dispatcher.event_aliases" type="collection">
       <parameter key="Symfony\Component\Console\Event\ConsoleCommandEvent">console.command</parameter>
       <parameter key="Symfony\Component\Console\Event\ConsoleErrorEvent">console.error</parameter>
@@ -142,7 +153,9 @@
     <parameter key="request_listener.https_port">443</parameter>
     <parameter key="serializer.mapping.cache.file">/var/www/html/var/cache/dev/serialization.php</parameter>
     <parameter key="twig.form.resources" type="collection">
+      <parameter>@VichUploader/Form/fields.html.twig</parameter>
       <parameter>form_div_layout.html.twig</parameter>
+      <parameter>bootstrap_5_layout.html.twig</parameter>
     </parameter>
     <parameter key="twig.default_path">/var/www/html/templates</parameter>
     <parameter key="web_profiler.debug_toolbar.intercept_redirects">false</parameter>
@@ -254,6 +267,122 @@
       <parameter>main</parameter>
     </parameter>
     <parameter key="easyadmin.config" type="collection"/>
+    <parameter key="vich_uploader.default_filename_attribute_suffix">_name</parameter>
+    <parameter key="vich_uploader.mappings" type="collection">
+      <parameter key="npc_image" type="collection">
+        <parameter key="uri_prefix">/images/npcs</parameter>
+        <parameter key="upload_destination">/var/www/html/public/images/npcs</parameter>
+        <parameter key="namer" type="collection">
+          <parameter key="service">Vich\UploaderBundle\Naming\SmartUniqueNamer.npc_image</parameter>
+          <parameter key="options" type="collection"/>
+        </parameter>
+        <parameter key="directory_namer" type="collection">
+          <parameter key="service">null</parameter>
+          <parameter key="options">null</parameter>
+        </parameter>
+        <parameter key="delete_on_remove">true</parameter>
+        <parameter key="delete_on_update">true</parameter>
+        <parameter key="inject_on_load">false</parameter>
+        <parameter key="db_driver">orm</parameter>
+      </parameter>
+      <parameter key="player_image" type="collection">
+        <parameter key="uri_prefix">/images/players</parameter>
+        <parameter key="upload_destination">/var/www/html/public/images/players</parameter>
+        <parameter key="namer" type="collection">
+          <parameter key="service">Vich\UploaderBundle\Naming\SmartUniqueNamer.player_image</parameter>
+          <parameter key="options" type="collection"/>
+        </parameter>
+        <parameter key="directory_namer" type="collection">
+          <parameter key="service">null</parameter>
+          <parameter key="options">null</parameter>
+        </parameter>
+        <parameter key="delete_on_remove">true</parameter>
+        <parameter key="delete_on_update">true</parameter>
+        <parameter key="inject_on_load">false</parameter>
+        <parameter key="db_driver">orm</parameter>
+      </parameter>
+      <parameter key="creature_image" type="collection">
+        <parameter key="uri_prefix">/images/creatures</parameter>
+        <parameter key="upload_destination">/var/www/html/public/images/creatures</parameter>
+        <parameter key="namer" type="collection">
+          <parameter key="service">Vich\UploaderBundle\Naming\SmartUniqueNamer.creature_image</parameter>
+          <parameter key="options" type="collection"/>
+        </parameter>
+        <parameter key="directory_namer" type="collection">
+          <parameter key="service">null</parameter>
+          <parameter key="options">null</parameter>
+        </parameter>
+        <parameter key="delete_on_remove">true</parameter>
+        <parameter key="delete_on_update">true</parameter>
+        <parameter key="inject_on_load">false</parameter>
+        <parameter key="db_driver">orm</parameter>
+      </parameter>
+      <parameter key="location_image" type="collection">
+        <parameter key="uri_prefix">/images/location</parameter>
+        <parameter key="upload_destination">/var/www/html/public/images/locations</parameter>
+        <parameter key="namer" type="collection">
+          <parameter key="service">Vich\UploaderBundle\Naming\SmartUniqueNamer.location_image</parameter>
+          <parameter key="options" type="collection"/>
+        </parameter>
+        <parameter key="directory_namer" type="collection">
+          <parameter key="service">null</parameter>
+          <parameter key="options">null</parameter>
+        </parameter>
+        <parameter key="delete_on_remove">true</parameter>
+        <parameter key="delete_on_update">true</parameter>
+        <parameter key="inject_on_load">false</parameter>
+        <parameter key="db_driver">orm</parameter>
+      </parameter>
+      <parameter key="item_image" type="collection">
+        <parameter key="uri_prefix">/images/items</parameter>
+        <parameter key="upload_destination">/var/www/html/public/images/items</parameter>
+        <parameter key="namer" type="collection">
+          <parameter key="service">Vich\UploaderBundle\Naming\SmartUniqueNamer.item_image</parameter>
+          <parameter key="options" type="collection"/>
+        </parameter>
+        <parameter key="directory_namer" type="collection">
+          <parameter key="service">null</parameter>
+          <parameter key="options">null</parameter>
+        </parameter>
+        <parameter key="delete_on_remove">true</parameter>
+        <parameter key="delete_on_update">true</parameter>
+        <parameter key="inject_on_load">false</parameter>
+        <parameter key="db_driver">orm</parameter>
+      </parameter>
+      <parameter key="other_image" type="collection">
+        <parameter key="uri_prefix">/images/others</parameter>
+        <parameter key="upload_destination">/var/www/html/public/images/others</parameter>
+        <parameter key="namer" type="collection">
+          <parameter key="service">Vich\UploaderBundle\Naming\SmartUniqueNamer.other_image</parameter>
+          <parameter key="options" type="collection"/>
+        </parameter>
+        <parameter key="directory_namer" type="collection">
+          <parameter key="service">null</parameter>
+          <parameter key="options">null</parameter>
+        </parameter>
+        <parameter key="delete_on_remove">true</parameter>
+        <parameter key="delete_on_update">true</parameter>
+        <parameter key="inject_on_load">false</parameter>
+        <parameter key="db_driver">orm</parameter>
+      </parameter>
+      <parameter key="background_image" type="collection">
+        <parameter key="uri_prefix">/images/background</parameter>
+        <parameter key="upload_destination">/var/www/html/public/images/background</parameter>
+        <parameter key="namer" type="collection">
+          <parameter key="service">Vich\UploaderBundle\Naming\SmartUniqueNamer.background_image</parameter>
+          <parameter key="options" type="collection"/>
+        </parameter>
+        <parameter key="directory_namer" type="collection">
+          <parameter key="service">null</parameter>
+          <parameter key="options">null</parameter>
+        </parameter>
+        <parameter key="delete_on_remove">true</parameter>
+        <parameter key="delete_on_update">true</parameter>
+        <parameter key="inject_on_load">false</parameter>
+        <parameter key="db_driver">orm</parameter>
+      </parameter>
+    </parameter>
+    <parameter key="vich_uploader.file_injector.class">Vich\UploaderBundle\Injector\FileInjector</parameter>
     <parameter key="data_collector.templates" type="collection">
       <parameter key="data_collector.request" type="collection">
         <parameter>request</parameter>
@@ -339,6 +468,10 @@
         <parameter>easyadmin</parameter>
         <parameter>@EasyAdmin/inspector/data_collector.html.twig</parameter>
       </parameter>
+      <parameter key="Vich\UploaderBundle\DataCollector\MappingCollector" type="collection">
+        <parameter>vich_uploader.mapping_collector</parameter>
+        <parameter>@VichUploader/Collector/mapping_collector.html.twig</parameter>
+      </parameter>
       <parameter key="data_collector.config" type="collection">
         <parameter>config</parameter>
         <parameter>@WebProfiler/Collector/config.html.twig</parameter>
@@ -368,12 +501,36 @@
         <argument type="service" id=".service_locator.opmh_Hv.App\Controller\Admin\CreatureCrudController"/>
       </call>
     </service>
+    <service id="App\Controller\Admin\DashCrudController" class="App\Controller\Admin\DashCrudController" public="true" autowire="true" autoconfigure="true">
+      <tag name="ea.crud_controller"/>
+      <tag name="controller.service_arguments"/>
+      <tag name="container.service_subscriber"/>
+      <call method="setContainer">
+        <argument type="service" id=".service_locator.opmh_Hv.App\Controller\Admin\DashCrudController"/>
+      </call>
+    </service>
     <service id="App\Controller\Admin\DashboardController" class="App\Controller\Admin\DashboardController" public="true" autowire="true" autoconfigure="true">
       <tag name="ea.dashboard_controller"/>
       <tag name="controller.service_arguments"/>
       <tag name="container.service_subscriber"/>
       <call method="setContainer">
         <argument type="service" id=".service_locator.wPLAlW_.App\Controller\Admin\DashboardController"/>
+      </call>
+    </service>
+    <service id="App\Controller\Admin\EncounterCrudController" class="App\Controller\Admin\EncounterCrudController" public="true" autowire="true" autoconfigure="true">
+      <tag name="ea.crud_controller"/>
+      <tag name="controller.service_arguments"/>
+      <tag name="container.service_subscriber"/>
+      <call method="setContainer">
+        <argument type="service" id=".service_locator.opmh_Hv.App\Controller\Admin\EncounterCrudController"/>
+      </call>
+    </service>
+    <service id="App\Controller\Admin\GameCrudController" class="App\Controller\Admin\GameCrudController" public="true" autowire="true" autoconfigure="true">
+      <tag name="ea.crud_controller"/>
+      <tag name="controller.service_arguments"/>
+      <tag name="container.service_subscriber"/>
+      <call method="setContainer">
+        <argument type="service" id=".service_locator.opmh_Hv.App\Controller\Admin\GameCrudController"/>
       </call>
     </service>
     <service id="App\Controller\Admin\ItemCrudController" class="App\Controller\Admin\ItemCrudController" public="true" autowire="true" autoconfigure="true">
@@ -439,12 +596,18 @@
         <argument type="service" id=".service_locator.W9y3dzm.App\Controller\CreatureController"/>
       </call>
     </service>
-    <service id="App\Controller\DashboardController" class="App\Controller\DashboardController" public="true" autowire="true" autoconfigure="true">
+    <service id="App\Controller\DashController" class="App\Controller\DashController" public="true" autowire="true" autoconfigure="true">
       <tag name="controller.service_arguments"/>
       <tag name="container.service_subscriber"/>
-      <argument type="service" id="twig"/>
       <call method="setContainer">
-        <argument type="service" id=".service_locator.W9y3dzm.App\Controller\DashboardController"/>
+        <argument type="service" id=".service_locator.W9y3dzm.App\Controller\DashController"/>
+      </call>
+    </service>
+    <service id="App\Controller\EncounterController" class="App\Controller\EncounterController" public="true" autowire="true" autoconfigure="true">
+      <tag name="controller.service_arguments"/>
+      <tag name="container.service_subscriber"/>
+      <call method="setContainer">
+        <argument type="service" id=".service_locator.W9y3dzm.App\Controller\EncounterController"/>
       </call>
     </service>
     <service id="App\Controller\GameController" class="App\Controller\GameController" public="true" autowire="true" autoconfigure="true">
@@ -536,8 +699,16 @@
       <argument type="service" id="App\Repository\ItemRepository"/>
       <argument type="service" id="App\Repository\LocationRepository"/>
       <argument type="service" id="App\Repository\OtherRepository"/>
+      <argument type="service" id="App\Repository\DashRepository"/>
+      <argument type="service" id="App\Repository\GameRepository"/>
     </service>
     <service id="App\Form\CreatureType" class="App\Form\CreatureType" autowire="true" autoconfigure="true">
+      <tag name="form.type"/>
+    </service>
+    <service id="App\Form\DashType" class="App\Form\DashType" autowire="true" autoconfigure="true">
+      <tag name="form.type"/>
+    </service>
+    <service id="App\Form\EncounterType" class="App\Form\EncounterType" autowire="true" autoconfigure="true">
       <tag name="form.type"/>
     </service>
     <service id="App\Form\GameType" class="App\Form\GameType" autowire="true" autoconfigure="true">
@@ -576,7 +747,11 @@
       <tag name="doctrine.repository_service"/>
       <argument type="service" id="doctrine"/>
     </service>
-    <service id="App\Repository\DashboardRepository" class="App\Repository\DashboardRepository" autowire="true" autoconfigure="true">
+    <service id="App\Repository\DashRepository" class="App\Repository\DashRepository" autowire="true" autoconfigure="true">
+      <tag name="doctrine.repository_service"/>
+      <argument type="service" id="doctrine"/>
+    </service>
+    <service id="App\Repository\EncounterRepository" class="App\Repository\EncounterRepository" autowire="true" autoconfigure="true">
       <tag name="doctrine.repository_service"/>
       <argument type="service" id="doctrine"/>
     </service>
@@ -1216,9 +1391,12 @@
         <argument>App\Form</argument>
         <argument>Symfony\Bridge\Doctrine\Form\Type</argument>
         <argument>EasyCorp\Bundle\EasyAdminBundle\Form\Type</argument>
+        <argument>Vich\UploaderBundle\Form\Type</argument>
       </argument>
       <argument type="collection">
         <argument>App\Form\CreatureType</argument>
+        <argument>App\Form\DashType</argument>
+        <argument>App\Form\EncounterType</argument>
         <argument>App\Form\GameType</argument>
         <argument>App\Form\ItemType</argument>
         <argument>App\Form\LocationType</argument>
@@ -1235,6 +1413,8 @@
         <argument>EasyCorp\Bundle\EasyAdminBundle\Form\Type\FiltersFormType</argument>
         <argument>EasyCorp\Bundle\EasyAdminBundle\Form\Type\FileUploadType</argument>
         <argument>EasyCorp\Bundle\EasyAdminBundle\Form\Type\CrudFormType</argument>
+        <argument>Vich\UploaderBundle\Form\Type\VichFileType</argument>
+        <argument>Vich\UploaderBundle\Form\Type\VichImageType</argument>
       </argument>
       <argument type="collection">
         <argument>Symfony\Component\Form\Extension\Core\Type\TransformationFailureExtension</argument>
@@ -1639,7 +1819,7 @@
       <argument type="service" id="form.registry"/>
     </service>
     <service id="form.extension" class="Symfony\Component\Form\Extension\DependencyInjection\DependencyInjectionExtension">
-      <argument type="service" id=".service_locator.PxZUg00"/>
+      <argument type="service" id=".service_locator.W3Dlkc0"/>
       <argument type="collection">
         <argument key="Symfony\Component\Form\Extension\Core\Type\FormType" type="iterator">
           <argument type="service" id="form.type_extension.form.transformation_failure_handling"/>
@@ -2078,6 +2258,7 @@
             <argument>/var/www/html/vendor/symfony/form/Resources/translations/validators.ar.xlf</argument>
             <argument>/var/www/html/vendor/symfony/security-core/Resources/translations/security.ar.xlf</argument>
             <argument>/var/www/html/vendor/easycorp/easyadmin-bundle/src/Resources/translations/EasyAdminBundle.ar.php</argument>
+            <argument>/var/www/html/vendor/vich/uploader-bundle/translations/messages.ar.yaml</argument>
           </argument>
           <argument key="az" type="collection">
             <argument>/var/www/html/vendor/symfony/validator/Resources/translations/validators.az.xlf</argument>
@@ -2094,6 +2275,7 @@
             <argument>/var/www/html/vendor/symfony/form/Resources/translations/validators.bg.xlf</argument>
             <argument>/var/www/html/vendor/symfony/security-core/Resources/translations/security.bg.xlf</argument>
             <argument>/var/www/html/vendor/easycorp/easyadmin-bundle/src/Resources/translations/EasyAdminBundle.bg.php</argument>
+            <argument>/var/www/html/vendor/vich/uploader-bundle/translations/messages.bg.yaml</argument>
           </argument>
           <argument key="bs" type="collection">
             <argument>/var/www/html/vendor/symfony/validator/Resources/translations/validators.bs.xlf</argument>
@@ -2105,12 +2287,14 @@
             <argument>/var/www/html/vendor/symfony/form/Resources/translations/validators.ca.xlf</argument>
             <argument>/var/www/html/vendor/symfony/security-core/Resources/translations/security.ca.xlf</argument>
             <argument>/var/www/html/vendor/easycorp/easyadmin-bundle/src/Resources/translations/EasyAdminBundle.ca.php</argument>
+            <argument>/var/www/html/vendor/vich/uploader-bundle/translations/messages.ca.yaml</argument>
           </argument>
           <argument key="cs" type="collection">
             <argument>/var/www/html/vendor/symfony/validator/Resources/translations/validators.cs.xlf</argument>
             <argument>/var/www/html/vendor/symfony/form/Resources/translations/validators.cs.xlf</argument>
             <argument>/var/www/html/vendor/symfony/security-core/Resources/translations/security.cs.xlf</argument>
             <argument>/var/www/html/vendor/easycorp/easyadmin-bundle/src/Resources/translations/EasyAdminBundle.cs.php</argument>
+            <argument>/var/www/html/vendor/vich/uploader-bundle/translations/messages.cs.yaml</argument>
           </argument>
           <argument key="cy" type="collection">
             <argument>/var/www/html/vendor/symfony/validator/Resources/translations/validators.cy.xlf</argument>
@@ -2126,6 +2310,7 @@
             <argument>/var/www/html/vendor/symfony/form/Resources/translations/validators.de.xlf</argument>
             <argument>/var/www/html/vendor/symfony/security-core/Resources/translations/security.de.xlf</argument>
             <argument>/var/www/html/vendor/easycorp/easyadmin-bundle/src/Resources/translations/EasyAdminBundle.de.php</argument>
+            <argument>/var/www/html/vendor/vich/uploader-bundle/translations/messages.de.yaml</argument>
           </argument>
           <argument key="el" type="collection">
             <argument>/var/www/html/vendor/symfony/validator/Resources/translations/validators.el.xlf</argument>
@@ -2138,12 +2323,14 @@
             <argument>/var/www/html/vendor/symfony/form/Resources/translations/validators.en.xlf</argument>
             <argument>/var/www/html/vendor/symfony/security-core/Resources/translations/security.en.xlf</argument>
             <argument>/var/www/html/vendor/easycorp/easyadmin-bundle/src/Resources/translations/EasyAdminBundle.en.php</argument>
+            <argument>/var/www/html/vendor/vich/uploader-bundle/translations/messages.en.yaml</argument>
           </argument>
           <argument key="es" type="collection">
             <argument>/var/www/html/vendor/symfony/validator/Resources/translations/validators.es.xlf</argument>
             <argument>/var/www/html/vendor/symfony/form/Resources/translations/validators.es.xlf</argument>
             <argument>/var/www/html/vendor/symfony/security-core/Resources/translations/security.es.xlf</argument>
             <argument>/var/www/html/vendor/easycorp/easyadmin-bundle/src/Resources/translations/EasyAdminBundle.es.php</argument>
+            <argument>/var/www/html/vendor/vich/uploader-bundle/translations/messages.es.yaml</argument>
           </argument>
           <argument key="et" type="collection">
             <argument>/var/www/html/vendor/symfony/validator/Resources/translations/validators.et.xlf</argument>
@@ -2166,12 +2353,14 @@
             <argument>/var/www/html/vendor/symfony/form/Resources/translations/validators.fi.xlf</argument>
             <argument>/var/www/html/vendor/symfony/security-core/Resources/translations/security.fi.xlf</argument>
             <argument>/var/www/html/vendor/easycorp/easyadmin-bundle/src/Resources/translations/EasyAdminBundle.fi.php</argument>
+            <argument>/var/www/html/vendor/vich/uploader-bundle/translations/messages.fi.yaml</argument>
           </argument>
           <argument key="fr" type="collection">
             <argument>/var/www/html/vendor/symfony/validator/Resources/translations/validators.fr.xlf</argument>
             <argument>/var/www/html/vendor/symfony/form/Resources/translations/validators.fr.xlf</argument>
             <argument>/var/www/html/vendor/symfony/security-core/Resources/translations/security.fr.xlf</argument>
             <argument>/var/www/html/vendor/easycorp/easyadmin-bundle/src/Resources/translations/EasyAdminBundle.fr.php</argument>
+            <argument>/var/www/html/vendor/vich/uploader-bundle/translations/messages.fr.yaml</argument>
           </argument>
           <argument key="gl" type="collection">
             <argument>/var/www/html/vendor/symfony/validator/Resources/translations/validators.gl.xlf</argument>
@@ -2195,6 +2384,7 @@
             <argument>/var/www/html/vendor/symfony/form/Resources/translations/validators.hu.xlf</argument>
             <argument>/var/www/html/vendor/symfony/security-core/Resources/translations/security.hu.xlf</argument>
             <argument>/var/www/html/vendor/easycorp/easyadmin-bundle/src/Resources/translations/EasyAdminBundle.hu.php</argument>
+            <argument>/var/www/html/vendor/vich/uploader-bundle/translations/messages.hu.yaml</argument>
           </argument>
           <argument key="hy" type="collection">
             <argument>/var/www/html/vendor/symfony/validator/Resources/translations/validators.hy.xlf</argument>
@@ -2211,6 +2401,7 @@
             <argument>/var/www/html/vendor/symfony/form/Resources/translations/validators.it.xlf</argument>
             <argument>/var/www/html/vendor/symfony/security-core/Resources/translations/security.it.xlf</argument>
             <argument>/var/www/html/vendor/easycorp/easyadmin-bundle/src/Resources/translations/EasyAdminBundle.it.php</argument>
+            <argument>/var/www/html/vendor/vich/uploader-bundle/translations/messages.it.yaml</argument>
           </argument>
           <argument key="ja" type="collection">
             <argument>/var/www/html/vendor/symfony/validator/Resources/translations/validators.ja.xlf</argument>
@@ -2227,6 +2418,7 @@
             <argument>/var/www/html/vendor/symfony/form/Resources/translations/validators.lt.xlf</argument>
             <argument>/var/www/html/vendor/symfony/security-core/Resources/translations/security.lt.xlf</argument>
             <argument>/var/www/html/vendor/easycorp/easyadmin-bundle/src/Resources/translations/EasyAdminBundle.lt.php</argument>
+            <argument>/var/www/html/vendor/vich/uploader-bundle/translations/messages.lt.yaml</argument>
           </argument>
           <argument key="lv" type="collection">
             <argument>/var/www/html/vendor/symfony/validator/Resources/translations/validators.lv.xlf</argument>
@@ -2248,6 +2440,7 @@
             <argument>/var/www/html/vendor/symfony/form/Resources/translations/validators.nl.xlf</argument>
             <argument>/var/www/html/vendor/symfony/security-core/Resources/translations/security.nl.xlf</argument>
             <argument>/var/www/html/vendor/easycorp/easyadmin-bundle/src/Resources/translations/EasyAdminBundle.nl.php</argument>
+            <argument>/var/www/html/vendor/vich/uploader-bundle/translations/messages.nl.yaml</argument>
           </argument>
           <argument key="nn" type="collection">
             <argument>/var/www/html/vendor/symfony/validator/Resources/translations/validators.nn.xlf</argument>
@@ -2265,12 +2458,14 @@
             <argument>/var/www/html/vendor/symfony/form/Resources/translations/validators.pl.xlf</argument>
             <argument>/var/www/html/vendor/symfony/security-core/Resources/translations/security.pl.xlf</argument>
             <argument>/var/www/html/vendor/easycorp/easyadmin-bundle/src/Resources/translations/EasyAdminBundle.pl.php</argument>
+            <argument>/var/www/html/vendor/vich/uploader-bundle/translations/messages.pl.yaml</argument>
           </argument>
           <argument key="pt" type="collection">
             <argument>/var/www/html/vendor/symfony/validator/Resources/translations/validators.pt.xlf</argument>
             <argument>/var/www/html/vendor/symfony/form/Resources/translations/validators.pt.xlf</argument>
             <argument>/var/www/html/vendor/symfony/security-core/Resources/translations/security.pt.xlf</argument>
             <argument>/var/www/html/vendor/easycorp/easyadmin-bundle/src/Resources/translations/EasyAdminBundle.pt.php</argument>
+            <argument>/var/www/html/vendor/vich/uploader-bundle/translations/messages.pt.yaml</argument>
           </argument>
           <argument key="pt_BR" type="collection">
             <argument>/var/www/html/vendor/symfony/validator/Resources/translations/validators.pt_BR.xlf</argument>
@@ -2289,6 +2484,7 @@
             <argument>/var/www/html/vendor/symfony/form/Resources/translations/validators.ru.xlf</argument>
             <argument>/var/www/html/vendor/symfony/security-core/Resources/translations/security.ru.xlf</argument>
             <argument>/var/www/html/vendor/easycorp/easyadmin-bundle/src/Resources/translations/EasyAdminBundle.ru.php</argument>
+            <argument>/var/www/html/vendor/vich/uploader-bundle/translations/messages.ru.yaml</argument>
           </argument>
           <argument key="sk" type="collection">
             <argument>/var/www/html/vendor/symfony/validator/Resources/translations/validators.sk.xlf</argument>
@@ -2300,6 +2496,7 @@
             <argument>/var/www/html/vendor/symfony/form/Resources/translations/validators.sl.xlf</argument>
             <argument>/var/www/html/vendor/symfony/security-core/Resources/translations/security.sl.xlf</argument>
             <argument>/var/www/html/vendor/easycorp/easyadmin-bundle/src/Resources/translations/EasyAdminBundle.sl.php</argument>
+            <argument>/var/www/html/vendor/vich/uploader-bundle/translations/messages.sl.yaml</argument>
           </argument>
           <argument key="sq" type="collection">
             <argument>/var/www/html/vendor/symfony/validator/Resources/translations/validators.sq.xlf</argument>
@@ -2337,12 +2534,14 @@
             <argument>/var/www/html/vendor/symfony/form/Resources/translations/validators.tr.xlf</argument>
             <argument>/var/www/html/vendor/symfony/security-core/Resources/translations/security.tr.xlf</argument>
             <argument>/var/www/html/vendor/easycorp/easyadmin-bundle/src/Resources/translations/EasyAdminBundle.tr.php</argument>
+            <argument>/var/www/html/vendor/vich/uploader-bundle/translations/messages.tr.yaml</argument>
           </argument>
           <argument key="uk" type="collection">
             <argument>/var/www/html/vendor/symfony/validator/Resources/translations/validators.uk.xlf</argument>
             <argument>/var/www/html/vendor/symfony/form/Resources/translations/validators.uk.xlf</argument>
             <argument>/var/www/html/vendor/symfony/security-core/Resources/translations/security.uk.xlf</argument>
             <argument>/var/www/html/vendor/easycorp/easyadmin-bundle/src/Resources/translations/EasyAdminBundle.uk.php</argument>
+            <argument>/var/www/html/vendor/vich/uploader-bundle/translations/messages.uk.yaml</argument>
           </argument>
           <argument key="uz" type="collection">
             <argument>/var/www/html/vendor/symfony/validator/Resources/translations/validators.uz.xlf</argument>
@@ -2368,12 +2567,16 @@
           <argument key="sr_RS" type="collection">
             <argument>/var/www/html/vendor/easycorp/easyadmin-bundle/src/Resources/translations/EasyAdminBundle.sr_RS.php</argument>
           </argument>
+          <argument key="vn" type="collection">
+            <argument>/var/www/html/vendor/vich/uploader-bundle/translations/messages.vn.yaml</argument>
+          </argument>
         </argument>
         <argument key="scanned_directories" type="collection">
           <argument>/var/www/html/vendor/symfony/validator/Resources/translations</argument>
           <argument>/var/www/html/vendor/symfony/form/Resources/translations</argument>
           <argument>/var/www/html/vendor/symfony/security-core/Resources/translations</argument>
           <argument>/var/www/html/vendor/easycorp/easyadmin-bundle/src/Resources/translations</argument>
+          <argument>/var/www/html/vendor/vich/uploader-bundle/translations</argument>
           <argument>/var/www/html/translations</argument>
           <argument>/var/www/html/vendor/symfony/framework-bundle/translations</argument>
           <argument>/var/www/html/vendor/sensio/framework-extra-bundle/src/translations</argument>
@@ -2394,6 +2597,7 @@
             <argument>vendor/symfony/form/Resources/translations</argument>
             <argument>vendor/symfony/security-core/Resources/translations</argument>
             <argument>vendor/easycorp/easyadmin-bundle/src/Resources/translations</argument>
+            <argument>vendor/vich/uploader-bundle/translations</argument>
             <argument>translations</argument>
             <argument>vendor/symfony/framework-bundle/translations</argument>
             <argument>vendor/sensio/framework-extra-bundle/src/translations</argument>
@@ -2692,6 +2896,9 @@
       </call>
       <call method="add">
         <argument type="service" id="EasyCorp\Bundle\EasyAdminBundle\Inspector\DataCollector"/>
+      </call>
+      <call method="add">
+        <argument type="service" id="Vich\UploaderBundle\DataCollector\MappingCollector"/>
       </call>
       <call method="add">
         <argument type="service" id="data_collector.config"/>
@@ -4027,6 +4234,9 @@
       <call method="addExtension">
         <argument type="service" id="webpack_encore.twig_stimulus_extension"/>
       </call>
+      <call method="addExtension">
+        <argument type="service" id="Vich\UploaderBundle\Twig\Extension\UploaderExtension"/>
+      </call>
       <call method="addGlobal">
         <argument>app</argument>
         <argument type="service" id="twig.app_variable"/>
@@ -4133,6 +4343,14 @@
       <call method="addPath">
         <argument>/var/www/html/vendor/easycorp/easyadmin-bundle/src/Resources/views</argument>
         <argument>!EasyAdmin</argument>
+      </call>
+      <call method="addPath">
+        <argument>/var/www/html/vendor/vich/uploader-bundle/templates</argument>
+        <argument>VichUploader</argument>
+      </call>
+      <call method="addPath">
+        <argument>/var/www/html/vendor/vich/uploader-bundle/templates</argument>
+        <argument>!VichUploader</argument>
       </call>
       <call method="addPath">
         <argument>/var/www/html/templates</argument>
@@ -4553,6 +4771,10 @@
             <argument>App\Entity</argument>
             <argument type="service" id="doctrine.orm.default_annotation_metadata_driver"/>
           </argument>
+          <argument type="collection">
+            <argument>Vich\UploaderBundle\Entity</argument>
+            <argument type="service" id="doctrine.orm.default_annotation_metadata_driver"/>
+          </argument>
         </argument>
       </argument>
     </service>
@@ -4780,10 +5002,31 @@
       </argument>
     </service>
     <service id="doctrine.dbal.default_connection.event_manager" class="Symfony\Bridge\Doctrine\ContainerAwareEventManager">
-      <argument type="service" id=".service_locator.VPhYdBw"/>
+      <argument type="service" id=".service_locator.4Ad2bu8"/>
       <argument type="collection">
+        <argument>vich_uploader.listener.clean.npc_image</argument>
+        <argument>vich_uploader.listener.clean.player_image</argument>
+        <argument>vich_uploader.listener.clean.creature_image</argument>
+        <argument>vich_uploader.listener.clean.location_image</argument>
+        <argument>vich_uploader.listener.clean.item_image</argument>
+        <argument>vich_uploader.listener.clean.other_image</argument>
+        <argument>vich_uploader.listener.clean.background_image</argument>
         <argument>doctrine.orm.listeners.pdo_cache_adapter_doctrine_schema_subscriber</argument>
         <argument>doctrine.orm.listeners.doctrine_token_provider_schema_subscriber</argument>
+        <argument>vich_uploader.listener.remove.npc_image</argument>
+        <argument>vich_uploader.listener.upload.npc_image</argument>
+        <argument>vich_uploader.listener.remove.player_image</argument>
+        <argument>vich_uploader.listener.upload.player_image</argument>
+        <argument>vich_uploader.listener.remove.creature_image</argument>
+        <argument>vich_uploader.listener.upload.creature_image</argument>
+        <argument>vich_uploader.listener.remove.location_image</argument>
+        <argument>vich_uploader.listener.upload.location_image</argument>
+        <argument>vich_uploader.listener.remove.item_image</argument>
+        <argument>vich_uploader.listener.upload.item_image</argument>
+        <argument>vich_uploader.listener.remove.other_image</argument>
+        <argument>vich_uploader.listener.upload.other_image</argument>
+        <argument>vich_uploader.listener.remove.background_image</argument>
+        <argument>vich_uploader.listener.upload.background_image</argument>
         <argument type="collection">
           <argument type="collection">
             <argument>loadClassMetadata</argument>
@@ -4841,7 +5084,7 @@
       <factory class="Doctrine\ORM\EntityManager" method="create"/>
     </service>
     <service id="doctrine.orm.container_repository_factory" class="Doctrine\Bundle\DoctrineBundle\Repository\ContainerRepositoryFactory">
-      <argument type="service" id=".service_locator.fDOAJ0E"/>
+      <argument type="service" id=".service_locator.2XrFAl9"/>
     </service>
     <service id="doctrine.orm.manager_configurator.abstract" class="Doctrine\Bundle\DoctrineBundle\ManagerConfigurator" abstract="true">
       <argument type="collection"/>
@@ -4995,6 +5238,7 @@
       <call method="setEntityNamespaces">
         <argument type="collection">
           <argument key="App">App\Entity</argument>
+          <argument key="VichUploaderBundle">Vich\UploaderBundle\Entity</argument>
         </argument>
       </call>
       <call method="setMetadataCache">
@@ -5041,6 +5285,7 @@
       <argument type="service" id="annotations.cached_reader"/>
       <argument type="collection">
         <argument>/var/www/html/src/Entity</argument>
+        <argument>/var/www/html/vendor/vich/uploader-bundle/src/Entity</argument>
       </argument>
     </service>
     <service id="cache.doctrine.orm.default.metadata" class="Symfony\Component\Cache\Adapter\ArrayAdapter"/>
@@ -5481,6 +5726,69 @@
       </call>
       <call method="add">
         <argument type="service" id=".security.request_matcher.yu7voiQ"/>
+        <argument type="collection">
+          <argument>ROLE_ADMIN</argument>
+        </argument>
+        <argument>null</argument>
+      </call>
+      <call method="add">
+        <argument type="service" id=".security.request_matcher.6R3x814"/>
+        <argument type="collection">
+          <argument>ROLE_ADMIN</argument>
+        </argument>
+        <argument>null</argument>
+      </call>
+      <call method="add">
+        <argument type="service" id=".security.request_matcher.loFGQ8i"/>
+        <argument type="collection">
+          <argument>ROLE_ADMIN</argument>
+        </argument>
+        <argument>null</argument>
+      </call>
+      <call method="add">
+        <argument type="service" id=".security.request_matcher.XUyevKf"/>
+        <argument type="collection">
+          <argument>ROLE_ADMIN</argument>
+        </argument>
+        <argument>null</argument>
+      </call>
+      <call method="add">
+        <argument type="service" id=".security.request_matcher.w_qyYqY"/>
+        <argument type="collection">
+          <argument>ROLE_ADMIN</argument>
+        </argument>
+        <argument>null</argument>
+      </call>
+      <call method="add">
+        <argument type="service" id=".security.request_matcher.fVOnAmD"/>
+        <argument type="collection">
+          <argument>ROLE_ADMIN</argument>
+        </argument>
+        <argument>null</argument>
+      </call>
+      <call method="add">
+        <argument type="service" id=".security.request_matcher.ENzL7IB"/>
+        <argument type="collection">
+          <argument>ROLE_ADMIN</argument>
+        </argument>
+        <argument>null</argument>
+      </call>
+      <call method="add">
+        <argument type="service" id=".security.request_matcher.ZSjhQr1"/>
+        <argument type="collection">
+          <argument>ROLE_ADMIN</argument>
+        </argument>
+        <argument>null</argument>
+      </call>
+      <call method="add">
+        <argument type="service" id=".security.request_matcher.ENzL7IB"/>
+        <argument type="collection">
+          <argument>ROLE_ADMIN</argument>
+        </argument>
+        <argument>null</argument>
+      </call>
+      <call method="add">
+        <argument type="service" id=".security.request_matcher.ZvhdN3C"/>
         <argument type="collection">
           <argument>ROLE_ADMIN</argument>
         </argument>
@@ -6093,6 +6401,30 @@
     <service id=".security.request_matcher.yu7voiQ" class="Symfony\Component\HttpFoundation\RequestMatcher">
       <argument>^/private-dashboard</argument>
     </service>
+    <service id=".security.request_matcher.6R3x814" class="Symfony\Component\HttpFoundation\RequestMatcher">
+      <argument>^/control</argument>
+    </service>
+    <service id=".security.request_matcher.loFGQ8i" class="Symfony\Component\HttpFoundation\RequestMatcher">
+      <argument>^/dash/player-display-control</argument>
+    </service>
+    <service id=".security.request_matcher.XUyevKf" class="Symfony\Component\HttpFoundation\RequestMatcher">
+      <argument>^/game</argument>
+    </service>
+    <service id=".security.request_matcher.w_qyYqY" class="Symfony\Component\HttpFoundation\RequestMatcher">
+      <argument>^/npc</argument>
+    </service>
+    <service id=".security.request_matcher.fVOnAmD" class="Symfony\Component\HttpFoundation\RequestMatcher">
+      <argument>^/creature</argument>
+    </service>
+    <service id=".security.request_matcher.ENzL7IB" class="Symfony\Component\HttpFoundation\RequestMatcher">
+      <argument>^/location</argument>
+    </service>
+    <service id=".security.request_matcher.ZSjhQr1" class="Symfony\Component\HttpFoundation\RequestMatcher">
+      <argument>^/item</argument>
+    </service>
+    <service id=".security.request_matcher.ZvhdN3C" class="Symfony\Component\HttpFoundation\RequestMatcher">
+      <argument>^/player</argument>
+    </service>
     <service id="security.command.user_password_encoder" class="Symfony\Bundle\SecurityBundle\Command\UserPasswordEncoderCommand">
       <tag name="console.command" command="security:encode-password"/>
       <tag name="container.no_preload"/>
@@ -6518,6 +6850,395 @@
         <argument key="_default" type="service_closure" id="webpack_encore.entrypoint_lookup[_default]"/>
       </argument>
     </service>
+    <service id="Vich\UploaderBundle\Naming\SmartUniqueNamer.npc_image" class="Vich\UploaderBundle\Naming\SmartUniqueNamer" public="true">
+      <argument type="service" id="Vich\UploaderBundle\Util\Transliterator"/>
+    </service>
+    <service id="Vich\UploaderBundle\Naming\SmartUniqueNamer.player_image" class="Vich\UploaderBundle\Naming\SmartUniqueNamer" public="true">
+      <argument type="service" id="Vich\UploaderBundle\Util\Transliterator"/>
+    </service>
+    <service id="Vich\UploaderBundle\Naming\SmartUniqueNamer.creature_image" class="Vich\UploaderBundle\Naming\SmartUniqueNamer" public="true">
+      <argument type="service" id="Vich\UploaderBundle\Util\Transliterator"/>
+    </service>
+    <service id="Vich\UploaderBundle\Naming\SmartUniqueNamer.location_image" class="Vich\UploaderBundle\Naming\SmartUniqueNamer" public="true">
+      <argument type="service" id="Vich\UploaderBundle\Util\Transliterator"/>
+    </service>
+    <service id="Vich\UploaderBundle\Naming\SmartUniqueNamer.item_image" class="Vich\UploaderBundle\Naming\SmartUniqueNamer" public="true">
+      <argument type="service" id="Vich\UploaderBundle\Util\Transliterator"/>
+    </service>
+    <service id="Vich\UploaderBundle\Naming\SmartUniqueNamer.other_image" class="Vich\UploaderBundle\Naming\SmartUniqueNamer" public="true">
+      <argument type="service" id="Vich\UploaderBundle\Util\Transliterator"/>
+    </service>
+    <service id="Vich\UploaderBundle\Naming\SmartUniqueNamer.background_image" class="Vich\UploaderBundle\Naming\SmartUniqueNamer" public="true">
+      <argument type="service" id="Vich\UploaderBundle\Util\Transliterator"/>
+    </service>
+    <service id="vich_uploader.adapter.mongodb" class="Vich\UploaderBundle\Adapter\ODM\MongoDB\MongoDBAdapter"/>
+    <service id="vich_uploader.adapter.orm" class="Vich\UploaderBundle\Adapter\ORM\DoctrineORMAdapter"/>
+    <service id="vich_uploader.adapter.phpcr" class="Vich\UploaderBundle\Adapter\PHPCR\PHPCRAdapter"/>
+    <service id="vich_uploader.listener.doctrine.base" abstract="true">
+      <argument></argument>
+      <argument></argument>
+      <argument type="service" id="vich_uploader.metadata_reader"/>
+      <argument type="service" id="vich_uploader.upload_handler"/>
+    </service>
+    <service id="vich_uploader.listener.inject.orm" class="Vich\UploaderBundle\EventListener\Doctrine\InjectListener">
+      <argument></argument>
+      <argument></argument>
+      <argument type="service" id="vich_uploader.metadata_reader"/>
+      <argument type="service" id="vich_uploader.upload_handler"/>
+    </service>
+    <service id="vich_uploader.listener.upload.orm" class="Vich\UploaderBundle\EventListener\Doctrine\UploadListener">
+      <argument></argument>
+      <argument></argument>
+      <argument type="service" id="vich_uploader.metadata_reader"/>
+      <argument type="service" id="vich_uploader.upload_handler"/>
+    </service>
+    <service id="vich_uploader.listener.clean.orm" class="Vich\UploaderBundle\EventListener\Doctrine\CleanListener">
+      <argument></argument>
+      <argument></argument>
+      <argument type="service" id="vich_uploader.metadata_reader"/>
+      <argument type="service" id="vich_uploader.upload_handler"/>
+    </service>
+    <service id="vich_uploader.listener.remove.orm" class="Vich\UploaderBundle\EventListener\Doctrine\RemoveListener">
+      <argument></argument>
+      <argument></argument>
+      <argument type="service" id="vich_uploader.metadata_reader"/>
+      <argument type="service" id="vich_uploader.upload_handler"/>
+    </service>
+    <service id="vich_uploader.listener.inject.mongodb" class="Vich\UploaderBundle\EventListener\Doctrine\InjectListener">
+      <argument></argument>
+      <argument></argument>
+      <argument type="service" id="vich_uploader.metadata_reader"/>
+      <argument type="service" id="vich_uploader.upload_handler"/>
+    </service>
+    <service id="vich_uploader.listener.upload.mongodb" class="Vich\UploaderBundle\EventListener\Doctrine\UploadListener">
+      <argument></argument>
+      <argument></argument>
+      <argument type="service" id="vich_uploader.metadata_reader"/>
+      <argument type="service" id="vich_uploader.upload_handler"/>
+    </service>
+    <service id="vich_uploader.listener.clean.mongodb" class="Vich\UploaderBundle\EventListener\Doctrine\CleanListener">
+      <argument></argument>
+      <argument></argument>
+      <argument type="service" id="vich_uploader.metadata_reader"/>
+      <argument type="service" id="vich_uploader.upload_handler"/>
+    </service>
+    <service id="vich_uploader.listener.remove.mongodb" class="Vich\UploaderBundle\EventListener\Doctrine\RemoveListener">
+      <argument></argument>
+      <argument></argument>
+      <argument type="service" id="vich_uploader.metadata_reader"/>
+      <argument type="service" id="vich_uploader.upload_handler"/>
+    </service>
+    <service id="vich_uploader.listener.inject.phpcr" class="Vich\UploaderBundle\EventListener\Doctrine\InjectListener">
+      <argument></argument>
+      <argument></argument>
+      <argument type="service" id="vich_uploader.metadata_reader"/>
+      <argument type="service" id="vich_uploader.upload_handler"/>
+    </service>
+    <service id="vich_uploader.listener.upload.phpcr" class="Vich\UploaderBundle\EventListener\Doctrine\UploadListener">
+      <argument></argument>
+      <argument></argument>
+      <argument type="service" id="vich_uploader.metadata_reader"/>
+      <argument type="service" id="vich_uploader.upload_handler"/>
+    </service>
+    <service id="vich_uploader.listener.clean.phpcr" class="Vich\UploaderBundle\EventListener\Doctrine\CleanListener">
+      <argument></argument>
+      <argument></argument>
+      <argument type="service" id="vich_uploader.metadata_reader"/>
+      <argument type="service" id="vich_uploader.upload_handler"/>
+    </service>
+    <service id="vich_uploader.listener.remove.phpcr" class="Vich\UploaderBundle\EventListener\Doctrine\RemoveListener">
+      <argument></argument>
+      <argument></argument>
+      <argument type="service" id="vich_uploader.metadata_reader"/>
+      <argument type="service" id="vich_uploader.upload_handler"/>
+    </service>
+    <service id="vich_uploader.storage.file_system" class="Vich\UploaderBundle\Storage\FileSystemStorage">
+      <argument type="service" id="vich_uploader.property_mapping_factory"/>
+    </service>
+    <service id="vich_uploader.file_injector" class="Vich\UploaderBundle\Injector\FileInjector">
+      <argument type="service" id="vich_uploader.storage.file_system"/>
+    </service>
+    <service id="vich_uploader.metadata.file_locator" class="Metadata\Driver\FileLocator">
+      <argument type="collection"/>
+    </service>
+    <service id="vich_uploader.metadata_driver.annotation" class="Vich\UploaderBundle\Metadata\Driver\AnnotationDriver">
+      <argument type="service" id="annotations.cached_reader"/>
+    </service>
+    <service id="vich_uploader.metadata_driver.xml" class="Vich\UploaderBundle\Metadata\Driver\XmlDriver">
+      <argument type="service" id="vich_uploader.metadata.file_locator"/>
+    </service>
+    <service id="vich_uploader.metadata_driver.yml" class="Vich\UploaderBundle\Metadata\Driver\YmlDriver">
+      <argument type="service" id="vich_uploader.metadata.file_locator"/>
+    </service>
+    <service id="vich_uploader.metadata_driver.yaml" class="Vich\UploaderBundle\Metadata\Driver\YamlDriver">
+      <argument type="service" id="vich_uploader.metadata.file_locator"/>
+    </service>
+    <service id="vich_uploader.metadata_driver.chain" class="Metadata\Driver\DriverChain">
+      <argument type="collection">
+        <argument type="service" id="vich_uploader.metadata_driver.xml"/>
+        <argument type="service" id="vich_uploader.metadata_driver.annotation"/>
+        <argument type="service" id="vich_uploader.metadata_driver.yaml"/>
+        <argument type="service" id="vich_uploader.metadata_driver.yml"/>
+      </argument>
+    </service>
+    <service id="vich_uploader.metadata.cache.file_cache" class="Metadata\Cache\FileCache">
+      <argument>/var/www/html/var/cache/dev/vich_uploader</argument>
+    </service>
+    <service id="vich_uploader.metadata_factory" class="Metadata\MetadataFactory">
+      <argument type="service" id="vich_uploader.metadata_driver.chain"/>
+      <argument>Metadata\ClassHierarchyMetadata</argument>
+      <argument>true</argument>
+      <call method="setCache">
+        <argument type="service" id="vich_uploader.metadata.cache.file_cache" on-invalid="ignore"/>
+      </call>
+    </service>
+    <service id="vich_uploader.metadata_reader" class="Vich\UploaderBundle\Metadata\MetadataReader">
+      <argument type="service" id="vich_uploader.metadata_factory"/>
+    </service>
+    <service id="Vich\UploaderBundle\Metadata\CacheWarmer" class="Vich\UploaderBundle\Metadata\CacheWarmer">
+      <tag name="kernel.cache_warmer"/>
+      <argument>/var/www/html/var/cache/dev/vich_uploader</argument>
+      <argument type="service" id="vich_uploader.metadata_reader"/>
+    </service>
+    <service id="vich_uploader.property_mapping_factory" class="Vich\UploaderBundle\Mapping\PropertyMappingFactory">
+      <argument type="service" id="service_container"/>
+      <argument type="service" id="vich_uploader.metadata_reader"/>
+      <argument>%vich_uploader.mappings%</argument>
+      <argument>_name</argument>
+    </service>
+    <service id="Vich\UploaderBundle\Naming\UniqidNamer" class="Vich\UploaderBundle\Naming\UniqidNamer" public="true"/>
+    <service id="Vich\UploaderBundle\Naming\PropertyNamer" class="Vich\UploaderBundle\Naming\PropertyNamer" public="true">
+      <argument type="service" id="Vich\UploaderBundle\Util\Transliterator"/>
+    </service>
+    <service id="Vich\UploaderBundle\Naming\OrignameNamer" class="Vich\UploaderBundle\Naming\OrignameNamer" public="true">
+      <argument type="service" id="Vich\UploaderBundle\Util\Transliterator"/>
+    </service>
+    <service id="Vich\UploaderBundle\Naming\HashNamer" class="Vich\UploaderBundle\Naming\HashNamer" public="true"/>
+    <service id="Vich\UploaderBundle\Naming\Base64Namer" class="Vich\UploaderBundle\Naming\Base64Namer" public="true"/>
+    <service id="Vich\UploaderBundle\Naming\SubdirDirectoryNamer" class="Vich\UploaderBundle\Naming\SubdirDirectoryNamer" public="true"/>
+    <service id="Vich\UploaderBundle\Naming\PropertyDirectoryNamer" class="Vich\UploaderBundle\Naming\PropertyDirectoryNamer" public="true">
+      <argument type="service" id="property_accessor" on-invalid="null"/>
+      <argument type="service" id="Vich\UploaderBundle\Util\Transliterator"/>
+    </service>
+    <service id="vich_uploader.current_date_time_helper" class="Vich\UploaderBundle\Naming\CurrentDateTimeHelper"/>
+    <service id="Vich\UploaderBundle\Naming\CurrentDateTimeDirectoryNamer" class="Vich\UploaderBundle\Naming\CurrentDateTimeDirectoryNamer" public="true">
+      <argument type="service" id="vich_uploader.current_date_time_helper" on-invalid="null"/>
+      <argument type="service" id="property_accessor" on-invalid="null"/>
+    </service>
+    <service id="Vich\UploaderBundle\Naming\SmartUniqueNamer" class="Vich\UploaderBundle\Naming\SmartUniqueNamer" public="true">
+      <argument type="service" id="Vich\UploaderBundle\Util\Transliterator"/>
+    </service>
+    <service id="Vich\UploaderBundle\Util\Transliterator" class="Vich\UploaderBundle\Util\Transliterator">
+      <argument type="service" id="slugger"/>
+    </service>
+    <service id="vich_uploader.download_handler" class="Vich\UploaderBundle\Handler\DownloadHandler" public="true">
+      <argument type="service" id="vich_uploader.property_mapping_factory"/>
+      <argument type="service" id="vich_uploader.storage.file_system"/>
+    </service>
+    <service id="vich_uploader.upload_handler" class="Vich\UploaderBundle\Handler\UploadHandler" public="true">
+      <argument type="service" id="vich_uploader.property_mapping_factory"/>
+      <argument type="service" id="vich_uploader.storage.file_system"/>
+      <argument type="service" id="vich_uploader.file_injector"/>
+      <argument type="service" id="debug.event_dispatcher"/>
+    </service>
+    <service id="vich_uploader.command.mapping_debug_class" class="Vich\UploaderBundle\Command\MappingDebugClassCommand">
+      <tag name="console.command" command="vich:mapping:debug-class"/>
+      <tag name="container.no_preload"/>
+      <argument type="service" id="vich_uploader.metadata_reader"/>
+      <call method="setName">
+        <argument>vich:mapping:debug-class</argument>
+      </call>
+    </service>
+    <service id="vich_uploader.command.mapping_debug" class="Vich\UploaderBundle\Command\MappingDebugCommand">
+      <tag name="console.command" command="vich:mapping:debug"/>
+      <tag name="container.no_preload"/>
+      <argument>%vich_uploader.mappings%</argument>
+      <call method="setName">
+        <argument>vich:mapping:debug</argument>
+      </call>
+    </service>
+    <service id="vich_uploader.command.mapping_list_classes" class="Vich\UploaderBundle\Command\MappingListClassesCommand">
+      <tag name="console.command" command="vich:mapping:list-classes"/>
+      <tag name="container.no_preload"/>
+      <argument type="service" id="vich_uploader.metadata_reader"/>
+      <call method="setName">
+        <argument>vich:mapping:list-classes</argument>
+      </call>
+    </service>
+    <service id="Vich\UploaderBundle\DataCollector\MappingCollector" class="Vich\UploaderBundle\DataCollector\MappingCollector">
+      <tag name="data_collector" template="@VichUploader/Collector/mapping_collector.html.twig" id="vich_uploader.mapping_collector"/>
+      <argument type="service" id="vich_uploader.metadata_reader"/>
+    </service>
+    <service id="vich_uploader.form.type.file" class="Vich\UploaderBundle\Form\Type\VichFileType" public="true">
+      <tag name="form.type" alias="vich_file"/>
+      <argument type="service" id="vich_uploader.storage.file_system"/>
+      <argument type="service" id="vich_uploader.upload_handler"/>
+      <argument type="service" id="vich_uploader.property_mapping_factory"/>
+      <argument type="service" id="property_accessor"/>
+    </service>
+    <service id="vich_uploader.form.type.image" class="Vich\UploaderBundle\Form\Type\VichImageType" public="true">
+      <tag name="form.type" alias="vich_image"/>
+      <argument type="service" id="vich_uploader.storage.file_system"/>
+      <argument type="service" id="vich_uploader.upload_handler"/>
+      <argument type="service" id="vich_uploader.property_mapping_factory"/>
+      <argument type="service" id="property_accessor"/>
+      <argument>null</argument>
+    </service>
+    <service id="Vich\UploaderBundle\Templating\Helper\UploaderHelper" class="Vich\UploaderBundle\Templating\Helper\UploaderHelper">
+      <tag name="templating.helper" alias="vich_uploader"/>
+      <argument type="service" id="vich_uploader.storage.file_system"/>
+    </service>
+    <service id="Vich\UploaderBundle\Twig\Extension\UploaderExtension" class="Vich\UploaderBundle\Twig\Extension\UploaderExtension">
+      <tag name="twig.extension"/>
+      <argument type="service" id="Vich\UploaderBundle\Templating\Helper\UploaderHelper"/>
+    </service>
+    <service id="vich_uploader.listener.clean.npc_image" class="Vich\UploaderBundle\EventListener\Doctrine\CleanListener">
+      <tag name="doctrine.event_subscriber" priority="50"/>
+      <argument>npc_image</argument>
+      <argument type="service" id="vich_uploader.adapter.orm"/>
+      <argument type="service" id="vich_uploader.metadata_reader"/>
+      <argument type="service" id="vich_uploader.upload_handler"/>
+    </service>
+    <service id="vich_uploader.listener.remove.npc_image" class="Vich\UploaderBundle\EventListener\Doctrine\RemoveListener">
+      <tag name="doctrine.event_subscriber" priority="0"/>
+      <argument>npc_image</argument>
+      <argument type="service" id="vich_uploader.adapter.orm"/>
+      <argument type="service" id="vich_uploader.metadata_reader"/>
+      <argument type="service" id="vich_uploader.upload_handler"/>
+    </service>
+    <service id="vich_uploader.listener.upload.npc_image" class="Vich\UploaderBundle\EventListener\Doctrine\UploadListener">
+      <tag name="doctrine.event_subscriber" priority="0"/>
+      <argument>npc_image</argument>
+      <argument type="service" id="vich_uploader.adapter.orm"/>
+      <argument type="service" id="vich_uploader.metadata_reader"/>
+      <argument type="service" id="vich_uploader.upload_handler"/>
+    </service>
+    <service id="vich_uploader.listener.clean.player_image" class="Vich\UploaderBundle\EventListener\Doctrine\CleanListener">
+      <tag name="doctrine.event_subscriber" priority="50"/>
+      <argument>player_image</argument>
+      <argument type="service" id="vich_uploader.adapter.orm"/>
+      <argument type="service" id="vich_uploader.metadata_reader"/>
+      <argument type="service" id="vich_uploader.upload_handler"/>
+    </service>
+    <service id="vich_uploader.listener.remove.player_image" class="Vich\UploaderBundle\EventListener\Doctrine\RemoveListener">
+      <tag name="doctrine.event_subscriber" priority="0"/>
+      <argument>player_image</argument>
+      <argument type="service" id="vich_uploader.adapter.orm"/>
+      <argument type="service" id="vich_uploader.metadata_reader"/>
+      <argument type="service" id="vich_uploader.upload_handler"/>
+    </service>
+    <service id="vich_uploader.listener.upload.player_image" class="Vich\UploaderBundle\EventListener\Doctrine\UploadListener">
+      <tag name="doctrine.event_subscriber" priority="0"/>
+      <argument>player_image</argument>
+      <argument type="service" id="vich_uploader.adapter.orm"/>
+      <argument type="service" id="vich_uploader.metadata_reader"/>
+      <argument type="service" id="vich_uploader.upload_handler"/>
+    </service>
+    <service id="vich_uploader.listener.clean.creature_image" class="Vich\UploaderBundle\EventListener\Doctrine\CleanListener">
+      <tag name="doctrine.event_subscriber" priority="50"/>
+      <argument>creature_image</argument>
+      <argument type="service" id="vich_uploader.adapter.orm"/>
+      <argument type="service" id="vich_uploader.metadata_reader"/>
+      <argument type="service" id="vich_uploader.upload_handler"/>
+    </service>
+    <service id="vich_uploader.listener.remove.creature_image" class="Vich\UploaderBundle\EventListener\Doctrine\RemoveListener">
+      <tag name="doctrine.event_subscriber" priority="0"/>
+      <argument>creature_image</argument>
+      <argument type="service" id="vich_uploader.adapter.orm"/>
+      <argument type="service" id="vich_uploader.metadata_reader"/>
+      <argument type="service" id="vich_uploader.upload_handler"/>
+    </service>
+    <service id="vich_uploader.listener.upload.creature_image" class="Vich\UploaderBundle\EventListener\Doctrine\UploadListener">
+      <tag name="doctrine.event_subscriber" priority="0"/>
+      <argument>creature_image</argument>
+      <argument type="service" id="vich_uploader.adapter.orm"/>
+      <argument type="service" id="vich_uploader.metadata_reader"/>
+      <argument type="service" id="vich_uploader.upload_handler"/>
+    </service>
+    <service id="vich_uploader.listener.clean.location_image" class="Vich\UploaderBundle\EventListener\Doctrine\CleanListener">
+      <tag name="doctrine.event_subscriber" priority="50"/>
+      <argument>location_image</argument>
+      <argument type="service" id="vich_uploader.adapter.orm"/>
+      <argument type="service" id="vich_uploader.metadata_reader"/>
+      <argument type="service" id="vich_uploader.upload_handler"/>
+    </service>
+    <service id="vich_uploader.listener.remove.location_image" class="Vich\UploaderBundle\EventListener\Doctrine\RemoveListener">
+      <tag name="doctrine.event_subscriber" priority="0"/>
+      <argument>location_image</argument>
+      <argument type="service" id="vich_uploader.adapter.orm"/>
+      <argument type="service" id="vich_uploader.metadata_reader"/>
+      <argument type="service" id="vich_uploader.upload_handler"/>
+    </service>
+    <service id="vich_uploader.listener.upload.location_image" class="Vich\UploaderBundle\EventListener\Doctrine\UploadListener">
+      <tag name="doctrine.event_subscriber" priority="0"/>
+      <argument>location_image</argument>
+      <argument type="service" id="vich_uploader.adapter.orm"/>
+      <argument type="service" id="vich_uploader.metadata_reader"/>
+      <argument type="service" id="vich_uploader.upload_handler"/>
+    </service>
+    <service id="vich_uploader.listener.clean.item_image" class="Vich\UploaderBundle\EventListener\Doctrine\CleanListener">
+      <tag name="doctrine.event_subscriber" priority="50"/>
+      <argument>item_image</argument>
+      <argument type="service" id="vich_uploader.adapter.orm"/>
+      <argument type="service" id="vich_uploader.metadata_reader"/>
+      <argument type="service" id="vich_uploader.upload_handler"/>
+    </service>
+    <service id="vich_uploader.listener.remove.item_image" class="Vich\UploaderBundle\EventListener\Doctrine\RemoveListener">
+      <tag name="doctrine.event_subscriber" priority="0"/>
+      <argument>item_image</argument>
+      <argument type="service" id="vich_uploader.adapter.orm"/>
+      <argument type="service" id="vich_uploader.metadata_reader"/>
+      <argument type="service" id="vich_uploader.upload_handler"/>
+    </service>
+    <service id="vich_uploader.listener.upload.item_image" class="Vich\UploaderBundle\EventListener\Doctrine\UploadListener">
+      <tag name="doctrine.event_subscriber" priority="0"/>
+      <argument>item_image</argument>
+      <argument type="service" id="vich_uploader.adapter.orm"/>
+      <argument type="service" id="vich_uploader.metadata_reader"/>
+      <argument type="service" id="vich_uploader.upload_handler"/>
+    </service>
+    <service id="vich_uploader.listener.clean.other_image" class="Vich\UploaderBundle\EventListener\Doctrine\CleanListener">
+      <tag name="doctrine.event_subscriber" priority="50"/>
+      <argument>other_image</argument>
+      <argument type="service" id="vich_uploader.adapter.orm"/>
+      <argument type="service" id="vich_uploader.metadata_reader"/>
+      <argument type="service" id="vich_uploader.upload_handler"/>
+    </service>
+    <service id="vich_uploader.listener.remove.other_image" class="Vich\UploaderBundle\EventListener\Doctrine\RemoveListener">
+      <tag name="doctrine.event_subscriber" priority="0"/>
+      <argument>other_image</argument>
+      <argument type="service" id="vich_uploader.adapter.orm"/>
+      <argument type="service" id="vich_uploader.metadata_reader"/>
+      <argument type="service" id="vich_uploader.upload_handler"/>
+    </service>
+    <service id="vich_uploader.listener.upload.other_image" class="Vich\UploaderBundle\EventListener\Doctrine\UploadListener">
+      <tag name="doctrine.event_subscriber" priority="0"/>
+      <argument>other_image</argument>
+      <argument type="service" id="vich_uploader.adapter.orm"/>
+      <argument type="service" id="vich_uploader.metadata_reader"/>
+      <argument type="service" id="vich_uploader.upload_handler"/>
+    </service>
+    <service id="vich_uploader.listener.clean.background_image" class="Vich\UploaderBundle\EventListener\Doctrine\CleanListener">
+      <tag name="doctrine.event_subscriber" priority="50"/>
+      <argument>background_image</argument>
+      <argument type="service" id="vich_uploader.adapter.orm"/>
+      <argument type="service" id="vich_uploader.metadata_reader"/>
+      <argument type="service" id="vich_uploader.upload_handler"/>
+    </service>
+    <service id="vich_uploader.listener.remove.background_image" class="Vich\UploaderBundle\EventListener\Doctrine\RemoveListener">
+      <tag name="doctrine.event_subscriber" priority="0"/>
+      <argument>background_image</argument>
+      <argument type="service" id="vich_uploader.adapter.orm"/>
+      <argument type="service" id="vich_uploader.metadata_reader"/>
+      <argument type="service" id="vich_uploader.upload_handler"/>
+    </service>
+    <service id="vich_uploader.listener.upload.background_image" class="Vich\UploaderBundle\EventListener\Doctrine\UploadListener">
+      <tag name="doctrine.event_subscriber" priority="0"/>
+      <argument>background_image</argument>
+      <argument type="service" id="vich_uploader.adapter.orm"/>
+      <argument type="service" id="vich_uploader.metadata_reader"/>
+      <argument type="service" id="vich_uploader.upload_handler"/>
+    </service>
     <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\Admin\AdminCrudController" class="App\Controller\Admin\AdminCrudController" autowire="true" abstract="true"/>
     <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\Admin\AdminCrudController" class="App\Controller\Admin\AdminCrudController" autowire="true" abstract="true"/>
     <service id=".instanceof.EasyCorp\Bundle\EasyAdminBundle\Contracts\Controller\CrudControllerInterface.0.App\Controller\Admin\AdminCrudController" class="App\Controller\Admin\AdminCrudController" autowire="true" abstract="true"/>
@@ -6526,10 +7247,22 @@
     <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\Admin\CreatureCrudController" class="App\Controller\Admin\CreatureCrudController" autowire="true" abstract="true"/>
     <service id=".instanceof.EasyCorp\Bundle\EasyAdminBundle\Contracts\Controller\CrudControllerInterface.0.App\Controller\Admin\CreatureCrudController" class="App\Controller\Admin\CreatureCrudController" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Controller\Admin\CreatureCrudController" class="App\Controller\Admin\CreatureCrudController" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\Admin\DashCrudController" class="App\Controller\Admin\DashCrudController" autowire="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\Admin\DashCrudController" class="App\Controller\Admin\DashCrudController" autowire="true" abstract="true"/>
+    <service id=".instanceof.EasyCorp\Bundle\EasyAdminBundle\Contracts\Controller\CrudControllerInterface.0.App\Controller\Admin\DashCrudController" class="App\Controller\Admin\DashCrudController" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Controller\Admin\DashCrudController" class="App\Controller\Admin\DashCrudController" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\Admin\DashboardController" class="App\Controller\Admin\DashboardController" autowire="true" abstract="true"/>
     <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\Admin\DashboardController" class="App\Controller\Admin\DashboardController" autowire="true" abstract="true"/>
     <service id=".instanceof.EasyCorp\Bundle\EasyAdminBundle\Contracts\Controller\DashboardControllerInterface.0.App\Controller\Admin\DashboardController" class="App\Controller\Admin\DashboardController" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Controller\Admin\DashboardController" class="App\Controller\Admin\DashboardController" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\Admin\EncounterCrudController" class="App\Controller\Admin\EncounterCrudController" autowire="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\Admin\EncounterCrudController" class="App\Controller\Admin\EncounterCrudController" autowire="true" abstract="true"/>
+    <service id=".instanceof.EasyCorp\Bundle\EasyAdminBundle\Contracts\Controller\CrudControllerInterface.0.App\Controller\Admin\EncounterCrudController" class="App\Controller\Admin\EncounterCrudController" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Controller\Admin\EncounterCrudController" class="App\Controller\Admin\EncounterCrudController" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\Admin\GameCrudController" class="App\Controller\Admin\GameCrudController" autowire="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\Admin\GameCrudController" class="App\Controller\Admin\GameCrudController" autowire="true" abstract="true"/>
+    <service id=".instanceof.EasyCorp\Bundle\EasyAdminBundle\Contracts\Controller\CrudControllerInterface.0.App\Controller\Admin\GameCrudController" class="App\Controller\Admin\GameCrudController" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Controller\Admin\GameCrudController" class="App\Controller\Admin\GameCrudController" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\Admin\ItemCrudController" class="App\Controller\Admin\ItemCrudController" autowire="true" abstract="true"/>
     <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\Admin\ItemCrudController" class="App\Controller\Admin\ItemCrudController" autowire="true" abstract="true"/>
     <service id=".instanceof.EasyCorp\Bundle\EasyAdminBundle\Contracts\Controller\CrudControllerInterface.0.App\Controller\Admin\ItemCrudController" class="App\Controller\Admin\ItemCrudController" autowire="true" abstract="true"/>
@@ -6561,9 +7294,12 @@
     <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\CreatureController" class="App\Controller\CreatureController" autowire="true" abstract="true"/>
     <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\CreatureController" class="App\Controller\CreatureController" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Controller\CreatureController" class="App\Controller\CreatureController" autowire="true" autoconfigure="true" abstract="true"/>
-    <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\DashboardController" class="App\Controller\DashboardController" autowire="true" abstract="true"/>
-    <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\DashboardController" class="App\Controller\DashboardController" autowire="true" abstract="true"/>
-    <service id=".abstract.instanceof.App\Controller\DashboardController" class="App\Controller\DashboardController" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\DashController" class="App\Controller\DashController" autowire="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\DashController" class="App\Controller\DashController" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Controller\DashController" class="App\Controller\DashController" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\EncounterController" class="App\Controller\EncounterController" autowire="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\EncounterController" class="App\Controller\EncounterController" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Controller\EncounterController" class="App\Controller\EncounterController" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\GameController" class="App\Controller\GameController" autowire="true" abstract="true"/>
     <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\GameController" class="App\Controller\GameController" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Controller\GameController" class="App\Controller\GameController" autowire="true" autoconfigure="true" abstract="true"/>
@@ -6601,6 +7337,10 @@
     <service id=".abstract.instanceof.App\EventSubscriber\TwigEventSubscriber" class="App\EventSubscriber\TwigEventSubscriber" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\CreatureType" class="App\Form\CreatureType" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Form\CreatureType" class="App\Form\CreatureType" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\DashType" class="App\Form\DashType" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Form\DashType" class="App\Form\DashType" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\EncounterType" class="App\Form\EncounterType" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Form\EncounterType" class="App\Form\EncounterType" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\GameType" class="App\Form\GameType" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Form\GameType" class="App\Form\GameType" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\ItemType" class="App\Form\ItemType" autowire="true" abstract="true"/>
@@ -6623,8 +7363,10 @@
     <service id=".abstract.instanceof.App\Repository\ConditionRepository" class="App\Repository\ConditionRepository" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\CreatureRepository" class="App\Repository\CreatureRepository" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Repository\CreatureRepository" class="App\Repository\CreatureRepository" autowire="true" autoconfigure="true" abstract="true"/>
-    <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\DashboardRepository" class="App\Repository\DashboardRepository" autowire="true" abstract="true"/>
-    <service id=".abstract.instanceof.App\Repository\DashboardRepository" class="App\Repository\DashboardRepository" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\DashRepository" class="App\Repository\DashRepository" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Repository\DashRepository" class="App\Repository\DashRepository" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\EncounterRepository" class="App\Repository\EncounterRepository" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Repository\EncounterRepository" class="App\Repository\EncounterRepository" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\GameRepository" class="App\Repository\GameRepository" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Repository\GameRepository" class="App\Repository\GameRepository" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\ImageRepository" class="App\Repository\ImageRepository" autowire="true" abstract="true"/>
@@ -7116,10 +7858,28 @@
         <argument key="creature" type="service_closure" id=".errored..service_locator.BwK8duM.App\Entity\Creature"/>
       </argument>
     </service>
-    <service id=".service_locator.Fh7HpEG" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.aOQT9Xi" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
-        <argument key="dashboardRepository" type="service_closure" id="App\Repository\DashboardRepository"/>
+        <argument key="dashRepository" type="service_closure" id="App\Repository\DashRepository"/>
+      </argument>
+    </service>
+    <service id=".service_locator.jbhBKvu" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="dash" type="service_closure" id=".errored..service_locator.jbhBKvu.App\Entity\Dash"/>
+      </argument>
+    </service>
+    <service id=".service_locator.DHT_cF9" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="encounterRepository" type="service_closure" id="App\Repository\EncounterRepository"/>
+      </argument>
+    </service>
+    <service id=".service_locator.hByM23c" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="encounter" type="service_closure" id=".errored..service_locator.hByM23c.App\Entity\Encounter"/>
       </argument>
     </service>
     <service id=".service_locator.hA3ZfRw" class="Symfony\Component\DependencyInjection\ServiceLocator">
@@ -7201,7 +7961,7 @@
         <argument key="authenticationUtils" type="service_closure" id="security.authentication_utils"/>
       </argument>
     </service>
-    <service id=".service_locator.SO7aEQ1" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.mMjILtO" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="App\Controller\Admin\AdminCrudController::autocomplete" type="service_closure" id=".service_locator.ZOQ9v2d"/>
@@ -7246,7 +8006,70 @@
         <argument key="App\Controller\Admin\CreatureCrudController::persistEntity" type="service_closure" id=".service_locator.l2QwsaZ"/>
         <argument key="App\Controller\Admin\CreatureCrudController::renderFilters" type="service_closure" id=".service_locator.ZOQ9v2d"/>
         <argument key="App\Controller\Admin\CreatureCrudController::updateEntity" type="service_closure" id=".service_locator.l2QwsaZ"/>
+        <argument key="App\Controller\Admin\DashCrudController::autocomplete" type="service_closure" id=".service_locator.ZOQ9v2d"/>
+        <argument key="App\Controller\Admin\DashCrudController::batchDelete" type="service_closure" id=".service_locator.AWPr3oy"/>
+        <argument key="App\Controller\Admin\DashCrudController::configureActions" type="service_closure" id=".service_locator.CKlWSja"/>
+        <argument key="App\Controller\Admin\DashCrudController::configureAssets" type="service_closure" id=".service_locator.U4Bbnsn"/>
+        <argument key="App\Controller\Admin\DashCrudController::configureCrud" type="service_closure" id=".service_locator.4C0Bh8j"/>
+        <argument key="App\Controller\Admin\DashCrudController::configureFilters" type="service_closure" id=".service_locator.Nt.ogDb"/>
+        <argument key="App\Controller\Admin\DashCrudController::configureResponseParameters" type="service_closure" id=".service_locator.2dc0eaX"/>
+        <argument key="App\Controller\Admin\DashCrudController::createEditForm" type="service_closure" id=".service_locator.tbo4Jjv"/>
+        <argument key="App\Controller\Admin\DashCrudController::createEditFormBuilder" type="service_closure" id=".service_locator.tbo4Jjv"/>
+        <argument key="App\Controller\Admin\DashCrudController::createIndexQueryBuilder" type="service_closure" id=".service_locator.rAlqQ78"/>
+        <argument key="App\Controller\Admin\DashCrudController::createNewForm" type="service_closure" id=".service_locator.tbo4Jjv"/>
+        <argument key="App\Controller\Admin\DashCrudController::createNewFormBuilder" type="service_closure" id=".service_locator.tbo4Jjv"/>
+        <argument key="App\Controller\Admin\DashCrudController::delete" type="service_closure" id=".service_locator.ZOQ9v2d"/>
+        <argument key="App\Controller\Admin\DashCrudController::deleteEntity" type="service_closure" id=".service_locator.l2QwsaZ"/>
+        <argument key="App\Controller\Admin\DashCrudController::detail" type="service_closure" id=".service_locator.ZOQ9v2d"/>
+        <argument key="App\Controller\Admin\DashCrudController::edit" type="service_closure" id=".service_locator.ZOQ9v2d"/>
+        <argument key="App\Controller\Admin\DashCrudController::index" type="service_closure" id=".service_locator.ZOQ9v2d"/>
+        <argument key="App\Controller\Admin\DashCrudController::new" type="service_closure" id=".service_locator.ZOQ9v2d"/>
+        <argument key="App\Controller\Admin\DashCrudController::persistEntity" type="service_closure" id=".service_locator.l2QwsaZ"/>
+        <argument key="App\Controller\Admin\DashCrudController::renderFilters" type="service_closure" id=".service_locator.ZOQ9v2d"/>
+        <argument key="App\Controller\Admin\DashCrudController::updateEntity" type="service_closure" id=".service_locator.l2QwsaZ"/>
         <argument key="App\Controller\Admin\DashboardController::configureUserMenu" type="service_closure" id=".service_locator.q6hA_O0"/>
+        <argument key="App\Controller\Admin\EncounterCrudController::autocomplete" type="service_closure" id=".service_locator.ZOQ9v2d"/>
+        <argument key="App\Controller\Admin\EncounterCrudController::batchDelete" type="service_closure" id=".service_locator.AWPr3oy"/>
+        <argument key="App\Controller\Admin\EncounterCrudController::configureActions" type="service_closure" id=".service_locator.CKlWSja"/>
+        <argument key="App\Controller\Admin\EncounterCrudController::configureAssets" type="service_closure" id=".service_locator.U4Bbnsn"/>
+        <argument key="App\Controller\Admin\EncounterCrudController::configureCrud" type="service_closure" id=".service_locator.4C0Bh8j"/>
+        <argument key="App\Controller\Admin\EncounterCrudController::configureFilters" type="service_closure" id=".service_locator.Nt.ogDb"/>
+        <argument key="App\Controller\Admin\EncounterCrudController::configureResponseParameters" type="service_closure" id=".service_locator.2dc0eaX"/>
+        <argument key="App\Controller\Admin\EncounterCrudController::createEditForm" type="service_closure" id=".service_locator.tbo4Jjv"/>
+        <argument key="App\Controller\Admin\EncounterCrudController::createEditFormBuilder" type="service_closure" id=".service_locator.tbo4Jjv"/>
+        <argument key="App\Controller\Admin\EncounterCrudController::createIndexQueryBuilder" type="service_closure" id=".service_locator.rAlqQ78"/>
+        <argument key="App\Controller\Admin\EncounterCrudController::createNewForm" type="service_closure" id=".service_locator.tbo4Jjv"/>
+        <argument key="App\Controller\Admin\EncounterCrudController::createNewFormBuilder" type="service_closure" id=".service_locator.tbo4Jjv"/>
+        <argument key="App\Controller\Admin\EncounterCrudController::delete" type="service_closure" id=".service_locator.ZOQ9v2d"/>
+        <argument key="App\Controller\Admin\EncounterCrudController::deleteEntity" type="service_closure" id=".service_locator.l2QwsaZ"/>
+        <argument key="App\Controller\Admin\EncounterCrudController::detail" type="service_closure" id=".service_locator.ZOQ9v2d"/>
+        <argument key="App\Controller\Admin\EncounterCrudController::edit" type="service_closure" id=".service_locator.ZOQ9v2d"/>
+        <argument key="App\Controller\Admin\EncounterCrudController::index" type="service_closure" id=".service_locator.ZOQ9v2d"/>
+        <argument key="App\Controller\Admin\EncounterCrudController::new" type="service_closure" id=".service_locator.ZOQ9v2d"/>
+        <argument key="App\Controller\Admin\EncounterCrudController::persistEntity" type="service_closure" id=".service_locator.l2QwsaZ"/>
+        <argument key="App\Controller\Admin\EncounterCrudController::renderFilters" type="service_closure" id=".service_locator.ZOQ9v2d"/>
+        <argument key="App\Controller\Admin\EncounterCrudController::updateEntity" type="service_closure" id=".service_locator.l2QwsaZ"/>
+        <argument key="App\Controller\Admin\GameCrudController::autocomplete" type="service_closure" id=".service_locator.ZOQ9v2d"/>
+        <argument key="App\Controller\Admin\GameCrudController::batchDelete" type="service_closure" id=".service_locator.AWPr3oy"/>
+        <argument key="App\Controller\Admin\GameCrudController::configureActions" type="service_closure" id=".service_locator.CKlWSja"/>
+        <argument key="App\Controller\Admin\GameCrudController::configureAssets" type="service_closure" id=".service_locator.U4Bbnsn"/>
+        <argument key="App\Controller\Admin\GameCrudController::configureCrud" type="service_closure" id=".service_locator.4C0Bh8j"/>
+        <argument key="App\Controller\Admin\GameCrudController::configureFilters" type="service_closure" id=".service_locator.Nt.ogDb"/>
+        <argument key="App\Controller\Admin\GameCrudController::configureResponseParameters" type="service_closure" id=".service_locator.2dc0eaX"/>
+        <argument key="App\Controller\Admin\GameCrudController::createEditForm" type="service_closure" id=".service_locator.tbo4Jjv"/>
+        <argument key="App\Controller\Admin\GameCrudController::createEditFormBuilder" type="service_closure" id=".service_locator.tbo4Jjv"/>
+        <argument key="App\Controller\Admin\GameCrudController::createIndexQueryBuilder" type="service_closure" id=".service_locator.rAlqQ78"/>
+        <argument key="App\Controller\Admin\GameCrudController::createNewForm" type="service_closure" id=".service_locator.tbo4Jjv"/>
+        <argument key="App\Controller\Admin\GameCrudController::createNewFormBuilder" type="service_closure" id=".service_locator.tbo4Jjv"/>
+        <argument key="App\Controller\Admin\GameCrudController::delete" type="service_closure" id=".service_locator.ZOQ9v2d"/>
+        <argument key="App\Controller\Admin\GameCrudController::deleteEntity" type="service_closure" id=".service_locator.l2QwsaZ"/>
+        <argument key="App\Controller\Admin\GameCrudController::detail" type="service_closure" id=".service_locator.ZOQ9v2d"/>
+        <argument key="App\Controller\Admin\GameCrudController::edit" type="service_closure" id=".service_locator.ZOQ9v2d"/>
+        <argument key="App\Controller\Admin\GameCrudController::index" type="service_closure" id=".service_locator.ZOQ9v2d"/>
+        <argument key="App\Controller\Admin\GameCrudController::new" type="service_closure" id=".service_locator.ZOQ9v2d"/>
+        <argument key="App\Controller\Admin\GameCrudController::persistEntity" type="service_closure" id=".service_locator.l2QwsaZ"/>
+        <argument key="App\Controller\Admin\GameCrudController::renderFilters" type="service_closure" id=".service_locator.ZOQ9v2d"/>
+        <argument key="App\Controller\Admin\GameCrudController::updateEntity" type="service_closure" id=".service_locator.l2QwsaZ"/>
         <argument key="App\Controller\Admin\ItemCrudController::autocomplete" type="service_closure" id=".service_locator.ZOQ9v2d"/>
         <argument key="App\Controller\Admin\ItemCrudController::batchDelete" type="service_closure" id=".service_locator.AWPr3oy"/>
         <argument key="App\Controller\Admin\ItemCrudController::configureActions" type="service_closure" id=".service_locator.CKlWSja"/>
@@ -7398,7 +8221,14 @@
         <argument key="App\Controller\CreatureController::edit" type="service_closure" id=".service_locator.BwK8duM"/>
         <argument key="App\Controller\CreatureController::index" type="service_closure" id=".service_locator.dPbpGJg"/>
         <argument key="App\Controller\CreatureController::show" type="service_closure" id=".service_locator.BwK8duM"/>
-        <argument key="App\Controller\DashboardController::index" type="service_closure" id=".service_locator.Fh7HpEG"/>
+        <argument key="App\Controller\DashController::delete" type="service_closure" id=".service_locator.jbhBKvu"/>
+        <argument key="App\Controller\DashController::edit" type="service_closure" id=".service_locator.jbhBKvu"/>
+        <argument key="App\Controller\DashController::index" type="service_closure" id=".service_locator.aOQT9Xi"/>
+        <argument key="App\Controller\DashController::show" type="service_closure" id=".service_locator.jbhBKvu"/>
+        <argument key="App\Controller\EncounterController::delete" type="service_closure" id=".service_locator.hByM23c"/>
+        <argument key="App\Controller\EncounterController::edit" type="service_closure" id=".service_locator.hByM23c"/>
+        <argument key="App\Controller\EncounterController::index" type="service_closure" id=".service_locator.DHT_cF9"/>
+        <argument key="App\Controller\EncounterController::show" type="service_closure" id=".service_locator.hByM23c"/>
         <argument key="App\Controller\GameController::delete" type="service_closure" id=".service_locator.gBwNVTZ"/>
         <argument key="App\Controller\GameController::edit" type="service_closure" id=".service_locator.gBwNVTZ"/>
         <argument key="App\Controller\GameController::index" type="service_closure" id=".service_locator.hA3ZfRw"/>
@@ -7470,7 +8300,70 @@
         <argument key="App\Controller\Admin\CreatureCrudController:persistEntity" type="service_closure" id=".service_locator.l2QwsaZ"/>
         <argument key="App\Controller\Admin\CreatureCrudController:renderFilters" type="service_closure" id=".service_locator.ZOQ9v2d"/>
         <argument key="App\Controller\Admin\CreatureCrudController:updateEntity" type="service_closure" id=".service_locator.l2QwsaZ"/>
+        <argument key="App\Controller\Admin\DashCrudController:autocomplete" type="service_closure" id=".service_locator.ZOQ9v2d"/>
+        <argument key="App\Controller\Admin\DashCrudController:batchDelete" type="service_closure" id=".service_locator.AWPr3oy"/>
+        <argument key="App\Controller\Admin\DashCrudController:configureActions" type="service_closure" id=".service_locator.CKlWSja"/>
+        <argument key="App\Controller\Admin\DashCrudController:configureAssets" type="service_closure" id=".service_locator.U4Bbnsn"/>
+        <argument key="App\Controller\Admin\DashCrudController:configureCrud" type="service_closure" id=".service_locator.4C0Bh8j"/>
+        <argument key="App\Controller\Admin\DashCrudController:configureFilters" type="service_closure" id=".service_locator.Nt.ogDb"/>
+        <argument key="App\Controller\Admin\DashCrudController:configureResponseParameters" type="service_closure" id=".service_locator.2dc0eaX"/>
+        <argument key="App\Controller\Admin\DashCrudController:createEditForm" type="service_closure" id=".service_locator.tbo4Jjv"/>
+        <argument key="App\Controller\Admin\DashCrudController:createEditFormBuilder" type="service_closure" id=".service_locator.tbo4Jjv"/>
+        <argument key="App\Controller\Admin\DashCrudController:createIndexQueryBuilder" type="service_closure" id=".service_locator.rAlqQ78"/>
+        <argument key="App\Controller\Admin\DashCrudController:createNewForm" type="service_closure" id=".service_locator.tbo4Jjv"/>
+        <argument key="App\Controller\Admin\DashCrudController:createNewFormBuilder" type="service_closure" id=".service_locator.tbo4Jjv"/>
+        <argument key="App\Controller\Admin\DashCrudController:delete" type="service_closure" id=".service_locator.ZOQ9v2d"/>
+        <argument key="App\Controller\Admin\DashCrudController:deleteEntity" type="service_closure" id=".service_locator.l2QwsaZ"/>
+        <argument key="App\Controller\Admin\DashCrudController:detail" type="service_closure" id=".service_locator.ZOQ9v2d"/>
+        <argument key="App\Controller\Admin\DashCrudController:edit" type="service_closure" id=".service_locator.ZOQ9v2d"/>
+        <argument key="App\Controller\Admin\DashCrudController:index" type="service_closure" id=".service_locator.ZOQ9v2d"/>
+        <argument key="App\Controller\Admin\DashCrudController:new" type="service_closure" id=".service_locator.ZOQ9v2d"/>
+        <argument key="App\Controller\Admin\DashCrudController:persistEntity" type="service_closure" id=".service_locator.l2QwsaZ"/>
+        <argument key="App\Controller\Admin\DashCrudController:renderFilters" type="service_closure" id=".service_locator.ZOQ9v2d"/>
+        <argument key="App\Controller\Admin\DashCrudController:updateEntity" type="service_closure" id=".service_locator.l2QwsaZ"/>
         <argument key="App\Controller\Admin\DashboardController:configureUserMenu" type="service_closure" id=".service_locator.q6hA_O0"/>
+        <argument key="App\Controller\Admin\EncounterCrudController:autocomplete" type="service_closure" id=".service_locator.ZOQ9v2d"/>
+        <argument key="App\Controller\Admin\EncounterCrudController:batchDelete" type="service_closure" id=".service_locator.AWPr3oy"/>
+        <argument key="App\Controller\Admin\EncounterCrudController:configureActions" type="service_closure" id=".service_locator.CKlWSja"/>
+        <argument key="App\Controller\Admin\EncounterCrudController:configureAssets" type="service_closure" id=".service_locator.U4Bbnsn"/>
+        <argument key="App\Controller\Admin\EncounterCrudController:configureCrud" type="service_closure" id=".service_locator.4C0Bh8j"/>
+        <argument key="App\Controller\Admin\EncounterCrudController:configureFilters" type="service_closure" id=".service_locator.Nt.ogDb"/>
+        <argument key="App\Controller\Admin\EncounterCrudController:configureResponseParameters" type="service_closure" id=".service_locator.2dc0eaX"/>
+        <argument key="App\Controller\Admin\EncounterCrudController:createEditForm" type="service_closure" id=".service_locator.tbo4Jjv"/>
+        <argument key="App\Controller\Admin\EncounterCrudController:createEditFormBuilder" type="service_closure" id=".service_locator.tbo4Jjv"/>
+        <argument key="App\Controller\Admin\EncounterCrudController:createIndexQueryBuilder" type="service_closure" id=".service_locator.rAlqQ78"/>
+        <argument key="App\Controller\Admin\EncounterCrudController:createNewForm" type="service_closure" id=".service_locator.tbo4Jjv"/>
+        <argument key="App\Controller\Admin\EncounterCrudController:createNewFormBuilder" type="service_closure" id=".service_locator.tbo4Jjv"/>
+        <argument key="App\Controller\Admin\EncounterCrudController:delete" type="service_closure" id=".service_locator.ZOQ9v2d"/>
+        <argument key="App\Controller\Admin\EncounterCrudController:deleteEntity" type="service_closure" id=".service_locator.l2QwsaZ"/>
+        <argument key="App\Controller\Admin\EncounterCrudController:detail" type="service_closure" id=".service_locator.ZOQ9v2d"/>
+        <argument key="App\Controller\Admin\EncounterCrudController:edit" type="service_closure" id=".service_locator.ZOQ9v2d"/>
+        <argument key="App\Controller\Admin\EncounterCrudController:index" type="service_closure" id=".service_locator.ZOQ9v2d"/>
+        <argument key="App\Controller\Admin\EncounterCrudController:new" type="service_closure" id=".service_locator.ZOQ9v2d"/>
+        <argument key="App\Controller\Admin\EncounterCrudController:persistEntity" type="service_closure" id=".service_locator.l2QwsaZ"/>
+        <argument key="App\Controller\Admin\EncounterCrudController:renderFilters" type="service_closure" id=".service_locator.ZOQ9v2d"/>
+        <argument key="App\Controller\Admin\EncounterCrudController:updateEntity" type="service_closure" id=".service_locator.l2QwsaZ"/>
+        <argument key="App\Controller\Admin\GameCrudController:autocomplete" type="service_closure" id=".service_locator.ZOQ9v2d"/>
+        <argument key="App\Controller\Admin\GameCrudController:batchDelete" type="service_closure" id=".service_locator.AWPr3oy"/>
+        <argument key="App\Controller\Admin\GameCrudController:configureActions" type="service_closure" id=".service_locator.CKlWSja"/>
+        <argument key="App\Controller\Admin\GameCrudController:configureAssets" type="service_closure" id=".service_locator.U4Bbnsn"/>
+        <argument key="App\Controller\Admin\GameCrudController:configureCrud" type="service_closure" id=".service_locator.4C0Bh8j"/>
+        <argument key="App\Controller\Admin\GameCrudController:configureFilters" type="service_closure" id=".service_locator.Nt.ogDb"/>
+        <argument key="App\Controller\Admin\GameCrudController:configureResponseParameters" type="service_closure" id=".service_locator.2dc0eaX"/>
+        <argument key="App\Controller\Admin\GameCrudController:createEditForm" type="service_closure" id=".service_locator.tbo4Jjv"/>
+        <argument key="App\Controller\Admin\GameCrudController:createEditFormBuilder" type="service_closure" id=".service_locator.tbo4Jjv"/>
+        <argument key="App\Controller\Admin\GameCrudController:createIndexQueryBuilder" type="service_closure" id=".service_locator.rAlqQ78"/>
+        <argument key="App\Controller\Admin\GameCrudController:createNewForm" type="service_closure" id=".service_locator.tbo4Jjv"/>
+        <argument key="App\Controller\Admin\GameCrudController:createNewFormBuilder" type="service_closure" id=".service_locator.tbo4Jjv"/>
+        <argument key="App\Controller\Admin\GameCrudController:delete" type="service_closure" id=".service_locator.ZOQ9v2d"/>
+        <argument key="App\Controller\Admin\GameCrudController:deleteEntity" type="service_closure" id=".service_locator.l2QwsaZ"/>
+        <argument key="App\Controller\Admin\GameCrudController:detail" type="service_closure" id=".service_locator.ZOQ9v2d"/>
+        <argument key="App\Controller\Admin\GameCrudController:edit" type="service_closure" id=".service_locator.ZOQ9v2d"/>
+        <argument key="App\Controller\Admin\GameCrudController:index" type="service_closure" id=".service_locator.ZOQ9v2d"/>
+        <argument key="App\Controller\Admin\GameCrudController:new" type="service_closure" id=".service_locator.ZOQ9v2d"/>
+        <argument key="App\Controller\Admin\GameCrudController:persistEntity" type="service_closure" id=".service_locator.l2QwsaZ"/>
+        <argument key="App\Controller\Admin\GameCrudController:renderFilters" type="service_closure" id=".service_locator.ZOQ9v2d"/>
+        <argument key="App\Controller\Admin\GameCrudController:updateEntity" type="service_closure" id=".service_locator.l2QwsaZ"/>
         <argument key="App\Controller\Admin\ItemCrudController:autocomplete" type="service_closure" id=".service_locator.ZOQ9v2d"/>
         <argument key="App\Controller\Admin\ItemCrudController:batchDelete" type="service_closure" id=".service_locator.AWPr3oy"/>
         <argument key="App\Controller\Admin\ItemCrudController:configureActions" type="service_closure" id=".service_locator.CKlWSja"/>
@@ -7622,7 +8515,14 @@
         <argument key="App\Controller\CreatureController:edit" type="service_closure" id=".service_locator.BwK8duM"/>
         <argument key="App\Controller\CreatureController:index" type="service_closure" id=".service_locator.dPbpGJg"/>
         <argument key="App\Controller\CreatureController:show" type="service_closure" id=".service_locator.BwK8duM"/>
-        <argument key="App\Controller\DashboardController:index" type="service_closure" id=".service_locator.Fh7HpEG"/>
+        <argument key="App\Controller\DashController:delete" type="service_closure" id=".service_locator.jbhBKvu"/>
+        <argument key="App\Controller\DashController:edit" type="service_closure" id=".service_locator.jbhBKvu"/>
+        <argument key="App\Controller\DashController:index" type="service_closure" id=".service_locator.aOQT9Xi"/>
+        <argument key="App\Controller\DashController:show" type="service_closure" id=".service_locator.jbhBKvu"/>
+        <argument key="App\Controller\EncounterController:delete" type="service_closure" id=".service_locator.hByM23c"/>
+        <argument key="App\Controller\EncounterController:edit" type="service_closure" id=".service_locator.hByM23c"/>
+        <argument key="App\Controller\EncounterController:index" type="service_closure" id=".service_locator.DHT_cF9"/>
+        <argument key="App\Controller\EncounterController:show" type="service_closure" id=".service_locator.hByM23c"/>
         <argument key="App\Controller\GameController:delete" type="service_closure" id=".service_locator.gBwNVTZ"/>
         <argument key="App\Controller\GameController:edit" type="service_closure" id=".service_locator.gBwNVTZ"/>
         <argument key="App\Controller\GameController:index" type="service_closure" id=".service_locator.hA3ZfRw"/>
@@ -7720,10 +8620,12 @@
       <argument type="service" id="debug.argument_resolver.not_tagged_controller.inner"/>
       <argument type="service" id="debug.stopwatch"/>
     </service>
-    <service id=".service_locator.PxZUg00" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.W3Dlkc0" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="App\Form\CreatureType" type="service_closure" id="App\Form\CreatureType"/>
+        <argument key="App\Form\DashType" type="service_closure" id="App\Form\DashType"/>
+        <argument key="App\Form\EncounterType" type="service_closure" id="App\Form\EncounterType"/>
         <argument key="App\Form\GameType" type="service_closure" id="App\Form\GameType"/>
         <argument key="App\Form\ItemType" type="service_closure" id="App\Form\ItemType"/>
         <argument key="App\Form\LocationType" type="service_closure" id="App\Form\LocationType"/>
@@ -7740,6 +8642,8 @@
         <argument key="Symfony\Component\Form\Extension\Core\Type\ColorType" type="service_closure" id="form.type.color"/>
         <argument key="Symfony\Component\Form\Extension\Core\Type\FileType" type="service_closure" id="form.type.file"/>
         <argument key="Symfony\Component\Form\Extension\Core\Type\FormType" type="service_closure" id="form.type.form"/>
+        <argument key="Vich\UploaderBundle\Form\Type\VichFileType" type="service_closure" id="vich_uploader.form.type.file"/>
+        <argument key="Vich\UploaderBundle\Form\Type\VichImageType" type="service_closure" id="vich_uploader.form.type.image"/>
       </argument>
     </service>
     <service id=".debug.http_client" class="Symfony\Component\HttpClient\TraceableHttpClient">
@@ -7909,12 +8813,33 @@
       <configurator class="Symfony\Bundle\FrameworkBundle\DependencyInjection\Compiler\AddDebugLogProcessorPass" method="configureLogger"/>
     </service>
     <service id="monolog.handler.null_internal" class="Monolog\Handler\NullHandler"/>
-    <service id=".service_locator.VPhYdBw" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.4Ad2bu8" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="doctrine.orm.default_listeners.attach_entity_listeners" type="service_closure" id="doctrine.orm.default_listeners.attach_entity_listeners"/>
         <argument key="doctrine.orm.listeners.doctrine_token_provider_schema_subscriber" type="service_closure" id="doctrine.orm.listeners.doctrine_token_provider_schema_subscriber"/>
         <argument key="doctrine.orm.listeners.pdo_cache_adapter_doctrine_schema_subscriber" type="service_closure" id="doctrine.orm.listeners.pdo_cache_adapter_doctrine_schema_subscriber"/>
+        <argument key="vich_uploader.listener.clean.background_image" type="service_closure" id="vich_uploader.listener.clean.background_image"/>
+        <argument key="vich_uploader.listener.clean.creature_image" type="service_closure" id="vich_uploader.listener.clean.creature_image"/>
+        <argument key="vich_uploader.listener.clean.item_image" type="service_closure" id="vich_uploader.listener.clean.item_image"/>
+        <argument key="vich_uploader.listener.clean.location_image" type="service_closure" id="vich_uploader.listener.clean.location_image"/>
+        <argument key="vich_uploader.listener.clean.npc_image" type="service_closure" id="vich_uploader.listener.clean.npc_image"/>
+        <argument key="vich_uploader.listener.clean.other_image" type="service_closure" id="vich_uploader.listener.clean.other_image"/>
+        <argument key="vich_uploader.listener.clean.player_image" type="service_closure" id="vich_uploader.listener.clean.player_image"/>
+        <argument key="vich_uploader.listener.remove.background_image" type="service_closure" id="vich_uploader.listener.remove.background_image"/>
+        <argument key="vich_uploader.listener.remove.creature_image" type="service_closure" id="vich_uploader.listener.remove.creature_image"/>
+        <argument key="vich_uploader.listener.remove.item_image" type="service_closure" id="vich_uploader.listener.remove.item_image"/>
+        <argument key="vich_uploader.listener.remove.location_image" type="service_closure" id="vich_uploader.listener.remove.location_image"/>
+        <argument key="vich_uploader.listener.remove.npc_image" type="service_closure" id="vich_uploader.listener.remove.npc_image"/>
+        <argument key="vich_uploader.listener.remove.other_image" type="service_closure" id="vich_uploader.listener.remove.other_image"/>
+        <argument key="vich_uploader.listener.remove.player_image" type="service_closure" id="vich_uploader.listener.remove.player_image"/>
+        <argument key="vich_uploader.listener.upload.background_image" type="service_closure" id="vich_uploader.listener.upload.background_image"/>
+        <argument key="vich_uploader.listener.upload.creature_image" type="service_closure" id="vich_uploader.listener.upload.creature_image"/>
+        <argument key="vich_uploader.listener.upload.item_image" type="service_closure" id="vich_uploader.listener.upload.item_image"/>
+        <argument key="vich_uploader.listener.upload.location_image" type="service_closure" id="vich_uploader.listener.upload.location_image"/>
+        <argument key="vich_uploader.listener.upload.npc_image" type="service_closure" id="vich_uploader.listener.upload.npc_image"/>
+        <argument key="vich_uploader.listener.upload.other_image" type="service_closure" id="vich_uploader.listener.upload.other_image"/>
+        <argument key="vich_uploader.listener.upload.player_image" type="service_closure" id="vich_uploader.listener.upload.player_image"/>
       </argument>
     </service>
     <service id="cache.doctrine.orm.default.query.compatibility_layer" class="Doctrine\Common\Cache\CacheProvider">
@@ -7925,13 +8850,14 @@
       <argument type="service" id="cache.doctrine.orm.default.result"/>
       <factory class="Doctrine\Common\Cache\Psr6\DoctrineProvider" method="wrap"/>
     </service>
-    <service id=".service_locator.fDOAJ0E" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.2XrFAl9" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="App\Repository\AdminRepository" type="service_closure" id="App\Repository\AdminRepository"/>
         <argument key="App\Repository\ConditionRepository" type="service_closure" id="App\Repository\ConditionRepository"/>
         <argument key="App\Repository\CreatureRepository" type="service_closure" id="App\Repository\CreatureRepository"/>
-        <argument key="App\Repository\DashboardRepository" type="service_closure" id="App\Repository\DashboardRepository"/>
+        <argument key="App\Repository\DashRepository" type="service_closure" id="App\Repository\DashRepository"/>
+        <argument key="App\Repository\EncounterRepository" type="service_closure" id="App\Repository\EncounterRepository"/>
         <argument key="App\Repository\GameRepository" type="service_closure" id="App\Repository\GameRepository"/>
         <argument key="App\Repository\ImageRepository" type="service_closure" id="App\Repository\ImageRepository"/>
         <argument key="App\Repository\ItemRepository" type="service_closure" id="App\Repository\ItemRepository"/>
@@ -7995,6 +8921,9 @@
       <argument type="collection">
         <argument>App\Controller\Admin\AdminCrudController</argument>
         <argument>App\Controller\Admin\CreatureCrudController</argument>
+        <argument>App\Controller\Admin\DashCrudController</argument>
+        <argument>App\Controller\Admin\EncounterCrudController</argument>
+        <argument>App\Controller\Admin\GameCrudController</argument>
         <argument>App\Controller\Admin\ItemCrudController</argument>
         <argument>App\Controller\Admin\LocationCrudController</argument>
         <argument>App\Controller\Admin\NpcCrudController</argument>
@@ -8062,6 +8991,12 @@
       <argument type="service" id="service_container"/>
       <factory service=".service_locator.opmh_Hv" method="withContext"/>
     </service>
+    <service id=".service_locator.opmh_Hv.App\Controller\Admin\DashCrudController" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator_context" id="App\Controller\Admin\DashCrudController"/>
+      <argument>App\Controller\Admin\DashCrudController</argument>
+      <argument type="service" id="service_container"/>
+      <factory service=".service_locator.opmh_Hv" method="withContext"/>
+    </service>
     <service id=".service_locator.wPLAlW_" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
@@ -8086,6 +9021,18 @@
       <argument>App\Controller\Admin\DashboardController</argument>
       <argument type="service" id="service_container"/>
       <factory service=".service_locator.wPLAlW_" method="withContext"/>
+    </service>
+    <service id=".service_locator.opmh_Hv.App\Controller\Admin\EncounterCrudController" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator_context" id="App\Controller\Admin\EncounterCrudController"/>
+      <argument>App\Controller\Admin\EncounterCrudController</argument>
+      <argument type="service" id="service_container"/>
+      <factory service=".service_locator.opmh_Hv" method="withContext"/>
+    </service>
+    <service id=".service_locator.opmh_Hv.App\Controller\Admin\GameCrudController" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator_context" id="App\Controller\Admin\GameCrudController"/>
+      <argument>App\Controller\Admin\GameCrudController</argument>
+      <argument type="service" id="service_container"/>
+      <factory service=".service_locator.opmh_Hv" method="withContext"/>
     </service>
     <service id=".service_locator.opmh_Hv.App\Controller\Admin\ItemCrudController" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator_context" id="App\Controller\Admin\ItemCrudController"/>
@@ -8152,9 +9099,15 @@
       <argument type="service" id="service_container"/>
       <factory service=".service_locator.W9y3dzm" method="withContext"/>
     </service>
-    <service id=".service_locator.W9y3dzm.App\Controller\DashboardController" class="Symfony\Component\DependencyInjection\ServiceLocator">
-      <tag name="container.service_locator_context" id="App\Controller\DashboardController"/>
-      <argument>App\Controller\DashboardController</argument>
+    <service id=".service_locator.W9y3dzm.App\Controller\DashController" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator_context" id="App\Controller\DashController"/>
+      <argument>App\Controller\DashController</argument>
+      <argument type="service" id="service_container"/>
+      <factory service=".service_locator.W9y3dzm" method="withContext"/>
+    </service>
+    <service id=".service_locator.W9y3dzm.App\Controller\EncounterController" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator_context" id="App\Controller\EncounterController"/>
+      <argument>App\Controller\EncounterController</argument>
       <argument type="service" id="service_container"/>
       <factory service=".service_locator.W9y3dzm" method="withContext"/>
     </service>
@@ -8345,12 +9298,12 @@
       <argument type="service" id="EasyCorp\Bundle\EasyAdminBundle\Router\AdminUrlGenerator"/>
     </service>
     <service id="debug.argument_resolver.service.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver">
-      <argument type="service" id=".service_locator.SO7aEQ1"/>
+      <argument type="service" id=".service_locator.mMjILtO"/>
     </service>
     <service id="debug.argument_resolver.default.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver"/>
     <service id="debug.argument_resolver.variadic.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\VariadicValueResolver"/>
     <service id="debug.argument_resolver.not_tagged_controller.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\NotTaggedControllerValueResolver">
-      <argument type="service" id=".service_locator.SO7aEQ1"/>
+      <argument type="service" id=".service_locator.mMjILtO"/>
     </service>
     <service id=".debug.http_client.inner" class="Symfony\Contracts\HttpClient\HttpClientInterface">
       <argument type="collection"/>
@@ -8364,6 +9317,10 @@
       <call method="addDriver">
         <argument type="service" id="doctrine.orm.default_annotation_metadata_driver"/>
         <argument>App\Entity</argument>
+      </call>
+      <call method="addDriver">
+        <argument type="service" id="doctrine.orm.default_annotation_metadata_driver"/>
+        <argument>Vich\UploaderBundle\Entity</argument>
       </call>
     </service>
     <service id=".errored..service_locator.KfwZsne.Symfony\Component\HttpFoundation\Response" class="Symfony\Component\HttpFoundation\Response"/>
@@ -8385,6 +9342,8 @@
     <service id=".errored..service_locator.2dc0eaX.EasyCorp\Bundle\EasyAdminBundle\Config\KeyValueStore" class="EasyCorp\Bundle\EasyAdminBundle\Config\KeyValueStore"/>
     <service id=".errored..service_locator.q6hA_O0.Symfony\Component\Security\Core\User\UserInterface" class="Symfony\Component\Security\Core\User\UserInterface"/>
     <service id=".errored..service_locator.BwK8duM.App\Entity\Creature" class="App\Entity\Creature"/>
+    <service id=".errored..service_locator.jbhBKvu.App\Entity\Dash" class="App\Entity\Dash"/>
+    <service id=".errored..service_locator.hByM23c.App\Entity\Encounter" class="App\Entity\Encounter"/>
     <service id=".errored..service_locator.gBwNVTZ.App\Entity\Game" class="App\Entity\Game"/>
     <service id=".errored..service_locator.83t1iHB.App\Entity\Item" class="App\Entity\Item"/>
     <service id=".errored..service_locator.mR1eFSc.App\Entity\Location" class="App\Entity\Location"/>
@@ -8878,7 +9837,7 @@
     </service>
     <service id="console.command_loader" class="Symfony\Component\Console\CommandLoader\ContainerCommandLoader" public="true">
       <tag name="container.no_preload"/>
-      <argument type="service" id=".service_locator.mda5l08"/>
+      <argument type="service" id=".service_locator.Sgnih.v"/>
       <argument type="collection">
         <argument key="about">console.command.about</argument>
         <argument key="assets:install">console.command.assets_install</argument>
@@ -8953,6 +9912,9 @@
         <argument key="make:admin:migration">EasyCorp\Bundle\EasyAdminBundle\Command\MakeAdminMigrationCommand</argument>
         <argument key="make:admin:dashboard">EasyCorp\Bundle\EasyAdminBundle\Command\MakeAdminDashboardCommand</argument>
         <argument key="make:admin:crud">EasyCorp\Bundle\EasyAdminBundle\Command\MakeCrudControllerCommand</argument>
+        <argument key="vich:mapping:debug-class">vich_uploader.command.mapping_debug_class</argument>
+        <argument key="vich:mapping:debug">vich_uploader.command.mapping_debug</argument>
+        <argument key="vich:mapping:list-classes">vich_uploader.command.mapping_list_classes</argument>
         <argument key="make:auth">maker.auto_command.make_auth</argument>
         <argument key="make:command">maker.auto_command.make_command</argument>
         <argument key="make:controller">maker.auto_command.make_controller</argument>
@@ -8978,7 +9940,7 @@
         <argument key="make:migration">maker.auto_command.make_migration</argument>
       </argument>
     </service>
-    <service id=".service_locator.mda5l08" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.Sgnih.v" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="Doctrine\DBAL\Tools\Console\Command\RunSqlCommand" type="service_closure" id="Doctrine\DBAL\Tools\Console\Command\RunSqlCommand"/>
@@ -9075,6 +10037,9 @@
         <argument key="twig.command.debug" type="service_closure" id=".twig.command.debug.lazy"/>
         <argument key="twig.command.lint" type="service_closure" id=".twig.command.lint.lazy"/>
         <argument key="var_dumper.command.server_dump" type="service_closure" id=".var_dumper.command.server_dump.lazy"/>
+        <argument key="vich_uploader.command.mapping_debug" type="service_closure" id="vich_uploader.command.mapping_debug"/>
+        <argument key="vich_uploader.command.mapping_debug_class" type="service_closure" id="vich_uploader.command.mapping_debug_class"/>
+        <argument key="vich_uploader.command.mapping_list_classes" type="service_closure" id="vich_uploader.command.mapping_list_classes"/>
       </argument>
     </service>
     <service id="cache.app.recorder_inner" class="Symfony\Component\Cache\Adapter\FilesystemAdapter">
@@ -9323,9 +10288,28 @@
     <service id="Symfony\Component\Security\Core\User\UserCheckerInterface" alias="security.user_checker"/>
     <service id="Symfony\WebpackEncoreBundle\Asset\EntrypointLookupCollectionInterface" alias="webpack_encore.entrypoint_lookup_collection"/>
     <service id="Symfony\WebpackEncoreBundle\Asset\EntrypointLookupInterface" alias="webpack_encore.entrypoint_lookup[_default]"/>
+    <service id="vich_uploader.storage" alias="vich_uploader.storage.file_system"/>
+    <service id="Vich\UploaderBundle\Storage\StorageInterface" alias="vich_uploader.storage.file_system"/>
+    <service id="Vich\UploaderBundle\Storage\FileSystemStorage" alias="vich_uploader.storage.file_system"/>
+    <service id="vich_uploader.metadata_driver" alias="vich_uploader.metadata_driver.chain"/>
+    <service id="vich_uploader.metadata.cache" alias="vich_uploader.metadata.cache.file_cache"/>
+    <service id="Vich\UploaderBundle\Mapping\PropertyMappingFactory" alias="vich_uploader.property_mapping_factory"/>
+    <service id="vich_uploader.namer_uniqid" alias="Vich\UploaderBundle\Naming\UniqidNamer" public="true"/>
+    <service id="vich_uploader.namer_property" alias="Vich\UploaderBundle\Naming\PropertyNamer" public="true"/>
+    <service id="vich_uploader.namer_origname" alias="Vich\UploaderBundle\Naming\OrignameNamer" public="true"/>
+    <service id="vich_uploader.namer_hash" alias="Vich\UploaderBundle\Naming\HashNamer" public="true"/>
+    <service id="vich_uploader.namer_base64" alias="Vich\UploaderBundle\Naming\Base64Namer" public="true"/>
+    <service id="vich_uploader.directory_namer_subdir" alias="Vich\UploaderBundle\Naming\SubdirDirectoryNamer" public="true"/>
+    <service id="vich_uploader.namer_directory_property" alias="Vich\UploaderBundle\Naming\PropertyDirectoryNamer" public="true"/>
+    <service id="vich_uploader.namer_directory_current_date_time" alias="Vich\UploaderBundle\Naming\CurrentDateTimeDirectoryNamer" public="true"/>
+    <service id="vich_uploader.namer_smart_unique" alias="Vich\UploaderBundle\Naming\SmartUniqueNamer" public="true"/>
+    <service id="Vich\UploaderBundle\Handler\DownloadHandler" alias="vich_uploader.download_handler"/>
+    <service id="Vich\UploaderBundle\Handler\UploadHandler" alias="vich_uploader.upload_handler"/>
+    <service id="Vich\UploaderBundle\Form\Type\VichFileType" alias="vich_uploader.form.type.file"/>
+    <service id="Vich\UploaderBundle\Form\Type\VichImageType" alias="vich_uploader.form.type.image"/>
     <service id="container.env_var_processors_locator" alias=".service_locator.0GV1BZZ" public="true"/>
     <service id="twig.loader.filesystem" alias="twig.loader.native_filesystem"/>
-    <service id="argument_resolver.controller_locator" alias=".service_locator.SO7aEQ1"/>
+    <service id="argument_resolver.controller_locator" alias=".service_locator.mMjILtO"/>
     <service id="session" alias=".session.do-not-use" public="true">
       <deprecated package="symfony/framework-bundle" version="5.3">The "%alias_id%" service and "SessionInterface" alias are deprecated, use "$requestStack-&gt;getSession()" instead.</deprecated>
     </service>
@@ -9382,7 +10366,10 @@
     <service id=".service_locator.vS1lpro" alias=".service_locator.q6hA_O0"/>
     <service id=".service_locator._jLe.e." alias=".service_locator.dPbpGJg"/>
     <service id=".service_locator.dgYrLfk" alias=".service_locator.BwK8duM"/>
-    <service id=".service_locator.TKjQ1zv" alias=".service_locator.Fh7HpEG"/>
+    <service id=".service_locator.CQPfj_M" alias=".service_locator.aOQT9Xi"/>
+    <service id=".service_locator.Ka2I_z1" alias=".service_locator.jbhBKvu"/>
+    <service id=".service_locator.2B8W8Km" alias=".service_locator.DHT_cF9"/>
+    <service id=".service_locator.kp3XxYM" alias=".service_locator.hByM23c"/>
     <service id=".service_locator.LC0HKB5" alias=".service_locator.hA3ZfRw"/>
     <service id=".service_locator.m3K3WLF" alias=".service_locator.gBwNVTZ"/>
     <service id=".service_locator.qxJ8eTB" alias=".service_locator.Rib71Kf"/>

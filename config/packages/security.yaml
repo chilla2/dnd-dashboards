@@ -44,4 +44,13 @@ security:
         - { path: ^/admin/login, roles: PUBLIC_ACCESS }
         - { path: ^/admin, roles: ROLE_ADMIN }
         - { path: ^/private-dashboard, roles: ROLE_ADMIN }
-       # { path: ^/profile, roles: ROLE_USER }
+        - { path: ^/control, roles: ROLE_ADMIN }
+        - { path: ^/dash/player-display-control, roles: ROLE_ADMIN }
+        - { path: ^/game, roles: ROLE_ADMIN }
+        - { path: ^/npc, roles: ROLE_ADMIN }
+        - { path: ^/creature, roles: ROLE_ADMIN }
+        - { path: ^/location, roles: ROLE_ADMIN }
+        - { path: ^/item, roles: ROLE_ADMIN }
+        - { path: ^/location, roles: ROLE_ADMIN }
+        - { path: ^/player, roles: ROLE_ADMIN }
+        # { path: ^/profile, roles: ROLE_USER }
