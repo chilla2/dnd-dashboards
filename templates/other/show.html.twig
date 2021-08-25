@@ -17,11 +17,11 @@
             </tr>
             <tr>
                 <th>Description</th>
-                <td>{{ other.description }}</td>
+                <td>{{ other.description|raw }}</td>
             </tr>
             <tr>
                 <th>Notes</th>
-                <td>{{ other.notes }}</td>
+                <td>{{ other.notes|raw }}</td>
             </tr>
             <tr>
                 <th>ShowPlayers</th>
@@ -31,7 +31,6 @@
     </table>
 
     <a href="{{ path('other_index') }}">back to list</a>
-
     <a href="{{ path('other_edit', {'id': other.id}) }}">edit</a>
 
     {{ include('other/_delete_form.html.twig') }}

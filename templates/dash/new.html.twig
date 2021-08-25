@@ -3,9 +3,10 @@
 {% block title %}New Dash{% endblock %}
 
 {% block body %}
+<!-- dash new -->
     <h1>Create new Dash</h1>
 
-    {{ include('dash/_form.html.twig') }}
+    {{ include('dash/_new_form.html.twig') }}
 
     <a href="{{ path('dash_index') }}">back to list</a>
 {% endblock %}

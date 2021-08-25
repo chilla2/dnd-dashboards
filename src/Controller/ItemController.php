@@ -31,10 +31,10 @@ class ItemController extends AbstractController
     public function new(Request $request): Response
     {
         $item = new Item();
-        $form = $this->createForm(ItemType::class, $item);
-        $form->handleRequest($request);
+        $newItemForm = $this->createForm(ItemType::class, $item);
+        $newItemForm->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($newItemForm->isSubmitted() && $newItemForm->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($item);
             $entityManager->flush();
@@ -44,7 +44,7 @@ class ItemController extends AbstractController
 
         return $this->renderForm('item/new.html.twig', [
             'item' => $item,
-            'form' => $form,
+            'newItemForm' => $newItemForm,
         ]);
     }
 
@@ -63,10 +63,10 @@ class ItemController extends AbstractController
      */
     public function edit(Request $request, Item $item): Response
     {
-        $form = $this->createForm(ItemType::class, $item);
-        $form->handleRequest($request);
+        $editItemForm = $this->createForm(ItemType::class, $item);
+        $editItemForm->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($editItemForm->isSubmitted() && $editItemForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('item_index', [], Response::HTTP_SEE_OTHER);
@@ -74,7 +74,7 @@ class ItemController extends AbstractController
 
         return $this->renderForm('item/edit.html.twig', [
             'item' => $item,
-            'form' => $form,
+            'editItemForm' => $editItemForm,
         ]);
     }
 

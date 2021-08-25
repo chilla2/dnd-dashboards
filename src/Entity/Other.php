@@ -26,7 +26,7 @@ class Other
     private $heading;
 
     /**
-     * @ORM\Column(type="text", length=255)
+     * @ORM\Column(type="text", length=255, nullable=true)
      */
     private $description;
 
@@ -41,11 +41,11 @@ class Other
     private $showPlayers;
 
     public function __toString(): string {
-        return (string) $this->getName().' - '.$this->getDescription();
+        return (string) $this->getHeading().' - '.$this->getDescription();
     }
 
     /**
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true))
      *
      * @var string|null
      */
@@ -59,6 +59,13 @@ class Other
      * @var File|null
      */
     private $imageFile;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     *
+     * @var int|null
+     */
+    private $imageSize;
 
    /**
     * @ORM\Column(type="datetime", nullable=true)
@@ -115,6 +122,15 @@ class Other
         return $this->updatedAt;
     }
 
+    public function setImageSize(?int $imageSize): void
+    {
+        $this->imageSize = $imageSize;
+    }
+
+    public function getImageSize(): ?int
+    {
+        return $this->imageSize;
+    }
     public function getId(): ?int
     {
         return $this->id;

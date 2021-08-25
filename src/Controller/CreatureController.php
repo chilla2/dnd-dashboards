@@ -31,10 +31,10 @@ class CreatureController extends AbstractController
     public function new(Request $request): Response
     {
         $creature = new Creature();
-        $form = $this->createForm(CreatureType::class, $creature);
-        $form->handleRequest($request);
+        $newCreatureForm = $this->createForm(CreatureType::class, $creature);
+        $newCreatureForm->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($newCreatureForm->isSubmitted() && $newCreatureForm->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($creature);
             $entityManager->flush();
@@ -44,7 +44,7 @@ class CreatureController extends AbstractController
 
         return $this->renderForm('creature/new.html.twig', [
             'creature' => $creature,
-            'form' => $form,
+            'newCreatureForm' => $newCreatureForm,
         ]);
     }
 
@@ -63,10 +63,10 @@ class CreatureController extends AbstractController
      */
     public function edit(Request $request, Creature $creature): Response
     {
-        $form = $this->createForm(CreatureType::class, $creature);
-        $form->handleRequest($request);
+        $editCreatureForm = $this->createForm(CreatureType::class, $creature);
+        $editCreatureForm->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($editCreatureForm->isSubmitted() && $editCreatureForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('creature_index', [], Response::HTTP_SEE_OTHER);
@@ -74,7 +74,7 @@ class CreatureController extends AbstractController
 
         return $this->renderForm('creature/edit.html.twig', [
             'creature' => $creature,
-            'form' => $form,
+            'editCreatureForm' => $editCreatureForm,
         ]);
     }
 

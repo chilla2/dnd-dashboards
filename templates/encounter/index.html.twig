@@ -5,24 +5,22 @@
 {% block body %}
     <h1>Encounter index</h1>
 
-    <table class="table">
+    <table class="table fs-6">
         <thead>
             <tr>
                 <th>Id</th>
-                <th>Name</th>
-                <th>Combatants</th>
-                <th>actions</th>
+                <th>Fighters</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
         {% for encounter in encounters %}
             <tr>
                 <td>{{ encounter.id }}</td>
-                <td>{{ encounter.name }}</td>
-                <td>{{ encounter.combatants ? encounter.combatants|join(', ') : '' }}</td>
+                <td>{{ encounter.fighters ? encounter.fighters|join(', ') : '' }}</td>
                 <td>
                     <a href="{{ path('encounter_show', {'id': encounter.id}) }}">show</a>
-                    <a href="{{ path('encounter_edit', {'id': encounter.id}) }}">edit</a>
+                    <a href="{{ path('encounter_add_fighters', {'id': encounter.id}) }}">edit</a>
                 </td>
             </tr>
         {% else %}

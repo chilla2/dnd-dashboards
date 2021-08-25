@@ -285,11 +285,11 @@
         <parameter key="inject_on_load">false</parameter>
         <parameter key="db_driver">orm</parameter>
       </parameter>
-      <parameter key="player_image" type="collection">
-        <parameter key="uri_prefix">/images/players</parameter>
-        <parameter key="upload_destination">/var/www/html/public/images/players</parameter>
+      <parameter key="character_image" type="collection">
+        <parameter key="uri_prefix">/images/characters</parameter>
+        <parameter key="upload_destination">/var/www/html/public/images/characters</parameter>
         <parameter key="namer" type="collection">
-          <parameter key="service">Vich\UploaderBundle\Naming\SmartUniqueNamer.player_image</parameter>
+          <parameter key="service">Vich\UploaderBundle\Naming\SmartUniqueNamer.character_image</parameter>
           <parameter key="options" type="collection"/>
         </parameter>
         <parameter key="directory_namer" type="collection">
@@ -318,7 +318,7 @@
         <parameter key="db_driver">orm</parameter>
       </parameter>
       <parameter key="location_image" type="collection">
-        <parameter key="uri_prefix">/images/location</parameter>
+        <parameter key="uri_prefix">/images/locations</parameter>
         <parameter key="upload_destination">/var/www/html/public/images/locations</parameter>
         <parameter key="namer" type="collection">
           <parameter key="service">Vich\UploaderBundle\Naming\SmartUniqueNamer.location_image</parameter>
@@ -493,6 +493,14 @@
         <argument type="service" id=".service_locator.opmh_Hv.App\Controller\Admin\AdminCrudController"/>
       </call>
     </service>
+    <service id="App\Controller\Admin\CharacterCrudController" class="App\Controller\Admin\CharacterCrudController" public="true" autowire="true" autoconfigure="true">
+      <tag name="ea.crud_controller"/>
+      <tag name="controller.service_arguments"/>
+      <tag name="container.service_subscriber"/>
+      <call method="setContainer">
+        <argument type="service" id=".service_locator.opmh_Hv.App\Controller\Admin\CharacterCrudController"/>
+      </call>
+    </service>
     <service id="App\Controller\Admin\CreatureCrudController" class="App\Controller\Admin\CreatureCrudController" public="true" autowire="true" autoconfigure="true">
       <tag name="ea.crud_controller"/>
       <tag name="controller.service_arguments"/>
@@ -565,28 +573,19 @@
         <argument type="service" id=".service_locator.opmh_Hv.App\Controller\Admin\OtherCrudController"/>
       </call>
     </service>
-    <service id="App\Controller\Admin\PlayerCrudController" class="App\Controller\Admin\PlayerCrudController" public="true" autowire="true" autoconfigure="true">
-      <tag name="ea.crud_controller"/>
-      <tag name="controller.service_arguments"/>
-      <tag name="container.service_subscriber"/>
-      <call method="setContainer">
-        <argument type="service" id=".service_locator.opmh_Hv.App\Controller\Admin\PlayerCrudController"/>
-      </call>
-    </service>
-    <service id="App\Controller\Admin\SessionCrudController" class="App\Controller\Admin\SessionCrudController" public="true" autowire="true" autoconfigure="true">
-      <tag name="ea.crud_controller"/>
-      <tag name="controller.service_arguments"/>
-      <tag name="container.service_subscriber"/>
-      <call method="setContainer">
-        <argument type="service" id=".service_locator.opmh_Hv.App\Controller\Admin\SessionCrudController"/>
-      </call>
-    </service>
     <service id="App\Controller\Admin\UserCrudController" class="App\Controller\Admin\UserCrudController" public="true" autowire="true" autoconfigure="true">
       <tag name="ea.crud_controller"/>
       <tag name="controller.service_arguments"/>
       <tag name="container.service_subscriber"/>
       <call method="setContainer">
         <argument type="service" id=".service_locator.opmh_Hv.App\Controller\Admin\UserCrudController"/>
+      </call>
+    </service>
+    <service id="App\Controller\CharacterController" class="App\Controller\CharacterController" public="true" autowire="true" autoconfigure="true">
+      <tag name="controller.service_arguments"/>
+      <tag name="container.service_subscriber"/>
+      <call method="setContainer">
+        <argument type="service" id=".service_locator.W9y3dzm.App\Controller\CharacterController"/>
       </call>
     </service>
     <service id="App\Controller\CreatureController" class="App\Controller\CreatureController" public="true" autowire="true" autoconfigure="true">
@@ -645,13 +644,6 @@
         <argument type="service" id=".service_locator.W9y3dzm.App\Controller\OtherController"/>
       </call>
     </service>
-    <service id="App\Controller\PlayerController" class="App\Controller\PlayerController" public="true" autowire="true" autoconfigure="true">
-      <tag name="controller.service_arguments"/>
-      <tag name="container.service_subscriber"/>
-      <call method="setContainer">
-        <argument type="service" id=".service_locator.W9y3dzm.App\Controller\PlayerController"/>
-      </call>
-    </service>
     <service id="App\Controller\PrivateDashboardController" class="App\Controller\PrivateDashboardController" public="true" autowire="true" autoconfigure="true">
       <tag name="controller.service_arguments"/>
       <tag name="container.service_subscriber"/>
@@ -681,26 +673,24 @@
         <argument type="service" id=".service_locator.W9y3dzm.App\Controller\SecurityController"/>
       </call>
     </service>
-    <service id="App\Controller\SessionController" class="App\Controller\SessionController" public="true" autowire="true" autoconfigure="true">
-      <tag name="controller.service_arguments"/>
-      <tag name="container.service_subscriber"/>
-      <call method="setContainer">
-        <argument type="service" id=".service_locator.W9y3dzm.App\Controller\SessionController"/>
-      </call>
-    </service>
     <service id="App\EventSubscriber\TwigEventSubscriber" class="App\EventSubscriber\TwigEventSubscriber" autowire="true" autoconfigure="true">
       <tag name="kernel.event_subscriber"/>
       <tag name="container.hot_path"/>
       <argument type="service" id="twig"/>
-      <argument type="service" id="App\Repository\PlayerRepository"/>
+      <argument type="service" id="App\Repository\CharacterRepository"/>
       <argument type="service" id="App\Repository\NpcRepository"/>
       <argument type="service" id="App\Repository\CreatureRepository"/>
-      <argument type="service" id="App\Repository\SessionRepository"/>
       <argument type="service" id="App\Repository\ItemRepository"/>
       <argument type="service" id="App\Repository\LocationRepository"/>
       <argument type="service" id="App\Repository\OtherRepository"/>
       <argument type="service" id="App\Repository\DashRepository"/>
       <argument type="service" id="App\Repository\GameRepository"/>
+    </service>
+    <service id="App\Form\CharacterType" class="App\Form\CharacterType" autowire="true" autoconfigure="true">
+      <tag name="form.type"/>
+    </service>
+    <service id="App\Form\CombatTrackerType" class="App\Form\CombatTrackerType" autowire="true" autoconfigure="true">
+      <tag name="form.type"/>
     </service>
     <service id="App\Form\CreatureType" class="App\Form\CreatureType" autowire="true" autoconfigure="true">
       <tag name="form.type"/>
@@ -726,16 +716,14 @@
     <service id="App\Form\OtherType" class="App\Form\OtherType" autowire="true" autoconfigure="true">
       <tag name="form.type"/>
     </service>
-    <service id="App\Form\PlayerFormType" class="App\Form\PlayerFormType" autowire="true" autoconfigure="true">
-      <tag name="form.type"/>
-    </service>
     <service id="App\Form\RegistrationFormType" class="App\Form\RegistrationFormType" autowire="true" autoconfigure="true">
       <tag name="form.type"/>
     </service>
-    <service id="App\Form\SessionFormType" class="App\Form\SessionFormType" autowire="true" autoconfigure="true">
-      <tag name="form.type"/>
-    </service>
     <service id="App\Repository\AdminRepository" class="App\Repository\AdminRepository" autowire="true" autoconfigure="true">
+      <tag name="doctrine.repository_service"/>
+      <argument type="service" id="doctrine"/>
+    </service>
+    <service id="App\Repository\CharacterRepository" class="App\Repository\CharacterRepository" autowire="true" autoconfigure="true">
       <tag name="doctrine.repository_service"/>
       <argument type="service" id="doctrine"/>
     </service>
@@ -779,19 +767,11 @@
       <tag name="doctrine.repository_service"/>
       <argument type="service" id="doctrine"/>
     </service>
-    <service id="App\Repository\PlayerRepository" class="App\Repository\PlayerRepository" autowire="true" autoconfigure="true">
-      <tag name="doctrine.repository_service"/>
-      <argument type="service" id="doctrine"/>
-    </service>
     <service id="App\Repository\PrivateDashboardRepository" class="App\Repository\PrivateDashboardRepository" autowire="true" autoconfigure="true">
       <tag name="doctrine.repository_service"/>
       <argument type="service" id="doctrine"/>
     </service>
     <service id="App\Repository\PublicDashboardRepository" class="App\Repository\PublicDashboardRepository" autowire="true" autoconfigure="true">
-      <tag name="doctrine.repository_service"/>
-      <argument type="service" id="doctrine"/>
-    </service>
-    <service id="App\Repository\SessionRepository" class="App\Repository\SessionRepository" autowire="true" autoconfigure="true">
       <tag name="doctrine.repository_service"/>
       <argument type="service" id="doctrine"/>
     </service>
@@ -1394,6 +1374,8 @@
         <argument>Vich\UploaderBundle\Form\Type</argument>
       </argument>
       <argument type="collection">
+        <argument>App\Form\CharacterType</argument>
+        <argument>App\Form\CombatTrackerType</argument>
         <argument>App\Form\CreatureType</argument>
         <argument>App\Form\DashType</argument>
         <argument>App\Form\EncounterType</argument>
@@ -1402,9 +1384,7 @@
         <argument>App\Form\LocationType</argument>
         <argument>App\Form\NpcType</argument>
         <argument>App\Form\OtherType</argument>
-        <argument>App\Form\PlayerFormType</argument>
         <argument>App\Form\RegistrationFormType</argument>
-        <argument>App\Form\SessionFormType</argument>
         <argument>Symfony\Component\Form\Extension\Core\Type\FormType</argument>
         <argument>Symfony\Component\Form\Extension\Core\Type\ChoiceType</argument>
         <argument>Symfony\Component\Form\Extension\Core\Type\FileType</argument>
@@ -1819,7 +1799,7 @@
       <argument type="service" id="form.registry"/>
     </service>
     <service id="form.extension" class="Symfony\Component\Form\Extension\DependencyInjection\DependencyInjectionExtension">
-      <argument type="service" id=".service_locator.W3Dlkc0"/>
+      <argument type="service" id=".service_locator.qqlWcBp"/>
       <argument type="collection">
         <argument key="Symfony\Component\Form\Extension\Core\Type\FormType" type="iterator">
           <argument type="service" id="form.type_extension.form.transformation_failure_handling"/>
@@ -5002,10 +4982,10 @@
       </argument>
     </service>
     <service id="doctrine.dbal.default_connection.event_manager" class="Symfony\Bridge\Doctrine\ContainerAwareEventManager">
-      <argument type="service" id=".service_locator.4Ad2bu8"/>
+      <argument type="service" id=".service_locator.EJrCBR8"/>
       <argument type="collection">
         <argument>vich_uploader.listener.clean.npc_image</argument>
-        <argument>vich_uploader.listener.clean.player_image</argument>
+        <argument>vich_uploader.listener.clean.character_image</argument>
         <argument>vich_uploader.listener.clean.creature_image</argument>
         <argument>vich_uploader.listener.clean.location_image</argument>
         <argument>vich_uploader.listener.clean.item_image</argument>
@@ -5015,8 +4995,8 @@
         <argument>doctrine.orm.listeners.doctrine_token_provider_schema_subscriber</argument>
         <argument>vich_uploader.listener.remove.npc_image</argument>
         <argument>vich_uploader.listener.upload.npc_image</argument>
-        <argument>vich_uploader.listener.remove.player_image</argument>
-        <argument>vich_uploader.listener.upload.player_image</argument>
+        <argument>vich_uploader.listener.remove.character_image</argument>
+        <argument>vich_uploader.listener.upload.character_image</argument>
         <argument>vich_uploader.listener.remove.creature_image</argument>
         <argument>vich_uploader.listener.upload.creature_image</argument>
         <argument>vich_uploader.listener.remove.location_image</argument>
@@ -5084,7 +5064,7 @@
       <factory class="Doctrine\ORM\EntityManager" method="create"/>
     </service>
     <service id="doctrine.orm.container_repository_factory" class="Doctrine\Bundle\DoctrineBundle\Repository\ContainerRepositoryFactory">
-      <argument type="service" id=".service_locator.2XrFAl9"/>
+      <argument type="service" id=".service_locator.4AHZ1Fq"/>
     </service>
     <service id="doctrine.orm.manager_configurator.abstract" class="Doctrine\Bundle\DoctrineBundle\ManagerConfigurator" abstract="true">
       <argument type="collection"/>
@@ -6853,7 +6833,7 @@
     <service id="Vich\UploaderBundle\Naming\SmartUniqueNamer.npc_image" class="Vich\UploaderBundle\Naming\SmartUniqueNamer" public="true">
       <argument type="service" id="Vich\UploaderBundle\Util\Transliterator"/>
     </service>
-    <service id="Vich\UploaderBundle\Naming\SmartUniqueNamer.player_image" class="Vich\UploaderBundle\Naming\SmartUniqueNamer" public="true">
+    <service id="Vich\UploaderBundle\Naming\SmartUniqueNamer.character_image" class="Vich\UploaderBundle\Naming\SmartUniqueNamer" public="true">
       <argument type="service" id="Vich\UploaderBundle\Util\Transliterator"/>
     </service>
     <service id="Vich\UploaderBundle\Naming\SmartUniqueNamer.creature_image" class="Vich\UploaderBundle\Naming\SmartUniqueNamer" public="true">
@@ -7113,23 +7093,23 @@
       <argument type="service" id="vich_uploader.metadata_reader"/>
       <argument type="service" id="vich_uploader.upload_handler"/>
     </service>
-    <service id="vich_uploader.listener.clean.player_image" class="Vich\UploaderBundle\EventListener\Doctrine\CleanListener">
+    <service id="vich_uploader.listener.clean.character_image" class="Vich\UploaderBundle\EventListener\Doctrine\CleanListener">
       <tag name="doctrine.event_subscriber" priority="50"/>
-      <argument>player_image</argument>
+      <argument>character_image</argument>
       <argument type="service" id="vich_uploader.adapter.orm"/>
       <argument type="service" id="vich_uploader.metadata_reader"/>
       <argument type="service" id="vich_uploader.upload_handler"/>
     </service>
-    <service id="vich_uploader.listener.remove.player_image" class="Vich\UploaderBundle\EventListener\Doctrine\RemoveListener">
+    <service id="vich_uploader.listener.remove.character_image" class="Vich\UploaderBundle\EventListener\Doctrine\RemoveListener">
       <tag name="doctrine.event_subscriber" priority="0"/>
-      <argument>player_image</argument>
+      <argument>character_image</argument>
       <argument type="service" id="vich_uploader.adapter.orm"/>
       <argument type="service" id="vich_uploader.metadata_reader"/>
       <argument type="service" id="vich_uploader.upload_handler"/>
     </service>
-    <service id="vich_uploader.listener.upload.player_image" class="Vich\UploaderBundle\EventListener\Doctrine\UploadListener">
+    <service id="vich_uploader.listener.upload.character_image" class="Vich\UploaderBundle\EventListener\Doctrine\UploadListener">
       <tag name="doctrine.event_subscriber" priority="0"/>
-      <argument>player_image</argument>
+      <argument>character_image</argument>
       <argument type="service" id="vich_uploader.adapter.orm"/>
       <argument type="service" id="vich_uploader.metadata_reader"/>
       <argument type="service" id="vich_uploader.upload_handler"/>
@@ -7243,6 +7223,10 @@
     <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\Admin\AdminCrudController" class="App\Controller\Admin\AdminCrudController" autowire="true" abstract="true"/>
     <service id=".instanceof.EasyCorp\Bundle\EasyAdminBundle\Contracts\Controller\CrudControllerInterface.0.App\Controller\Admin\AdminCrudController" class="App\Controller\Admin\AdminCrudController" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Controller\Admin\AdminCrudController" class="App\Controller\Admin\AdminCrudController" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\Admin\CharacterCrudController" class="App\Controller\Admin\CharacterCrudController" autowire="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\Admin\CharacterCrudController" class="App\Controller\Admin\CharacterCrudController" autowire="true" abstract="true"/>
+    <service id=".instanceof.EasyCorp\Bundle\EasyAdminBundle\Contracts\Controller\CrudControllerInterface.0.App\Controller\Admin\CharacterCrudController" class="App\Controller\Admin\CharacterCrudController" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Controller\Admin\CharacterCrudController" class="App\Controller\Admin\CharacterCrudController" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\Admin\CreatureCrudController" class="App\Controller\Admin\CreatureCrudController" autowire="true" abstract="true"/>
     <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\Admin\CreatureCrudController" class="App\Controller\Admin\CreatureCrudController" autowire="true" abstract="true"/>
     <service id=".instanceof.EasyCorp\Bundle\EasyAdminBundle\Contracts\Controller\CrudControllerInterface.0.App\Controller\Admin\CreatureCrudController" class="App\Controller\Admin\CreatureCrudController" autowire="true" abstract="true"/>
@@ -7279,18 +7263,13 @@
     <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\Admin\OtherCrudController" class="App\Controller\Admin\OtherCrudController" autowire="true" abstract="true"/>
     <service id=".instanceof.EasyCorp\Bundle\EasyAdminBundle\Contracts\Controller\CrudControllerInterface.0.App\Controller\Admin\OtherCrudController" class="App\Controller\Admin\OtherCrudController" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Controller\Admin\OtherCrudController" class="App\Controller\Admin\OtherCrudController" autowire="true" autoconfigure="true" abstract="true"/>
-    <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\Admin\PlayerCrudController" class="App\Controller\Admin\PlayerCrudController" autowire="true" abstract="true"/>
-    <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\Admin\PlayerCrudController" class="App\Controller\Admin\PlayerCrudController" autowire="true" abstract="true"/>
-    <service id=".instanceof.EasyCorp\Bundle\EasyAdminBundle\Contracts\Controller\CrudControllerInterface.0.App\Controller\Admin\PlayerCrudController" class="App\Controller\Admin\PlayerCrudController" autowire="true" abstract="true"/>
-    <service id=".abstract.instanceof.App\Controller\Admin\PlayerCrudController" class="App\Controller\Admin\PlayerCrudController" autowire="true" autoconfigure="true" abstract="true"/>
-    <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\Admin\SessionCrudController" class="App\Controller\Admin\SessionCrudController" autowire="true" abstract="true"/>
-    <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\Admin\SessionCrudController" class="App\Controller\Admin\SessionCrudController" autowire="true" abstract="true"/>
-    <service id=".instanceof.EasyCorp\Bundle\EasyAdminBundle\Contracts\Controller\CrudControllerInterface.0.App\Controller\Admin\SessionCrudController" class="App\Controller\Admin\SessionCrudController" autowire="true" abstract="true"/>
-    <service id=".abstract.instanceof.App\Controller\Admin\SessionCrudController" class="App\Controller\Admin\SessionCrudController" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\Admin\UserCrudController" class="App\Controller\Admin\UserCrudController" autowire="true" abstract="true"/>
     <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\Admin\UserCrudController" class="App\Controller\Admin\UserCrudController" autowire="true" abstract="true"/>
     <service id=".instanceof.EasyCorp\Bundle\EasyAdminBundle\Contracts\Controller\CrudControllerInterface.0.App\Controller\Admin\UserCrudController" class="App\Controller\Admin\UserCrudController" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Controller\Admin\UserCrudController" class="App\Controller\Admin\UserCrudController" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\CharacterController" class="App\Controller\CharacterController" autowire="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\CharacterController" class="App\Controller\CharacterController" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Controller\CharacterController" class="App\Controller\CharacterController" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\CreatureController" class="App\Controller\CreatureController" autowire="true" abstract="true"/>
     <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\CreatureController" class="App\Controller\CreatureController" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Controller\CreatureController" class="App\Controller\CreatureController" autowire="true" autoconfigure="true" abstract="true"/>
@@ -7315,9 +7294,6 @@
     <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\OtherController" class="App\Controller\OtherController" autowire="true" abstract="true"/>
     <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\OtherController" class="App\Controller\OtherController" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Controller\OtherController" class="App\Controller\OtherController" autowire="true" autoconfigure="true" abstract="true"/>
-    <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\PlayerController" class="App\Controller\PlayerController" autowire="true" abstract="true"/>
-    <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\PlayerController" class="App\Controller\PlayerController" autowire="true" abstract="true"/>
-    <service id=".abstract.instanceof.App\Controller\PlayerController" class="App\Controller\PlayerController" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\PrivateDashboardController" class="App\Controller\PrivateDashboardController" autowire="true" abstract="true"/>
     <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\PrivateDashboardController" class="App\Controller\PrivateDashboardController" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Controller\PrivateDashboardController" class="App\Controller\PrivateDashboardController" autowire="true" autoconfigure="true" abstract="true"/>
@@ -7330,11 +7306,12 @@
     <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\SecurityController" class="App\Controller\SecurityController" autowire="true" abstract="true"/>
     <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\SecurityController" class="App\Controller\SecurityController" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Controller\SecurityController" class="App\Controller\SecurityController" autowire="true" autoconfigure="true" abstract="true"/>
-    <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\SessionController" class="App\Controller\SessionController" autowire="true" abstract="true"/>
-    <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\SessionController" class="App\Controller\SessionController" autowire="true" abstract="true"/>
-    <service id=".abstract.instanceof.App\Controller\SessionController" class="App\Controller\SessionController" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Component\EventDispatcher\EventSubscriberInterface.0.App\EventSubscriber\TwigEventSubscriber" class="App\EventSubscriber\TwigEventSubscriber" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\EventSubscriber\TwigEventSubscriber" class="App\EventSubscriber\TwigEventSubscriber" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\CharacterType" class="App\Form\CharacterType" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Form\CharacterType" class="App\Form\CharacterType" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\CombatTrackerType" class="App\Form\CombatTrackerType" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Form\CombatTrackerType" class="App\Form\CombatTrackerType" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\CreatureType" class="App\Form\CreatureType" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Form\CreatureType" class="App\Form\CreatureType" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\DashType" class="App\Form\DashType" autowire="true" abstract="true"/>
@@ -7351,14 +7328,12 @@
     <service id=".abstract.instanceof.App\Form\NpcType" class="App\Form\NpcType" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\OtherType" class="App\Form\OtherType" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Form\OtherType" class="App\Form\OtherType" autowire="true" autoconfigure="true" abstract="true"/>
-    <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\PlayerFormType" class="App\Form\PlayerFormType" autowire="true" abstract="true"/>
-    <service id=".abstract.instanceof.App\Form\PlayerFormType" class="App\Form\PlayerFormType" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\RegistrationFormType" class="App\Form\RegistrationFormType" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Form\RegistrationFormType" class="App\Form\RegistrationFormType" autowire="true" autoconfigure="true" abstract="true"/>
-    <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\SessionFormType" class="App\Form\SessionFormType" autowire="true" abstract="true"/>
-    <service id=".abstract.instanceof.App\Form\SessionFormType" class="App\Form\SessionFormType" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\AdminRepository" class="App\Repository\AdminRepository" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Repository\AdminRepository" class="App\Repository\AdminRepository" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\CharacterRepository" class="App\Repository\CharacterRepository" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Repository\CharacterRepository" class="App\Repository\CharacterRepository" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\ConditionRepository" class="App\Repository\ConditionRepository" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Repository\ConditionRepository" class="App\Repository\ConditionRepository" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\CreatureRepository" class="App\Repository\CreatureRepository" autowire="true" abstract="true"/>
@@ -7379,14 +7354,10 @@
     <service id=".abstract.instanceof.App\Repository\NpcRepository" class="App\Repository\NpcRepository" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\OtherRepository" class="App\Repository\OtherRepository" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Repository\OtherRepository" class="App\Repository\OtherRepository" autowire="true" autoconfigure="true" abstract="true"/>
-    <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\PlayerRepository" class="App\Repository\PlayerRepository" autowire="true" abstract="true"/>
-    <service id=".abstract.instanceof.App\Repository\PlayerRepository" class="App\Repository\PlayerRepository" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\PrivateDashboardRepository" class="App\Repository\PrivateDashboardRepository" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Repository\PrivateDashboardRepository" class="App\Repository\PrivateDashboardRepository" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\PublicDashboardRepository" class="App\Repository\PublicDashboardRepository" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Repository\PublicDashboardRepository" class="App\Repository\PublicDashboardRepository" autowire="true" autoconfigure="true" abstract="true"/>
-    <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\SessionRepository" class="App\Repository\SessionRepository" autowire="true" abstract="true"/>
-    <service id=".abstract.instanceof.App\Repository\SessionRepository" class="App\Repository\SessionRepository" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\UserRepository" class="App\Repository\UserRepository" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Repository\UserRepository" class="App\Repository\UserRepository" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.EasyCorp\Bundle\EasyAdminBundle\Contracts\Filter\FilterConfiguratorInterface.0.EasyCorp\Bundle\EasyAdminBundle\Filter\Configurator\ChoiceConfigurator" class="EasyCorp\Bundle\EasyAdminBundle\Filter\Configurator\ChoiceConfigurator" abstract="true"/>
@@ -7846,6 +7817,41 @@
         <argument key="user" type="service_closure" id=".errored..service_locator.q6hA_O0.Symfony\Component\Security\Core\User\UserInterface"/>
       </argument>
     </service>
+    <service id=".service_locator.fIVG_E." class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="characterRepository" type="service_closure" id="App\Repository\CharacterRepository"/>
+      </argument>
+    </service>
+    <service id=".errored.A2wko_d" class="App\Controller\Request"/>
+    <service id=".service_locator.goYBIIr" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="request" type="service_closure" id=".errored.A2wko_d"/>
+      </argument>
+    </service>
+    <service id=".service_locator.P2WjH_8" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="character" type="service_closure" id=".errored..service_locator.P2WjH_8.App\Entity\Character"/>
+      </argument>
+    </service>
+    <service id=".errored.oCN94fG" class="App\Controller\Request"/>
+    <service id=".service_locator.IhBZLft" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="character" type="service_closure" id=".errored..service_locator.IhBZLft.App\Entity\Character"/>
+        <argument key="request" type="service_closure" id=".errored.oCN94fG"/>
+      </argument>
+    </service>
+    <service id=".errored.FlNwVdN" class="App\Controller\Request"/>
+    <service id=".service_locator.ky7FcZF" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="character" type="service_closure" id=".errored..service_locator.ky7FcZF.App\Entity\Character"/>
+        <argument key="request" type="service_closure" id=".errored.FlNwVdN"/>
+      </argument>
+    </service>
     <service id=".service_locator.dPbpGJg" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
@@ -7961,7 +7967,7 @@
         <argument key="authenticationUtils" type="service_closure" id="security.authentication_utils"/>
       </argument>
     </service>
-    <service id=".service_locator.mMjILtO" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.DSzSTpd" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="App\Controller\Admin\AdminCrudController::autocomplete" type="service_closure" id=".service_locator.ZOQ9v2d"/>
@@ -7985,6 +7991,27 @@
         <argument key="App\Controller\Admin\AdminCrudController::persistEntity" type="service_closure" id=".service_locator.l2QwsaZ"/>
         <argument key="App\Controller\Admin\AdminCrudController::renderFilters" type="service_closure" id=".service_locator.ZOQ9v2d"/>
         <argument key="App\Controller\Admin\AdminCrudController::updateEntity" type="service_closure" id=".service_locator.l2QwsaZ"/>
+        <argument key="App\Controller\Admin\CharacterCrudController::autocomplete" type="service_closure" id=".service_locator.ZOQ9v2d"/>
+        <argument key="App\Controller\Admin\CharacterCrudController::batchDelete" type="service_closure" id=".service_locator.AWPr3oy"/>
+        <argument key="App\Controller\Admin\CharacterCrudController::configureActions" type="service_closure" id=".service_locator.CKlWSja"/>
+        <argument key="App\Controller\Admin\CharacterCrudController::configureAssets" type="service_closure" id=".service_locator.U4Bbnsn"/>
+        <argument key="App\Controller\Admin\CharacterCrudController::configureCrud" type="service_closure" id=".service_locator.4C0Bh8j"/>
+        <argument key="App\Controller\Admin\CharacterCrudController::configureFilters" type="service_closure" id=".service_locator.Nt.ogDb"/>
+        <argument key="App\Controller\Admin\CharacterCrudController::configureResponseParameters" type="service_closure" id=".service_locator.2dc0eaX"/>
+        <argument key="App\Controller\Admin\CharacterCrudController::createEditForm" type="service_closure" id=".service_locator.tbo4Jjv"/>
+        <argument key="App\Controller\Admin\CharacterCrudController::createEditFormBuilder" type="service_closure" id=".service_locator.tbo4Jjv"/>
+        <argument key="App\Controller\Admin\CharacterCrudController::createIndexQueryBuilder" type="service_closure" id=".service_locator.rAlqQ78"/>
+        <argument key="App\Controller\Admin\CharacterCrudController::createNewForm" type="service_closure" id=".service_locator.tbo4Jjv"/>
+        <argument key="App\Controller\Admin\CharacterCrudController::createNewFormBuilder" type="service_closure" id=".service_locator.tbo4Jjv"/>
+        <argument key="App\Controller\Admin\CharacterCrudController::delete" type="service_closure" id=".service_locator.ZOQ9v2d"/>
+        <argument key="App\Controller\Admin\CharacterCrudController::deleteEntity" type="service_closure" id=".service_locator.l2QwsaZ"/>
+        <argument key="App\Controller\Admin\CharacterCrudController::detail" type="service_closure" id=".service_locator.ZOQ9v2d"/>
+        <argument key="App\Controller\Admin\CharacterCrudController::edit" type="service_closure" id=".service_locator.ZOQ9v2d"/>
+        <argument key="App\Controller\Admin\CharacterCrudController::index" type="service_closure" id=".service_locator.ZOQ9v2d"/>
+        <argument key="App\Controller\Admin\CharacterCrudController::new" type="service_closure" id=".service_locator.ZOQ9v2d"/>
+        <argument key="App\Controller\Admin\CharacterCrudController::persistEntity" type="service_closure" id=".service_locator.l2QwsaZ"/>
+        <argument key="App\Controller\Admin\CharacterCrudController::renderFilters" type="service_closure" id=".service_locator.ZOQ9v2d"/>
+        <argument key="App\Controller\Admin\CharacterCrudController::updateEntity" type="service_closure" id=".service_locator.l2QwsaZ"/>
         <argument key="App\Controller\Admin\CreatureCrudController::autocomplete" type="service_closure" id=".service_locator.ZOQ9v2d"/>
         <argument key="App\Controller\Admin\CreatureCrudController::batchDelete" type="service_closure" id=".service_locator.AWPr3oy"/>
         <argument key="App\Controller\Admin\CreatureCrudController::configureActions" type="service_closure" id=".service_locator.CKlWSja"/>
@@ -8154,48 +8181,6 @@
         <argument key="App\Controller\Admin\OtherCrudController::persistEntity" type="service_closure" id=".service_locator.l2QwsaZ"/>
         <argument key="App\Controller\Admin\OtherCrudController::renderFilters" type="service_closure" id=".service_locator.ZOQ9v2d"/>
         <argument key="App\Controller\Admin\OtherCrudController::updateEntity" type="service_closure" id=".service_locator.l2QwsaZ"/>
-        <argument key="App\Controller\Admin\PlayerCrudController::autocomplete" type="service_closure" id=".service_locator.ZOQ9v2d"/>
-        <argument key="App\Controller\Admin\PlayerCrudController::batchDelete" type="service_closure" id=".service_locator.AWPr3oy"/>
-        <argument key="App\Controller\Admin\PlayerCrudController::configureActions" type="service_closure" id=".service_locator.CKlWSja"/>
-        <argument key="App\Controller\Admin\PlayerCrudController::configureAssets" type="service_closure" id=".service_locator.U4Bbnsn"/>
-        <argument key="App\Controller\Admin\PlayerCrudController::configureCrud" type="service_closure" id=".service_locator.4C0Bh8j"/>
-        <argument key="App\Controller\Admin\PlayerCrudController::configureFilters" type="service_closure" id=".service_locator.Nt.ogDb"/>
-        <argument key="App\Controller\Admin\PlayerCrudController::configureResponseParameters" type="service_closure" id=".service_locator.2dc0eaX"/>
-        <argument key="App\Controller\Admin\PlayerCrudController::createEditForm" type="service_closure" id=".service_locator.tbo4Jjv"/>
-        <argument key="App\Controller\Admin\PlayerCrudController::createEditFormBuilder" type="service_closure" id=".service_locator.tbo4Jjv"/>
-        <argument key="App\Controller\Admin\PlayerCrudController::createIndexQueryBuilder" type="service_closure" id=".service_locator.rAlqQ78"/>
-        <argument key="App\Controller\Admin\PlayerCrudController::createNewForm" type="service_closure" id=".service_locator.tbo4Jjv"/>
-        <argument key="App\Controller\Admin\PlayerCrudController::createNewFormBuilder" type="service_closure" id=".service_locator.tbo4Jjv"/>
-        <argument key="App\Controller\Admin\PlayerCrudController::delete" type="service_closure" id=".service_locator.ZOQ9v2d"/>
-        <argument key="App\Controller\Admin\PlayerCrudController::deleteEntity" type="service_closure" id=".service_locator.l2QwsaZ"/>
-        <argument key="App\Controller\Admin\PlayerCrudController::detail" type="service_closure" id=".service_locator.ZOQ9v2d"/>
-        <argument key="App\Controller\Admin\PlayerCrudController::edit" type="service_closure" id=".service_locator.ZOQ9v2d"/>
-        <argument key="App\Controller\Admin\PlayerCrudController::index" type="service_closure" id=".service_locator.ZOQ9v2d"/>
-        <argument key="App\Controller\Admin\PlayerCrudController::new" type="service_closure" id=".service_locator.ZOQ9v2d"/>
-        <argument key="App\Controller\Admin\PlayerCrudController::persistEntity" type="service_closure" id=".service_locator.l2QwsaZ"/>
-        <argument key="App\Controller\Admin\PlayerCrudController::renderFilters" type="service_closure" id=".service_locator.ZOQ9v2d"/>
-        <argument key="App\Controller\Admin\PlayerCrudController::updateEntity" type="service_closure" id=".service_locator.l2QwsaZ"/>
-        <argument key="App\Controller\Admin\SessionCrudController::autocomplete" type="service_closure" id=".service_locator.ZOQ9v2d"/>
-        <argument key="App\Controller\Admin\SessionCrudController::batchDelete" type="service_closure" id=".service_locator.AWPr3oy"/>
-        <argument key="App\Controller\Admin\SessionCrudController::configureActions" type="service_closure" id=".service_locator.CKlWSja"/>
-        <argument key="App\Controller\Admin\SessionCrudController::configureAssets" type="service_closure" id=".service_locator.U4Bbnsn"/>
-        <argument key="App\Controller\Admin\SessionCrudController::configureCrud" type="service_closure" id=".service_locator.4C0Bh8j"/>
-        <argument key="App\Controller\Admin\SessionCrudController::configureFilters" type="service_closure" id=".service_locator.Nt.ogDb"/>
-        <argument key="App\Controller\Admin\SessionCrudController::configureResponseParameters" type="service_closure" id=".service_locator.2dc0eaX"/>
-        <argument key="App\Controller\Admin\SessionCrudController::createEditForm" type="service_closure" id=".service_locator.tbo4Jjv"/>
-        <argument key="App\Controller\Admin\SessionCrudController::createEditFormBuilder" type="service_closure" id=".service_locator.tbo4Jjv"/>
-        <argument key="App\Controller\Admin\SessionCrudController::createIndexQueryBuilder" type="service_closure" id=".service_locator.rAlqQ78"/>
-        <argument key="App\Controller\Admin\SessionCrudController::createNewForm" type="service_closure" id=".service_locator.tbo4Jjv"/>
-        <argument key="App\Controller\Admin\SessionCrudController::createNewFormBuilder" type="service_closure" id=".service_locator.tbo4Jjv"/>
-        <argument key="App\Controller\Admin\SessionCrudController::delete" type="service_closure" id=".service_locator.ZOQ9v2d"/>
-        <argument key="App\Controller\Admin\SessionCrudController::deleteEntity" type="service_closure" id=".service_locator.l2QwsaZ"/>
-        <argument key="App\Controller\Admin\SessionCrudController::detail" type="service_closure" id=".service_locator.ZOQ9v2d"/>
-        <argument key="App\Controller\Admin\SessionCrudController::edit" type="service_closure" id=".service_locator.ZOQ9v2d"/>
-        <argument key="App\Controller\Admin\SessionCrudController::index" type="service_closure" id=".service_locator.ZOQ9v2d"/>
-        <argument key="App\Controller\Admin\SessionCrudController::new" type="service_closure" id=".service_locator.ZOQ9v2d"/>
-        <argument key="App\Controller\Admin\SessionCrudController::persistEntity" type="service_closure" id=".service_locator.l2QwsaZ"/>
-        <argument key="App\Controller\Admin\SessionCrudController::renderFilters" type="service_closure" id=".service_locator.ZOQ9v2d"/>
-        <argument key="App\Controller\Admin\SessionCrudController::updateEntity" type="service_closure" id=".service_locator.l2QwsaZ"/>
         <argument key="App\Controller\Admin\UserCrudController::autocomplete" type="service_closure" id=".service_locator.ZOQ9v2d"/>
         <argument key="App\Controller\Admin\UserCrudController::batchDelete" type="service_closure" id=".service_locator.AWPr3oy"/>
         <argument key="App\Controller\Admin\UserCrudController::configureActions" type="service_closure" id=".service_locator.CKlWSja"/>
@@ -8217,6 +8202,11 @@
         <argument key="App\Controller\Admin\UserCrudController::persistEntity" type="service_closure" id=".service_locator.l2QwsaZ"/>
         <argument key="App\Controller\Admin\UserCrudController::renderFilters" type="service_closure" id=".service_locator.ZOQ9v2d"/>
         <argument key="App\Controller\Admin\UserCrudController::updateEntity" type="service_closure" id=".service_locator.l2QwsaZ"/>
+        <argument key="App\Controller\CharacterController::delete" type="service_closure" id=".service_locator.ky7FcZF"/>
+        <argument key="App\Controller\CharacterController::edit" type="service_closure" id=".service_locator.IhBZLft"/>
+        <argument key="App\Controller\CharacterController::index" type="service_closure" id=".service_locator.fIVG_E."/>
+        <argument key="App\Controller\CharacterController::new" type="service_closure" id=".service_locator.goYBIIr"/>
+        <argument key="App\Controller\CharacterController::show" type="service_closure" id=".service_locator.P2WjH_8"/>
         <argument key="App\Controller\CreatureController::delete" type="service_closure" id=".service_locator.BwK8duM"/>
         <argument key="App\Controller\CreatureController::edit" type="service_closure" id=".service_locator.BwK8duM"/>
         <argument key="App\Controller\CreatureController::index" type="service_closure" id=".service_locator.dPbpGJg"/>
@@ -8225,8 +8215,9 @@
         <argument key="App\Controller\DashController::edit" type="service_closure" id=".service_locator.jbhBKvu"/>
         <argument key="App\Controller\DashController::index" type="service_closure" id=".service_locator.aOQT9Xi"/>
         <argument key="App\Controller\DashController::show" type="service_closure" id=".service_locator.jbhBKvu"/>
+        <argument key="App\Controller\EncounterController::addFighters" type="service_closure" id=".service_locator.hByM23c"/>
         <argument key="App\Controller\EncounterController::delete" type="service_closure" id=".service_locator.hByM23c"/>
-        <argument key="App\Controller\EncounterController::edit" type="service_closure" id=".service_locator.hByM23c"/>
+        <argument key="App\Controller\EncounterController::editCombat" type="service_closure" id=".service_locator.hByM23c"/>
         <argument key="App\Controller\EncounterController::index" type="service_closure" id=".service_locator.DHT_cF9"/>
         <argument key="App\Controller\EncounterController::show" type="service_closure" id=".service_locator.hByM23c"/>
         <argument key="App\Controller\GameController::delete" type="service_closure" id=".service_locator.gBwNVTZ"/>
@@ -8279,6 +8270,27 @@
         <argument key="App\Controller\Admin\AdminCrudController:persistEntity" type="service_closure" id=".service_locator.l2QwsaZ"/>
         <argument key="App\Controller\Admin\AdminCrudController:renderFilters" type="service_closure" id=".service_locator.ZOQ9v2d"/>
         <argument key="App\Controller\Admin\AdminCrudController:updateEntity" type="service_closure" id=".service_locator.l2QwsaZ"/>
+        <argument key="App\Controller\Admin\CharacterCrudController:autocomplete" type="service_closure" id=".service_locator.ZOQ9v2d"/>
+        <argument key="App\Controller\Admin\CharacterCrudController:batchDelete" type="service_closure" id=".service_locator.AWPr3oy"/>
+        <argument key="App\Controller\Admin\CharacterCrudController:configureActions" type="service_closure" id=".service_locator.CKlWSja"/>
+        <argument key="App\Controller\Admin\CharacterCrudController:configureAssets" type="service_closure" id=".service_locator.U4Bbnsn"/>
+        <argument key="App\Controller\Admin\CharacterCrudController:configureCrud" type="service_closure" id=".service_locator.4C0Bh8j"/>
+        <argument key="App\Controller\Admin\CharacterCrudController:configureFilters" type="service_closure" id=".service_locator.Nt.ogDb"/>
+        <argument key="App\Controller\Admin\CharacterCrudController:configureResponseParameters" type="service_closure" id=".service_locator.2dc0eaX"/>
+        <argument key="App\Controller\Admin\CharacterCrudController:createEditForm" type="service_closure" id=".service_locator.tbo4Jjv"/>
+        <argument key="App\Controller\Admin\CharacterCrudController:createEditFormBuilder" type="service_closure" id=".service_locator.tbo4Jjv"/>
+        <argument key="App\Controller\Admin\CharacterCrudController:createIndexQueryBuilder" type="service_closure" id=".service_locator.rAlqQ78"/>
+        <argument key="App\Controller\Admin\CharacterCrudController:createNewForm" type="service_closure" id=".service_locator.tbo4Jjv"/>
+        <argument key="App\Controller\Admin\CharacterCrudController:createNewFormBuilder" type="service_closure" id=".service_locator.tbo4Jjv"/>
+        <argument key="App\Controller\Admin\CharacterCrudController:delete" type="service_closure" id=".service_locator.ZOQ9v2d"/>
+        <argument key="App\Controller\Admin\CharacterCrudController:deleteEntity" type="service_closure" id=".service_locator.l2QwsaZ"/>
+        <argument key="App\Controller\Admin\CharacterCrudController:detail" type="service_closure" id=".service_locator.ZOQ9v2d"/>
+        <argument key="App\Controller\Admin\CharacterCrudController:edit" type="service_closure" id=".service_locator.ZOQ9v2d"/>
+        <argument key="App\Controller\Admin\CharacterCrudController:index" type="service_closure" id=".service_locator.ZOQ9v2d"/>
+        <argument key="App\Controller\Admin\CharacterCrudController:new" type="service_closure" id=".service_locator.ZOQ9v2d"/>
+        <argument key="App\Controller\Admin\CharacterCrudController:persistEntity" type="service_closure" id=".service_locator.l2QwsaZ"/>
+        <argument key="App\Controller\Admin\CharacterCrudController:renderFilters" type="service_closure" id=".service_locator.ZOQ9v2d"/>
+        <argument key="App\Controller\Admin\CharacterCrudController:updateEntity" type="service_closure" id=".service_locator.l2QwsaZ"/>
         <argument key="App\Controller\Admin\CreatureCrudController:autocomplete" type="service_closure" id=".service_locator.ZOQ9v2d"/>
         <argument key="App\Controller\Admin\CreatureCrudController:batchDelete" type="service_closure" id=".service_locator.AWPr3oy"/>
         <argument key="App\Controller\Admin\CreatureCrudController:configureActions" type="service_closure" id=".service_locator.CKlWSja"/>
@@ -8448,48 +8460,6 @@
         <argument key="App\Controller\Admin\OtherCrudController:persistEntity" type="service_closure" id=".service_locator.l2QwsaZ"/>
         <argument key="App\Controller\Admin\OtherCrudController:renderFilters" type="service_closure" id=".service_locator.ZOQ9v2d"/>
         <argument key="App\Controller\Admin\OtherCrudController:updateEntity" type="service_closure" id=".service_locator.l2QwsaZ"/>
-        <argument key="App\Controller\Admin\PlayerCrudController:autocomplete" type="service_closure" id=".service_locator.ZOQ9v2d"/>
-        <argument key="App\Controller\Admin\PlayerCrudController:batchDelete" type="service_closure" id=".service_locator.AWPr3oy"/>
-        <argument key="App\Controller\Admin\PlayerCrudController:configureActions" type="service_closure" id=".service_locator.CKlWSja"/>
-        <argument key="App\Controller\Admin\PlayerCrudController:configureAssets" type="service_closure" id=".service_locator.U4Bbnsn"/>
-        <argument key="App\Controller\Admin\PlayerCrudController:configureCrud" type="service_closure" id=".service_locator.4C0Bh8j"/>
-        <argument key="App\Controller\Admin\PlayerCrudController:configureFilters" type="service_closure" id=".service_locator.Nt.ogDb"/>
-        <argument key="App\Controller\Admin\PlayerCrudController:configureResponseParameters" type="service_closure" id=".service_locator.2dc0eaX"/>
-        <argument key="App\Controller\Admin\PlayerCrudController:createEditForm" type="service_closure" id=".service_locator.tbo4Jjv"/>
-        <argument key="App\Controller\Admin\PlayerCrudController:createEditFormBuilder" type="service_closure" id=".service_locator.tbo4Jjv"/>
-        <argument key="App\Controller\Admin\PlayerCrudController:createIndexQueryBuilder" type="service_closure" id=".service_locator.rAlqQ78"/>
-        <argument key="App\Controller\Admin\PlayerCrudController:createNewForm" type="service_closure" id=".service_locator.tbo4Jjv"/>
-        <argument key="App\Controller\Admin\PlayerCrudController:createNewFormBuilder" type="service_closure" id=".service_locator.tbo4Jjv"/>
-        <argument key="App\Controller\Admin\PlayerCrudController:delete" type="service_closure" id=".service_locator.ZOQ9v2d"/>
-        <argument key="App\Controller\Admin\PlayerCrudController:deleteEntity" type="service_closure" id=".service_locator.l2QwsaZ"/>
-        <argument key="App\Controller\Admin\PlayerCrudController:detail" type="service_closure" id=".service_locator.ZOQ9v2d"/>
-        <argument key="App\Controller\Admin\PlayerCrudController:edit" type="service_closure" id=".service_locator.ZOQ9v2d"/>
-        <argument key="App\Controller\Admin\PlayerCrudController:index" type="service_closure" id=".service_locator.ZOQ9v2d"/>
-        <argument key="App\Controller\Admin\PlayerCrudController:new" type="service_closure" id=".service_locator.ZOQ9v2d"/>
-        <argument key="App\Controller\Admin\PlayerCrudController:persistEntity" type="service_closure" id=".service_locator.l2QwsaZ"/>
-        <argument key="App\Controller\Admin\PlayerCrudController:renderFilters" type="service_closure" id=".service_locator.ZOQ9v2d"/>
-        <argument key="App\Controller\Admin\PlayerCrudController:updateEntity" type="service_closure" id=".service_locator.l2QwsaZ"/>
-        <argument key="App\Controller\Admin\SessionCrudController:autocomplete" type="service_closure" id=".service_locator.ZOQ9v2d"/>
-        <argument key="App\Controller\Admin\SessionCrudController:batchDelete" type="service_closure" id=".service_locator.AWPr3oy"/>
-        <argument key="App\Controller\Admin\SessionCrudController:configureActions" type="service_closure" id=".service_locator.CKlWSja"/>
-        <argument key="App\Controller\Admin\SessionCrudController:configureAssets" type="service_closure" id=".service_locator.U4Bbnsn"/>
-        <argument key="App\Controller\Admin\SessionCrudController:configureCrud" type="service_closure" id=".service_locator.4C0Bh8j"/>
-        <argument key="App\Controller\Admin\SessionCrudController:configureFilters" type="service_closure" id=".service_locator.Nt.ogDb"/>
-        <argument key="App\Controller\Admin\SessionCrudController:configureResponseParameters" type="service_closure" id=".service_locator.2dc0eaX"/>
-        <argument key="App\Controller\Admin\SessionCrudController:createEditForm" type="service_closure" id=".service_locator.tbo4Jjv"/>
-        <argument key="App\Controller\Admin\SessionCrudController:createEditFormBuilder" type="service_closure" id=".service_locator.tbo4Jjv"/>
-        <argument key="App\Controller\Admin\SessionCrudController:createIndexQueryBuilder" type="service_closure" id=".service_locator.rAlqQ78"/>
-        <argument key="App\Controller\Admin\SessionCrudController:createNewForm" type="service_closure" id=".service_locator.tbo4Jjv"/>
-        <argument key="App\Controller\Admin\SessionCrudController:createNewFormBuilder" type="service_closure" id=".service_locator.tbo4Jjv"/>
-        <argument key="App\Controller\Admin\SessionCrudController:delete" type="service_closure" id=".service_locator.ZOQ9v2d"/>
-        <argument key="App\Controller\Admin\SessionCrudController:deleteEntity" type="service_closure" id=".service_locator.l2QwsaZ"/>
-        <argument key="App\Controller\Admin\SessionCrudController:detail" type="service_closure" id=".service_locator.ZOQ9v2d"/>
-        <argument key="App\Controller\Admin\SessionCrudController:edit" type="service_closure" id=".service_locator.ZOQ9v2d"/>
-        <argument key="App\Controller\Admin\SessionCrudController:index" type="service_closure" id=".service_locator.ZOQ9v2d"/>
-        <argument key="App\Controller\Admin\SessionCrudController:new" type="service_closure" id=".service_locator.ZOQ9v2d"/>
-        <argument key="App\Controller\Admin\SessionCrudController:persistEntity" type="service_closure" id=".service_locator.l2QwsaZ"/>
-        <argument key="App\Controller\Admin\SessionCrudController:renderFilters" type="service_closure" id=".service_locator.ZOQ9v2d"/>
-        <argument key="App\Controller\Admin\SessionCrudController:updateEntity" type="service_closure" id=".service_locator.l2QwsaZ"/>
         <argument key="App\Controller\Admin\UserCrudController:autocomplete" type="service_closure" id=".service_locator.ZOQ9v2d"/>
         <argument key="App\Controller\Admin\UserCrudController:batchDelete" type="service_closure" id=".service_locator.AWPr3oy"/>
         <argument key="App\Controller\Admin\UserCrudController:configureActions" type="service_closure" id=".service_locator.CKlWSja"/>
@@ -8511,6 +8481,11 @@
         <argument key="App\Controller\Admin\UserCrudController:persistEntity" type="service_closure" id=".service_locator.l2QwsaZ"/>
         <argument key="App\Controller\Admin\UserCrudController:renderFilters" type="service_closure" id=".service_locator.ZOQ9v2d"/>
         <argument key="App\Controller\Admin\UserCrudController:updateEntity" type="service_closure" id=".service_locator.l2QwsaZ"/>
+        <argument key="App\Controller\CharacterController:delete" type="service_closure" id=".service_locator.ky7FcZF"/>
+        <argument key="App\Controller\CharacterController:edit" type="service_closure" id=".service_locator.IhBZLft"/>
+        <argument key="App\Controller\CharacterController:index" type="service_closure" id=".service_locator.fIVG_E."/>
+        <argument key="App\Controller\CharacterController:new" type="service_closure" id=".service_locator.goYBIIr"/>
+        <argument key="App\Controller\CharacterController:show" type="service_closure" id=".service_locator.P2WjH_8"/>
         <argument key="App\Controller\CreatureController:delete" type="service_closure" id=".service_locator.BwK8duM"/>
         <argument key="App\Controller\CreatureController:edit" type="service_closure" id=".service_locator.BwK8duM"/>
         <argument key="App\Controller\CreatureController:index" type="service_closure" id=".service_locator.dPbpGJg"/>
@@ -8519,8 +8494,9 @@
         <argument key="App\Controller\DashController:edit" type="service_closure" id=".service_locator.jbhBKvu"/>
         <argument key="App\Controller\DashController:index" type="service_closure" id=".service_locator.aOQT9Xi"/>
         <argument key="App\Controller\DashController:show" type="service_closure" id=".service_locator.jbhBKvu"/>
+        <argument key="App\Controller\EncounterController:addFighters" type="service_closure" id=".service_locator.hByM23c"/>
         <argument key="App\Controller\EncounterController:delete" type="service_closure" id=".service_locator.hByM23c"/>
-        <argument key="App\Controller\EncounterController:edit" type="service_closure" id=".service_locator.hByM23c"/>
+        <argument key="App\Controller\EncounterController:editCombat" type="service_closure" id=".service_locator.hByM23c"/>
         <argument key="App\Controller\EncounterController:index" type="service_closure" id=".service_locator.DHT_cF9"/>
         <argument key="App\Controller\EncounterController:show" type="service_closure" id=".service_locator.hByM23c"/>
         <argument key="App\Controller\GameController:delete" type="service_closure" id=".service_locator.gBwNVTZ"/>
@@ -8620,9 +8596,11 @@
       <argument type="service" id="debug.argument_resolver.not_tagged_controller.inner"/>
       <argument type="service" id="debug.stopwatch"/>
     </service>
-    <service id=".service_locator.W3Dlkc0" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.qqlWcBp" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
+        <argument key="App\Form\CharacterType" type="service_closure" id="App\Form\CharacterType"/>
+        <argument key="App\Form\CombatTrackerType" type="service_closure" id="App\Form\CombatTrackerType"/>
         <argument key="App\Form\CreatureType" type="service_closure" id="App\Form\CreatureType"/>
         <argument key="App\Form\DashType" type="service_closure" id="App\Form\DashType"/>
         <argument key="App\Form\EncounterType" type="service_closure" id="App\Form\EncounterType"/>
@@ -8631,9 +8609,7 @@
         <argument key="App\Form\LocationType" type="service_closure" id="App\Form\LocationType"/>
         <argument key="App\Form\NpcType" type="service_closure" id="App\Form\NpcType"/>
         <argument key="App\Form\OtherType" type="service_closure" id="App\Form\OtherType"/>
-        <argument key="App\Form\PlayerFormType" type="service_closure" id="App\Form\PlayerFormType"/>
         <argument key="App\Form\RegistrationFormType" type="service_closure" id="App\Form\RegistrationFormType"/>
-        <argument key="App\Form\SessionFormType" type="service_closure" id="App\Form\SessionFormType"/>
         <argument key="EasyCorp\Bundle\EasyAdminBundle\Form\Type\CrudFormType" type="service_closure" id="EasyCorp\Bundle\EasyAdminBundle\Form\Type\CrudFormType"/>
         <argument key="EasyCorp\Bundle\EasyAdminBundle\Form\Type\FileUploadType" type="service_closure" id="EasyCorp\Bundle\EasyAdminBundle\Form\Type\FileUploadType"/>
         <argument key="EasyCorp\Bundle\EasyAdminBundle\Form\Type\FiltersFormType" type="service_closure" id="EasyCorp\Bundle\EasyAdminBundle\Form\Type\FiltersFormType"/>
@@ -8813,33 +8789,33 @@
       <configurator class="Symfony\Bundle\FrameworkBundle\DependencyInjection\Compiler\AddDebugLogProcessorPass" method="configureLogger"/>
     </service>
     <service id="monolog.handler.null_internal" class="Monolog\Handler\NullHandler"/>
-    <service id=".service_locator.4Ad2bu8" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.EJrCBR8" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="doctrine.orm.default_listeners.attach_entity_listeners" type="service_closure" id="doctrine.orm.default_listeners.attach_entity_listeners"/>
         <argument key="doctrine.orm.listeners.doctrine_token_provider_schema_subscriber" type="service_closure" id="doctrine.orm.listeners.doctrine_token_provider_schema_subscriber"/>
         <argument key="doctrine.orm.listeners.pdo_cache_adapter_doctrine_schema_subscriber" type="service_closure" id="doctrine.orm.listeners.pdo_cache_adapter_doctrine_schema_subscriber"/>
         <argument key="vich_uploader.listener.clean.background_image" type="service_closure" id="vich_uploader.listener.clean.background_image"/>
+        <argument key="vich_uploader.listener.clean.character_image" type="service_closure" id="vich_uploader.listener.clean.character_image"/>
         <argument key="vich_uploader.listener.clean.creature_image" type="service_closure" id="vich_uploader.listener.clean.creature_image"/>
         <argument key="vich_uploader.listener.clean.item_image" type="service_closure" id="vich_uploader.listener.clean.item_image"/>
         <argument key="vich_uploader.listener.clean.location_image" type="service_closure" id="vich_uploader.listener.clean.location_image"/>
         <argument key="vich_uploader.listener.clean.npc_image" type="service_closure" id="vich_uploader.listener.clean.npc_image"/>
         <argument key="vich_uploader.listener.clean.other_image" type="service_closure" id="vich_uploader.listener.clean.other_image"/>
-        <argument key="vich_uploader.listener.clean.player_image" type="service_closure" id="vich_uploader.listener.clean.player_image"/>
         <argument key="vich_uploader.listener.remove.background_image" type="service_closure" id="vich_uploader.listener.remove.background_image"/>
+        <argument key="vich_uploader.listener.remove.character_image" type="service_closure" id="vich_uploader.listener.remove.character_image"/>
         <argument key="vich_uploader.listener.remove.creature_image" type="service_closure" id="vich_uploader.listener.remove.creature_image"/>
         <argument key="vich_uploader.listener.remove.item_image" type="service_closure" id="vich_uploader.listener.remove.item_image"/>
         <argument key="vich_uploader.listener.remove.location_image" type="service_closure" id="vich_uploader.listener.remove.location_image"/>
         <argument key="vich_uploader.listener.remove.npc_image" type="service_closure" id="vich_uploader.listener.remove.npc_image"/>
         <argument key="vich_uploader.listener.remove.other_image" type="service_closure" id="vich_uploader.listener.remove.other_image"/>
-        <argument key="vich_uploader.listener.remove.player_image" type="service_closure" id="vich_uploader.listener.remove.player_image"/>
         <argument key="vich_uploader.listener.upload.background_image" type="service_closure" id="vich_uploader.listener.upload.background_image"/>
+        <argument key="vich_uploader.listener.upload.character_image" type="service_closure" id="vich_uploader.listener.upload.character_image"/>
         <argument key="vich_uploader.listener.upload.creature_image" type="service_closure" id="vich_uploader.listener.upload.creature_image"/>
         <argument key="vich_uploader.listener.upload.item_image" type="service_closure" id="vich_uploader.listener.upload.item_image"/>
         <argument key="vich_uploader.listener.upload.location_image" type="service_closure" id="vich_uploader.listener.upload.location_image"/>
         <argument key="vich_uploader.listener.upload.npc_image" type="service_closure" id="vich_uploader.listener.upload.npc_image"/>
         <argument key="vich_uploader.listener.upload.other_image" type="service_closure" id="vich_uploader.listener.upload.other_image"/>
-        <argument key="vich_uploader.listener.upload.player_image" type="service_closure" id="vich_uploader.listener.upload.player_image"/>
       </argument>
     </service>
     <service id="cache.doctrine.orm.default.query.compatibility_layer" class="Doctrine\Common\Cache\CacheProvider">
@@ -8850,10 +8826,11 @@
       <argument type="service" id="cache.doctrine.orm.default.result"/>
       <factory class="Doctrine\Common\Cache\Psr6\DoctrineProvider" method="wrap"/>
     </service>
-    <service id=".service_locator.2XrFAl9" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.4AHZ1Fq" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="App\Repository\AdminRepository" type="service_closure" id="App\Repository\AdminRepository"/>
+        <argument key="App\Repository\CharacterRepository" type="service_closure" id="App\Repository\CharacterRepository"/>
         <argument key="App\Repository\ConditionRepository" type="service_closure" id="App\Repository\ConditionRepository"/>
         <argument key="App\Repository\CreatureRepository" type="service_closure" id="App\Repository\CreatureRepository"/>
         <argument key="App\Repository\DashRepository" type="service_closure" id="App\Repository\DashRepository"/>
@@ -8864,10 +8841,8 @@
         <argument key="App\Repository\LocationRepository" type="service_closure" id="App\Repository\LocationRepository"/>
         <argument key="App\Repository\NpcRepository" type="service_closure" id="App\Repository\NpcRepository"/>
         <argument key="App\Repository\OtherRepository" type="service_closure" id="App\Repository\OtherRepository"/>
-        <argument key="App\Repository\PlayerRepository" type="service_closure" id="App\Repository\PlayerRepository"/>
         <argument key="App\Repository\PrivateDashboardRepository" type="service_closure" id="App\Repository\PrivateDashboardRepository"/>
         <argument key="App\Repository\PublicDashboardRepository" type="service_closure" id="App\Repository\PublicDashboardRepository"/>
-        <argument key="App\Repository\SessionRepository" type="service_closure" id="App\Repository\SessionRepository"/>
         <argument key="App\Repository\UserRepository" type="service_closure" id="App\Repository\UserRepository"/>
       </argument>
     </service>
@@ -8920,6 +8895,7 @@
       <argument>%env(APP_SECRET)%</argument>
       <argument type="collection">
         <argument>App\Controller\Admin\AdminCrudController</argument>
+        <argument>App\Controller\Admin\CharacterCrudController</argument>
         <argument>App\Controller\Admin\CreatureCrudController</argument>
         <argument>App\Controller\Admin\DashCrudController</argument>
         <argument>App\Controller\Admin\EncounterCrudController</argument>
@@ -8928,8 +8904,6 @@
         <argument>App\Controller\Admin\LocationCrudController</argument>
         <argument>App\Controller\Admin\NpcCrudController</argument>
         <argument>App\Controller\Admin\OtherCrudController</argument>
-        <argument>App\Controller\Admin\PlayerCrudController</argument>
-        <argument>App\Controller\Admin\SessionCrudController</argument>
         <argument>App\Controller\Admin\UserCrudController</argument>
       </argument>
     </service>
@@ -8982,6 +8956,12 @@
     <service id=".service_locator.opmh_Hv.App\Controller\Admin\AdminCrudController" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator_context" id="App\Controller\Admin\AdminCrudController"/>
       <argument>App\Controller\Admin\AdminCrudController</argument>
+      <argument type="service" id="service_container"/>
+      <factory service=".service_locator.opmh_Hv" method="withContext"/>
+    </service>
+    <service id=".service_locator.opmh_Hv.App\Controller\Admin\CharacterCrudController" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator_context" id="App\Controller\Admin\CharacterCrudController"/>
+      <argument>App\Controller\Admin\CharacterCrudController</argument>
       <argument type="service" id="service_container"/>
       <factory service=".service_locator.opmh_Hv" method="withContext"/>
     </service>
@@ -9058,18 +9038,6 @@
       <argument type="service" id="service_container"/>
       <factory service=".service_locator.opmh_Hv" method="withContext"/>
     </service>
-    <service id=".service_locator.opmh_Hv.App\Controller\Admin\PlayerCrudController" class="Symfony\Component\DependencyInjection\ServiceLocator">
-      <tag name="container.service_locator_context" id="App\Controller\Admin\PlayerCrudController"/>
-      <argument>App\Controller\Admin\PlayerCrudController</argument>
-      <argument type="service" id="service_container"/>
-      <factory service=".service_locator.opmh_Hv" method="withContext"/>
-    </service>
-    <service id=".service_locator.opmh_Hv.App\Controller\Admin\SessionCrudController" class="Symfony\Component\DependencyInjection\ServiceLocator">
-      <tag name="container.service_locator_context" id="App\Controller\Admin\SessionCrudController"/>
-      <argument>App\Controller\Admin\SessionCrudController</argument>
-      <argument type="service" id="service_container"/>
-      <factory service=".service_locator.opmh_Hv" method="withContext"/>
-    </service>
     <service id=".service_locator.opmh_Hv.App\Controller\Admin\UserCrudController" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator_context" id="App\Controller\Admin\UserCrudController"/>
       <argument>App\Controller\Admin\UserCrudController</argument>
@@ -9092,6 +9060,12 @@
         <argument key="session" type="service_closure" id=".session.deprecated" on-invalid="ignore"/>
         <argument key="twig" type="service_closure" id="twig" on-invalid="ignore"/>
       </argument>
+    </service>
+    <service id=".service_locator.W9y3dzm.App\Controller\CharacterController" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator_context" id="App\Controller\CharacterController"/>
+      <argument>App\Controller\CharacterController</argument>
+      <argument type="service" id="service_container"/>
+      <factory service=".service_locator.W9y3dzm" method="withContext"/>
     </service>
     <service id=".service_locator.W9y3dzm.App\Controller\CreatureController" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator_context" id="App\Controller\CreatureController"/>
@@ -9141,12 +9115,6 @@
       <argument type="service" id="service_container"/>
       <factory service=".service_locator.W9y3dzm" method="withContext"/>
     </service>
-    <service id=".service_locator.W9y3dzm.App\Controller\PlayerController" class="Symfony\Component\DependencyInjection\ServiceLocator">
-      <tag name="container.service_locator_context" id="App\Controller\PlayerController"/>
-      <argument>App\Controller\PlayerController</argument>
-      <argument type="service" id="service_container"/>
-      <factory service=".service_locator.W9y3dzm" method="withContext"/>
-    </service>
     <service id=".service_locator.W9y3dzm.App\Controller\PrivateDashboardController" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator_context" id="App\Controller\PrivateDashboardController"/>
       <argument>App\Controller\PrivateDashboardController</argument>
@@ -9168,12 +9136,6 @@
     <service id=".service_locator.W9y3dzm.App\Controller\SecurityController" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator_context" id="App\Controller\SecurityController"/>
       <argument>App\Controller\SecurityController</argument>
-      <argument type="service" id="service_container"/>
-      <factory service=".service_locator.W9y3dzm" method="withContext"/>
-    </service>
-    <service id=".service_locator.W9y3dzm.App\Controller\SessionController" class="Symfony\Component\DependencyInjection\ServiceLocator">
-      <tag name="container.service_locator_context" id="App\Controller\SessionController"/>
-      <argument>App\Controller\SessionController</argument>
       <argument type="service" id="service_container"/>
       <factory service=".service_locator.W9y3dzm" method="withContext"/>
     </service>
@@ -9298,12 +9260,12 @@
       <argument type="service" id="EasyCorp\Bundle\EasyAdminBundle\Router\AdminUrlGenerator"/>
     </service>
     <service id="debug.argument_resolver.service.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver">
-      <argument type="service" id=".service_locator.mMjILtO"/>
+      <argument type="service" id=".service_locator.DSzSTpd"/>
     </service>
     <service id="debug.argument_resolver.default.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver"/>
     <service id="debug.argument_resolver.variadic.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\VariadicValueResolver"/>
     <service id="debug.argument_resolver.not_tagged_controller.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\NotTaggedControllerValueResolver">
-      <argument type="service" id=".service_locator.mMjILtO"/>
+      <argument type="service" id=".service_locator.DSzSTpd"/>
     </service>
     <service id=".debug.http_client.inner" class="Symfony\Contracts\HttpClient\HttpClientInterface">
       <argument type="collection"/>
@@ -9341,6 +9303,9 @@
     <service id=".errored..service_locator.tbo4Jjv.EasyCorp\Bundle\EasyAdminBundle\Config\KeyValueStore" class="EasyCorp\Bundle\EasyAdminBundle\Config\KeyValueStore"/>
     <service id=".errored..service_locator.2dc0eaX.EasyCorp\Bundle\EasyAdminBundle\Config\KeyValueStore" class="EasyCorp\Bundle\EasyAdminBundle\Config\KeyValueStore"/>
     <service id=".errored..service_locator.q6hA_O0.Symfony\Component\Security\Core\User\UserInterface" class="Symfony\Component\Security\Core\User\UserInterface"/>
+    <service id=".errored..service_locator.P2WjH_8.App\Entity\Character" class="App\Entity\Character"/>
+    <service id=".errored..service_locator.IhBZLft.App\Entity\Character" class="App\Entity\Character"/>
+    <service id=".errored..service_locator.ky7FcZF.App\Entity\Character" class="App\Entity\Character"/>
     <service id=".errored..service_locator.BwK8duM.App\Entity\Creature" class="App\Entity\Creature"/>
     <service id=".errored..service_locator.jbhBKvu.App\Entity\Dash" class="App\Entity\Dash"/>
     <service id=".errored..service_locator.hByM23c.App\Entity\Encounter" class="App\Entity\Encounter"/>
@@ -10309,7 +10274,7 @@
     <service id="Vich\UploaderBundle\Form\Type\VichImageType" alias="vich_uploader.form.type.image"/>
     <service id="container.env_var_processors_locator" alias=".service_locator.0GV1BZZ" public="true"/>
     <service id="twig.loader.filesystem" alias="twig.loader.native_filesystem"/>
-    <service id="argument_resolver.controller_locator" alias=".service_locator.mMjILtO"/>
+    <service id="argument_resolver.controller_locator" alias=".service_locator.DSzSTpd"/>
     <service id="session" alias=".session.do-not-use" public="true">
       <deprecated package="symfony/framework-bundle" version="5.3">The "%alias_id%" service and "SessionInterface" alias are deprecated, use "$requestStack-&gt;getSession()" instead.</deprecated>
     </service>
@@ -10364,6 +10329,10 @@
     <service id=".service_locator.lDJSw7o" alias=".service_locator.tbo4Jjv"/>
     <service id=".service_locator.6KoT76J" alias=".service_locator.2dc0eaX"/>
     <service id=".service_locator.vS1lpro" alias=".service_locator.q6hA_O0"/>
+    <service id=".service_locator.wMFykYJ" alias=".service_locator.fIVG_E."/>
+    <service id=".service_locator.gEhYELd" alias=".service_locator.P2WjH_8"/>
+    <service id=".service_locator.NCMsXxp" alias=".service_locator.IhBZLft"/>
+    <service id=".service_locator.nhVRAZi" alias=".service_locator.ky7FcZF"/>
     <service id=".service_locator._jLe.e." alias=".service_locator.dPbpGJg"/>
     <service id=".service_locator.dgYrLfk" alias=".service_locator.BwK8duM"/>
     <service id=".service_locator.CQPfj_M" alias=".service_locator.aOQT9Xi"/>

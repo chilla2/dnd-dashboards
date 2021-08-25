@@ -8,6 +8,8 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Vich\UploaderBundle\Entity\File as EmbeddedFile;
 
 /**
  * @ORM\Entity(repositoryClass=CreatureRepository::class)
@@ -43,12 +45,6 @@ class Creature
     private $showPlayers;
 
     /**
-     * @ORM\Column(type="boolean", nullable=true)
-     */
-    private $initiative;
-
-
-    /**
      * @ORM\Column(type="integer", nullable=true)
      */
     private $armorClass;
@@ -61,7 +57,7 @@ class Creature
     /**
      * @ORM\Column(type="integer", nullable=true)
      */
-    private $initiativeRoll;
+    private $initiative;
 
     /**
      * @ORM\Column(type="array", nullable=true)
@@ -108,9 +104,18 @@ class Creature
      */
     private $showDm;
 
+    /**
+     * @ORM\Column(type="boolean", nullable=true, default="true")
+     */
+    private $isEnemy;
+
     public function __construct()
     {
         $this->encounters = new ArrayCollection();
+    }
+
+    public function __toString(): string {
+        return (string) $this->getName();
     }
 
     /**
@@ -166,10 +171,6 @@ class Creature
         return $this->updatedAt;
     }
 
-    public function __toString(): string {
-        return (string) $this->getName().' - '.$this->getDescription();
-    }
-
     public function getId(): ?int
     {
         return $this->id;
@@ -223,18 +224,6 @@ class Creature
         return $this;
     }
 
-    public function getInitiative(): ?bool
-    {
-        return $this->initiative;
-    }
-
-    public function setInitiative(?bool $initiative): self
-    {
-        $this->initiative = $initiative;
-
-        return $this;
-    }
-
     public function getArmorClass(): ?int
     {
         return $this->armorClass;
@@ -259,14 +248,14 @@ class Creature
         return $this;
     }
 
-    public function getInitiativeRoll(): ?int
+    public function getInitiative(): ?int
     {
-        return $this->initiativeRoll;
+        return $this->initiative;
     }
 
-    public function setInitiativeRoll(?int $initiativeRoll): self
+    public function setInitiative(?int $initiative): self
     {
-        $this->initiativeRoll = $initiativeRoll;
+        $this->initiative = $initiative;
 
         return $this;
     }
@@ -318,6 +307,18 @@ class Creature
     public function setShowDm(?bool $showDm): self
     {
         $this->showDm = $showDm;
+
+        return $this;
+    }
+
+    public function getIsEnemy(): ?bool
+    {
+        return $this->isEnemy;
+    }
+
+    public function setIsEnemy(?bool $isEnemy): self
+    {
+        $this->isEnemy = $isEnemy;
 
         return $this;
     }

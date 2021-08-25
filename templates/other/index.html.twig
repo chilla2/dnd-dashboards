@@ -21,8 +21,8 @@
             <tr>
                 <td>{{ other.id }}</td>
                 <td>{{ other.heading }}</td>
-                <td>{{ other.description }}</td>
-                <td>{{ other.notes }}</td>
+                <td>{{ other.description|raw }}</td>
+                <td>{{ other.notes|raw }}</td>
                 <td>{{ other.showPlayers ? 'Yes' : 'No' }}</td>
                 <td>
                     <a href="{{ path('other_show', {'id': other.id}) }}">show</a>

@@ -3,9 +3,11 @@
 {% block title %}New Creature{% endblock %}
 
 {% block body %}
+<!-- creature new -->
+
     <h1>Create new Creature</h1>
 
-    {{ include('creature/_form.html.twig') }}
+    {{ include('creature/_new_form.html.twig') }}
 
     <a href="{{ path('creature_index') }}">back to list</a>
 {% endblock %}

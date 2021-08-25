@@ -21,8 +21,8 @@
             <tr>
                 <td>{{ npc.id }}</td>
                 <td>{{ npc.name }}</td>
-                <td>{{ npc.description }}</td>
-                <td>{{ npc.notes }}</td>
+                <td>{{ npc.description|raw }}</td>
+                <td>{{ npc.notes |raw}}</td>
                 <td>{{ npc.showPlayers ? 'Yes' : 'No' }}</td>
                 <td>
                     <a href="{{ path('npc_show', {'id': npc.id}) }}">show</a>

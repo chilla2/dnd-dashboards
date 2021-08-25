@@ -48,11 +48,6 @@ class Npc
     private $link;
 
     /**
-     * @ORM\Column(type="boolean", nullable=true)
-     */
-    private $initiative;
-
-    /**
      * @ORM\Column(type="integer", nullable=true)
      */
     private $armorClass;
@@ -65,7 +60,7 @@ class Npc
     /**
      * @ORM\Column(type="integer", nullable=true)
      */
-    private $initiativeRoll;
+    private $initiative;
 
     /**
      * @ORM\Column(type="array", nullable=true)
@@ -111,6 +106,11 @@ class Npc
      * @ORM\Column(type="boolean", nullable=true)
      */
     private $showDm;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $isEnemy;
 
     public function __construct()
     {
@@ -171,7 +171,7 @@ class Npc
     }
 
     public function __toString(): string {
-        return (string) $this->getName().' - '.$this->getDescription();
+        return (string) $this->getName();
     }
 
     public function getId(): ?int
@@ -239,12 +239,12 @@ class Npc
         return $this;
     }
 
-    public function getInitiative(): ?bool
+    public function getInitiative(): ?int
     {
         return $this->initiative;
     }
 
-    public function setInitiative(?bool $initiative): self
+    public function setInitiative(?int $initiative): self
     {
         $this->initiative = $initiative;
 
@@ -271,18 +271,6 @@ class Npc
     public function setHp(?int $hp): self
     {
         $this->hp = $hp;
-
-        return $this;
-    }
-
-    public function getInitiativeRoll(): ?int
-    {
-        return $this->initiativeRoll;
-    }
-
-    public function setInitiativeRoll(?int $initiativeRoll): self
-    {
-        $this->initiativeRoll = $initiativeRoll;
 
         return $this;
     }
@@ -334,6 +322,18 @@ class Npc
     public function setShowDm(?bool $showDm): self
     {
         $this->showDm = $showDm;
+
+        return $this;
+    }
+
+    public function getIsEnemy(): ?bool
+    {
+        return $this->isEnemy;
+    }
+
+    public function setIsEnemy(?bool $isEnemy): self
+    {
+        $this->isEnemy = $isEnemy;
 
         return $this;
     }

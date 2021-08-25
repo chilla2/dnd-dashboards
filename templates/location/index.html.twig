@@ -21,8 +21,8 @@
             <tr>
                 <td>{{ location.id }}</td>
                 <td>{{ location.name }}</td>
-                <td>{{ location.description }}</td>
-                <td>{{ location.notes }}</td>
+                <td>{{ location.description|raw }}</td>
+                <td>{{ location.notes|raw }}</td>
                 <td>{{ location.showPlayers ? 'Yes' : 'No' }}</td>
                 <td>
                     <a href="{{ path('location_show', {'id': location.id}) }}">show</a>

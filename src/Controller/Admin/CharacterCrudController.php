@@ -2,7 +2,7 @@
 
 namespace App\Controller\Admin;
 
-use App\Entity\Player;
+use App\Entity\Character;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\FormField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
@@ -16,26 +16,25 @@ use Vich\UploaderBundle\Form\Type\VichFileType;
 use Vich\UploaderBundle\Form\Type\VichImageType;
 use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 
-class PlayerCrudController extends AbstractCrudController
+class CharacterCrudController extends AbstractCrudController
 {
     public static function getEntityFqcn(): string
     {
-        return Player::class;
+        return Character::class;
     }
 
 
     public function configureFields(string $pageName): iterable
     {
         return [
-        IdField::new('id')->hideOnForm(),
+        IdField::new('id')->hideOnForm()->hideOnIndex(),
         TextField::new('name'),
         TextEditorField::new('description'),
-        TextEditorField::new('notes'),
-        BooleanField::new('initiative'),
-        IntegerField::new('initiativeRoll'),
-        IntegerField::new('hp'),
-        TextareaField::new('imageFile')->setFormType(VichImageType::class),
-        DateTimeField::new('updatedAt')->hideOnForm(),
+        TextEditorField::new('notes')->hideOnIndex(),
+        IntegerField::new('initiative')->hideOnIndex(),
+        IntegerField::new('hp')->hideOnIndex(),
+        TextareaField::new('imageFile')->setFormType(VichImageType::class)->hideOnIndex(),
+        DateTimeField::new('updatedAt')->hideOnForm()->hideOnIndex(),
         ];
     }
 

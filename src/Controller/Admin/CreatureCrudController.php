@@ -27,15 +27,14 @@ class CreatureCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         return [
-        IdField::new('id')->hideOnForm(),
+        IdField::new('id')->hideOnForm()->hideOnIndex(),
         TextField::new('name'),
         TextEditorField::new('description'),
-        TextEditorField::new('notes'),
-        BooleanField::new('initiative'),
-        IntegerField::new('initiativeRoll'),
-        IntegerField::new('hp'),
-        TextareaField::new('imageFile')->setFormType(VichImageType::class),
-        DateTimeField::new('updatedAt')->hideOnForm(),
+        TextEditorField::new('notes')->hideOnIndex(),
+        IntegerField::new('initiative')->hideOnIndex(),
+        IntegerField::new('hp')->hideOnIndex(),
+        TextareaField::new('imageFile')->setFormType(VichImageType::class)->hideOnIndex(),
+        DateTimeField::new('updatedAt')->hideOnForm()->hideOnIndex(),
         ];
     }
 

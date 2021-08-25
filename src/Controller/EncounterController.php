@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Encounter;
 use App\Form\EncounterType;
+use App\Form\CombatTrackerType;
 use App\Repository\EncounterRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -31,11 +32,12 @@ class EncounterController extends AbstractController
     public function new(Request $request): Response
     {
         $encounter = new Encounter();
-        $form = $this->createForm(EncounterType::class, $encounter);
-        $form->handleRequest($request);
+        $newEncounterForm = $this->createForm(EncounterType::class, $encounter);
+        $newEncounterForm->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($newEncounterForm->isSubmitted() && $newEncounterForm->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
+            $encounter->setFighters($encounter->getFighters());
             $entityManager->persist($encounter);
             $entityManager->flush();
 
@@ -44,7 +46,7 @@ class EncounterController extends AbstractController
 
         return $this->renderForm('encounter/new.html.twig', [
             'encounter' => $encounter,
-            'form' => $form,
+            'newEncounterForm' => $newEncounterForm,
         ]);
     }
 
@@ -59,22 +61,50 @@ class EncounterController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/edit", name="encounter_edit", methods={"GET","POST"})
+     * @Route("/{id}/add-fighters", name="encounter_add_fighters", methods={"GET","POST"})
      */
-    public function edit(Request $request, Encounter $encounter): Response
+    public function addFighters(Request $request, Encounter $encounter): Response
     {
-        $form = $this->createForm(EncounterType::class, $encounter);
-        $form->handleRequest($request);
+        $editEncounterForm = $this->createForm(EncounterType::class, $encounter);
+        $editEncounterForm->handleRequest($request);
+        $id = $encounter->getId();
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
+        if ($editEncounterForm->isSubmitted() && $editEncounterForm->isValid()) {
+            $encounter->setFighters($encounter->getFighters());
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($encounter);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('combat_tracker_edit', ['id' => $id], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->renderForm('encounter/add.html.twig', [
+            'encounter' => $encounter,
+            'editEncounterForm' => $editEncounterForm,
+        ]);
+    }
+
+    /**
+     * @Route("/{id}/edit-combat", name="combat_tracker_edit", methods={"GET","POST"})
+     */
+    public function editCombat(Request $request, Encounter $encounter): Response
+    {
+
+        $editCombatForm = $this->createForm(CombatTrackerType::class, $encounter);
+        $editCombatForm->handleRequest($request);
+
+        if ($editCombatForm->isSubmitted() && $editCombatForm->isValid()) {
+            $encounter->setFighters($encounter->getFighters());
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($encounter);
+            $entityManager()->flush();
 
             return $this->redirectToRoute('encounter_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('encounter/edit.html.twig', [
             'encounter' => $encounter,
-            'form' => $form,
+            'editCombatForm' => $editCombatForm,
         ]);
     }
 

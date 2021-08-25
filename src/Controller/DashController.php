@@ -5,6 +5,10 @@ namespace App\Controller;
 use App\Entity\Dash;
 use App\Form\DashType;
 use App\Repository\DashRepository;
+use App\Form\GameType;
+use App\Entity\Game;
+use App\Repository\GameRepository;
+use Symfony\Component\Form\FormView;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -13,6 +17,11 @@ use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Vich\UploaderBundle\Entity\File as EmbeddedFile;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Vich\UploaderBundle\Form\Type\VichImageType;
+use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 /**
  * @Route("/dash")
@@ -37,13 +46,11 @@ class DashController extends AbstractController
     }
 
     /**
-     * @Route("/player-display-control", name="player_display_control", methods={"GET"})
+     * @Route("/player-display-control", name="player_display_control", methods={"GET","POST"})
      */
-    public function playerDisplayControl(): Response
+    public function playerDisplayControl(Request $request): Response
     {
-        return $this->render('dash/player_display_control.html.twig', [
-
-        ]);
+        return $this->render('dash/player_display_control.html.twig');
     }
 
     /**
@@ -57,12 +64,15 @@ class DashController extends AbstractController
         $entityManager = $this->getDoctrine()->getManager();
         if ($game->getCombatMode() == TRUE) {
             $game->setCombatMode(FALSE);
+            $entityManager->persist($game);
+            $entityManager->flush();
+            return $this->redirectToRoute('player_display_control');
         } else {
             $game->setCombatMode(TRUE);
+            $entityManager->persist($game);
+            $entityManager->flush();
+            return $this->redirectToRoute('encounter_add_fighters', ['id' => '1']);
         }
-        $entityManager->persist($game);
-        $entityManager->flush();
-        return $this->redirectToRoute('player_display_control');
     }
 
     /**
@@ -185,10 +195,10 @@ class DashController extends AbstractController
     public function new(Request $request): Response
     {
         $dash = new Dash();
-        $form = $this->createForm(DashType::class, $dash);
-        $form->handleRequest($request);
+        $newDashForm = $this->createForm(DashType::class, $dash);
+        $newDashForm->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($newDashForm->isSubmitted() && $newDashForm->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($dash);
             $entityManager->flush();
@@ -198,7 +208,7 @@ class DashController extends AbstractController
 
         return $this->renderForm('dash/new.html.twig', [
             'dash' => $dash,
-            'form' => $form,
+            'newDashForm' => $newDashForm,
         ]);
     }
 
@@ -217,10 +227,10 @@ class DashController extends AbstractController
      */
     public function edit(Request $request, Dash $dash): Response
     {
-        $form = $this->createForm(DashType::class, $dash);
-        $form->handleRequest($request);
+        $editDashForm = $this->createForm(DashType::class, $dash);
+        $editDashForm->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($editDashForm->isSubmitted() && $editDashForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('dash_index', [], Response::HTTP_SEE_OTHER);
@@ -228,7 +238,7 @@ class DashController extends AbstractController
 
         return $this->renderForm('dash/edit.html.twig', [
             'dash' => $dash,
-            'form' => $form,
+            'editDashForm' => $editDashForm,
         ]);
     }
 

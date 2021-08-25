@@ -31,10 +31,10 @@ class GameController extends AbstractController
     public function new(Request $request): Response
     {
         $game = new Game();
-        $form = $this->createForm(GameType::class, $game);
-        $form->handleRequest($request);
+        $newGameForm = $this->createForm(GameType::class, $game);
+        $newGameForm->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($newGameForm->isSubmitted() && $newGameForm->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($game);
             $entityManager->flush();
@@ -44,7 +44,7 @@ class GameController extends AbstractController
 
         return $this->renderForm('game/new.html.twig', [
             'game' => $game,
-            'form' => $form,
+            'newGameForm' => $newGameForm,
         ]);
     }
 
@@ -63,10 +63,10 @@ class GameController extends AbstractController
      */
     public function edit(Request $request, Game $game): Response
     {
-        $form = $this->createForm(GameType::class, $game);
-        $form->handleRequest($request);
+        $editGameForm = $this->createForm(GameType::class, $game);
+        $editGameForm->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($editGameForm->isSubmitted() && $editGameForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('game_index', [], Response::HTTP_SEE_OTHER);
@@ -74,7 +74,7 @@ class GameController extends AbstractController
 
         return $this->renderForm('game/edit.html.twig', [
             'game' => $game,
-            'form' => $form,
+            'editGameForm' => $editGameForm,
         ]);
     }
 

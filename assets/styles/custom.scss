@@ -2,13 +2,14 @@
 
 //custom colors
 $custom-black: #0C070D;
-$custom-red: #841F42;
+$custom-gray: #999999;
+$custom-maroon: #841F42;
 $custom-red-orange: #F15855;
-$custom-orange: #F15855;
+$custom-orange: #F48B49;
 $custom-yellow: #F6BE3C;
+$custom-green: #61B045;
 $custom-cyan: #05B37F;
 $custom-blue: #06B4DB;
-$custom-green: #61B045;
 $custom-purple: #A74BBE;
 $custom-magenta: #C149A5;
 
@@ -48,15 +49,12 @@ body {
 }
 
 .overlay-image {
-  position: absolute;
+  position: absolute !important;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   margin: auto;
-}
-
-form {
-    max-width: 40%;
+  max-width: 75% !important;
 }
 
 .show-hide-icon {
@@ -70,9 +68,10 @@ form {
 
 .show-players {
     font-weight: 500;
+    background-color: #ADADAD !important;
 }
 
-.custom-color-red {
+.custom-color-maroon {
     background-color: #841F42 !important;
     color: white !important;
 }
@@ -109,4 +108,13 @@ form {
     color: white !important;
 }
 
+.table {
+    color: white !important;
+}
 
+ul {
+    list-style-type: none !important;
+}
+
+.delete-form {
+}

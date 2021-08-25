@@ -31,10 +31,10 @@ class OtherController extends AbstractController
     public function new(Request $request): Response
     {
         $other = new Other();
-        $form = $this->createForm(OtherType::class, $other);
-        $form->handleRequest($request);
+        $newOtherForm = $this->createForm(OtherType::class, $other);
+        $newOtherForm->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($newOtherForm->isSubmitted() && $newOtherForm->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($other);
             $entityManager->flush();
@@ -44,7 +44,7 @@ class OtherController extends AbstractController
 
         return $this->renderForm('other/new.html.twig', [
             'other' => $other,
-            'form' => $form,
+            'newOtherForm' => $newOtherForm,
         ]);
     }
 
@@ -63,10 +63,10 @@ class OtherController extends AbstractController
      */
     public function edit(Request $request, Other $other): Response
     {
-        $form = $this->createForm(OtherType::class, $other);
-        $form->handleRequest($request);
+        $editOtherForm = $this->createForm(OtherType::class, $other);
+        $editOtherForm->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($editOtherForm->isSubmitted() && $editOtherForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('other_index', [], Response::HTTP_SEE_OTHER);
@@ -74,7 +74,7 @@ class OtherController extends AbstractController
 
         return $this->renderForm('other/edit.html.twig', [
             'other' => $other,
-            'form' => $form,
+            'editOtherForm' => $editOtherForm,
         ]);
     }
 

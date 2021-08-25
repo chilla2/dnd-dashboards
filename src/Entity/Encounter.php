@@ -20,17 +20,12 @@ class Encounter
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $name;
-
-    /**
      * @ORM\Column(type="array", nullable=true)
      */
-    private $combatants = [];
+    private $fighters;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Player::class, inversedBy="encounters")
+     * @ORM\ManyToMany(targetEntity=Character::class, inversedBy="encounters")
      */
     private $characters;
 
@@ -51,44 +46,46 @@ class Encounter
         $this->creatures = new ArrayCollection();
     }
 
+    public function __toString(): string {
+        return (string) $this->getId();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getName(): ?string
+    public function getFighters(): ?array
     {
-        return $this->name;
+        $this->fighters = array();
+        foreach (($this->characters) as $character) {
+            $this->fighters[] = $character;
+        }
+        foreach (($this->npcs) as $npc){
+            $this->fighters[] = $npc;
+        }
+        foreach (($this->creatures) as $creature){
+            $this->fighters[] = $creature;
+        }
+        return $this->fighters;
     }
 
-    public function setName(string $name): self
+    public function setFighters(?array $fighters): self
     {
-        $this->name = $name;
-
-        return $this;
-    }
-
-    public function getCombatants(): ?array
-    {
-        return $this->combatants;
-    }
-
-    public function setCombatants(?array $combatants): self
-    {
-        $this->combatants = $combatants;
+        $this->fighters = $fighters;
 
         return $this;
     }
 
     /**
-     * @return Collection|Player[]
+     * @return Collection|Character[]
      */
     public function getCharacters(): Collection
     {
         return $this->characters;
     }
 
-    public function addCharacter(Player $character): self
+    public function addCharacter(Character $character): self
     {
         if (!$this->characters->contains($character)) {
             $this->characters[] = $character;
@@ -97,7 +94,7 @@ class Encounter
         return $this;
     }
 
-    public function removeCharacter(Player $character): self
+    public function removeCharacter(Character $character): self
     {
         $this->characters->removeElement($character);
 

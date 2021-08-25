@@ -31,10 +31,10 @@ class LocationController extends AbstractController
     public function new(Request $request): Response
     {
         $location = new Location();
-        $form = $this->createForm(LocationType::class, $location);
-        $form->handleRequest($request);
+        $newLocationForm = $this->createForm(LocationType::class, $location);
+        $newLocationForm->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($newLocationForm->isSubmitted() && $newLocationForm->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($location);
             $entityManager->flush();
@@ -44,7 +44,7 @@ class LocationController extends AbstractController
 
         return $this->renderForm('location/new.html.twig', [
             'location' => $location,
-            'form' => $form,
+            'newLocationForm' => $newLocationForm,
         ]);
     }
 
@@ -63,10 +63,10 @@ class LocationController extends AbstractController
      */
     public function edit(Request $request, Location $location): Response
     {
-        $form = $this->createForm(LocationType::class, $location);
-        $form->handleRequest($request);
+        $editLocationForm = $this->createForm(LocationType::class, $location);
+        $editLocationForm->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($editLocationForm->isSubmitted() && $editLocationForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('location_index', [], Response::HTTP_SEE_OTHER);
@@ -74,7 +74,7 @@ class LocationController extends AbstractController
 
         return $this->renderForm('location/edit.html.twig', [
             'location' => $location,
-            'form' => $form,
+            'editLocationForm' => $editLocationForm,
         ]);
     }
 

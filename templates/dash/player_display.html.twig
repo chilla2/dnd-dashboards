@@ -1,59 +1,107 @@
 {% extends 'base.html.twig' %}
 {% block title %}Player Display{% endblock %}
 {% block body %}
-<div class="container-fluid mw-100 player-display-container">
+<!-- dash player_display -->
+<div class="container-fluid vw-100 player-display-container">
     <img class="background-image" src="{{ vich_uploader_asset(game, 'imageFile') }}" alt="{{ game.imageName }}" />
-    <div class="container overlay-image">
-        <div class="row row-col-3">
+    <div class="overlay-image">
+        <div class="row justify-content-evenly align-items-center">
             {% for npc in npcs %}
             {% set npcnames = npc.name|split(' ') %}
-            {% if npc.showPlayers == TRUE %}
-                <div class="col-4" id="{{ npcnames|join('-') }}">
-                    <figure class="figure">
-                        <img class="figure-img img-fluid rounded" src="{{ vich_uploader_asset(npc, 'imageFile') }}" alt="{{ npc.imageName }}" />
-                    </figure>
-                </div>
-            {% endif %}
+                {% if npc.showPlayers == TRUE %}
+                    {% if npc.imageName is not null and npc.imageName is defined %}
+                        <div class="col" id="{{ npcnames|join('-') }}">
+                            <div class="card shadow mb-5 rounded">
+                                <img src="{{ vich_uploader_asset(npc, 'imageFile') }}" alt="{{ npc.imageName }}" class="card-img-top">
+                            </div>
+                        </div>
+                        {#
+                        <!--
+                        <div class="col-4" id="{{ npcnames|join('-') }}">
+                            <figure class="figure">
+                                <img class="figure-img img-fluid rounded" src="{{ vich_uploader_asset(npc, 'imageFile') }}" alt="{{ npc.imageName }}" />
+                            </figure>
+                        </div>
+                        -->
+                        #}
+                    {% endif %}
+                {% endif %}
             {% endfor %}
             {% for creature in creatures %}
             {% set creaturenames = creature.name|split(' ') %}
-            {% if creature.showPlayers == TRUE %}
-                <div class="col-4" id="{{ creaturenames|join('-') }}">
-                    <figure class="figure">
-                        <img class="figure-img img-fluid rounded" src="{{ vich_uploader_asset(creature, 'imageFile') }}" alt="{{ creature.imageName }}" />
-                    </figure>
-                </div>
-            {% endif %}
+                {% if creature.showPlayers == TRUE %}
+                    {% if creature.imageName is not null and creature.imageFile is defined %}
+                        <div class="col" id="{{ creaturenames|join('-') }}">
+                            <div class="card shadow mb-5 rounded">
+                                <img src="{{ vich_uploader_asset(creature, 'imageFile') }}" alt="{{ creature.imageName }}" class="card-img-top">
+                            </div>
+                        </div>
+                        {# <!--
+                        <div class="col" id="{{ creaturenames|join('-') }}">
+                            <figure class="figure">
+                                <img class="figure-img img-fluid rounded" src="{{ vich_uploader_asset(creature, 'imageFile') }}" alt="{{ creature.imageName }}" />
+                            </figure>
+                        </div>
+                        --> #}
+                    {% endif %}
+                {% endif %}
             {% endfor %}
             {% for location in locations %}
             {% set locationnames = location.name|split(' ') %}
-            {% if location.showPlayers == TRUE %}
-                <div class="col" id="{{ locationnames|join('-') }}">
-                    <figure class="figure">
-                        <img class="figure-img img-fluid rounded" src="{{ vich_uploader_asset(location, 'imageFile') }}" alt="{{ location.imageName }}" />
-                    </figure>
-                </div>
-            {% endif %}
+                {% if location.showPlayers == TRUE %}
+                    {% if location.imageName is not null and location.imageName is defined %}
+                        <div class="col" id="{{ locationnames|join('-') }}">
+                            <div class="card shadow mb-5 rounded">
+                                <img src="{{ vich_uploader_asset(location, 'imageFile') }}" alt="{{ location.imageName }}" class="card-img-top">
+                            </div>
+                        </div>
+                        {# <!--
+                            <div class="col" id="{{ locationnames|join('-') }}">
+                                <figure class="figure">
+                                    <img class="figure-img img-fluid rounded" src="{{ vich_uploader_asset(location, 'imageFile') }}" alt="{{ location.imageName }}" />
+                                </figure>
+                            </div>
+                        --> #}
+                    {% endif %}
+                {% endif %}
             {% endfor %}
             {% for item in items %}
             {% set itemnames = item.name|split(' ') %}
-            {% if item.showPlayers == TRUE %}
-                <div class="col-4" id="{{ itemnames|join('-') }}">
-                    <figure class="figure">
-                        <img class="figure-img img-fluid rounded" src="{{ vich_uploader_asset(item, 'imageFile') }}" alt="{{ item.imageName }}" />
-                    </figure>
-                </div>
-            {% endif %}
+                {% if item.showPlayers == TRUE %}
+                    {% if item.imageName is not null and item.imageName is defined %}
+                        <div class="col" id="{{ itemnames|join('-') }}">
+                            <div class="card shadow mb-5 rounded">
+                                <img src="{{ vich_uploader_asset(item, 'imageFile') }}" alt="{{ item.imageName }}" class="card-img-top">
+                            </div>
+                        </div>
+                        {# <!--
+                        <div class="col" id="{{ itemnames|join('-') }}">
+                            <figure class="figure">
+                                <img class="figure-img img-fluid rounded" src="{{ vich_uploader_asset(item, 'imageFile') }}" alt="{{ item.imageName }}" />
+                            </figure>
+                        </div>
+                        --> #}
+                    {% endif %}
+                {% endif %}
             {% endfor %}
             {% for other in others %}
-            {% set othernames = other.name|split(' ') %}
-            {% if other.showPlayers == TRUE %}
-                <div class="col-4" id="{{ othernames|join('-') }}">
-                    <figure class="figure">
-                        <img class="figure-img img-fluid rounded" src="{{ vich_uploader_asset(other, 'imageFile') }}" alt="{{ other.imageName }}" />
-                    </figure>
-                </div>
-            {% endif %}
+            {% set othernames = other.heading|split(' ') %}
+                {% if other.showPlayers == TRUE %}
+                    {% if other.imageName is not null and other.imageName is defined %}
+                        <div class="col" id="{{ othernames|join('-') }}">
+                            <div class="card shadow mb-5 rounded">
+                                <img src="{{ vich_uploader_asset(other, 'imageFile') }}" alt="{{ other.imageName }}" class="card-img-top">
+                            </div>
+                        </div>
+                        {# <!--
+                        <div class="col" id="{{ othernames|join('-') }}">
+                            <figure class="figure">
+                                <img class="figure-img img-fluid rounded" src="{{ vich_uploader_asset(other, 'imageFile') }}" alt="{{ other.imageName }}" />
+                            </figure>
+                        </div>
+                        --> #}
+                    {% endif %}
+                {% endif %}
             {% endfor %}
         </div>
     </div>

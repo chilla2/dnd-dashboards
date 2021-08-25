@@ -3,11 +3,12 @@
 {% block title %}Player Dashboard Controls{% endblock %}
 
 {% block body %}
-<div class="container-fluid mw-100">
+<!-- dash player_display_control -->
+<div class="container-fluid">
     <div class="row custom-dark">
         <div class="col-2 custom-dark m-0">
             <div class="list-group">
-                <div class="list-group-item custom-color-red p-1">
+                <div class="list-group-item custom-color-maroon p-1">
                     NPCs
                 </div>
                 {% for npc in npcs %}
@@ -175,10 +176,11 @@
                     Other
                 </div>
                 {% for other in others %}
-                {% set othernames = other.name|split(' ') %}
+                {% set othernames = other.heading|split(' ') %}
+                {% set othernames = other.heading|split(' ') %}
                 {% if other.showPlayers == TRUE %}
                 <div class="show-players p-1 list-group-item">
-                    {{ other.name }}
+                    {{ other.heading }}
                     <a href="/dash/player-display-control/other/{{ other.id }}/show-hide">
                         <i class="bi bi-person-x show-hide-icon"></i>
                     </a>
@@ -194,7 +196,7 @@
                 </div>
                 {% else %}
                 <div class="p-1 list-group-item">
-                    {{ other.name }}
+                    {{ other.heading }}
                     <a href="/dash/player-display-control/other/{{ other.id }}/show-hide">
                         <i class="bi bi-person-check show-hide-icon"></i>
                     </a>
@@ -212,7 +214,7 @@
                 {% endfor %}
             </div>
         </div>
-        <div class="col-10">
+        <div class="col">
             <div class="row">
                 <div class="container">
                     <ul class="nav justify-content-center">
@@ -231,16 +233,16 @@
                     </ul>
                 </div>
             </div>
-            <div class="row row-col-3">
-                {% for player in players %}
-                {% set playernames = player.name|split(' ') %}
-                {% if player.showDm == TRUE %}
-                <div class="col-4" id="{{ playernames|join('-') }}">
-                    <div class="card shadow p-3 mb-5 rounded custom-color-red">
-                        <img src="{{ vich_uploader_asset(player, 'imageFile') }}" alt="{{ playre.imageName }}" class="card-img-top">
+            <div class="row justify-content-evenly">
+                {% for character in characters %}
+                {% set characternames = character.name|split(' ') %}
+                {% if character.showDm == TRUE %}
+                <div class="col" id="{{ charactername|join('-') }}">
+                    <div class="card shadow p-3 mb-5 rounded custom-color-maroon">
+                        <img src="{{ vich_uploader_asset(character, 'imageFile') }}" alt="{{ character.imageName }}" class="card-img-top">
                         <div class="card-body">
-                            <h6 class="card-title">{{ player.name }}</h6>
-                            <div class="card-text">{{ player.description }}</div>
+                            <h6 class="card-title">{{ character.name }}</h6>
+                            <div class="card-text">{{ character.description|raw }}</div>
                         </div>
                     </div>
                 </div>
@@ -249,13 +251,15 @@
                 {% for npc in npcs %}
                 {% set npcnames = npc.name|split(' ') %}
                 {% if npc.showDm == TRUE %}
-                <div class="col-4" id="{{ npcnames|join('-') }}">
-                    <div class="card shadow p-3 mb-5 rounded custom-color-red">
+                <div class="col" id="{{ npcnames|join('-') }}">
+                    <div class="card shadow p-3 mb-5 rounded custom-color-maroon">
                         <img src="{{ vich_uploader_asset(npc, 'imageFile') }}" alt="{{ npc.imageName }}" class="card-img-top">
                         <div class="card-body">
                             <h6 class="card-title">{{ npc.name }}</h6>
-                            <div class="card-text">{{ npc.description }}</div>
-                            <a class="btn" href="{{ path('npc_edit', { 'id': npc.id }) }}">Edit</a>
+                            <div class="card-text">{{ npc.description|raw }}</div>
+                            <a class="btn custom-color-blue" href="{{ path('npc_edit', { 'id': npc.id }) }}">Edit</a>
+                            <a class="btn custom-color-blue" href="{{ path('npc_show', {'id': npc.id}) }}">Show</a>
+                            {{ include('npc/_delete_form.html.twig') }}
                         </div>
                     </div>
                 </div>
@@ -264,13 +268,15 @@
                 {% for creature in creatures %}
                 {% set creaturenames = creature.name|split(' ') %}
                 {% if creature.showDm == TRUE %}
-                <div class="col-4" id="{{ creaturenames|join('-') }}">
+                <div class="col" id="{{ creaturenames|join('-') }}">
                     <div class="card shadow p-3 mb-5 rounded custom-color-red-orange">
                         <img src="{{ vich_uploader_asset(creature, 'imageFile') }}" alt="{{ creature.imageName }}" class="card-img-top">
                         <div class="card-body  custom-color-red-orange">
                             <h6 class="card-title">{{ creature.name }}</h6>
-                            <div class="card-text">{{ creature.description }}</div>
-                            <a class="btn" href="{{ path('creature_edit', { 'id': creature.id }) }}">Edit</a>
+                            <div class="card-text">{{ creature.description|raw }}</div>
+                            <a class="btn custom-color-blue" href="{{ path('creature_edit', { 'id': creature.id }) }}">Edit</a>
+                            <a class="btn custom-color-blue" href="{{ path('creature_show', {'id': creature.id}) }}">Show</a>
+                            {{ include('creature/_delete_form.html.twig') }}
                         </div>
                     </div>
                 </div>
@@ -279,13 +285,15 @@
                 {% for location in locations %}
                 {% set locationnames = location.name|split(' ') %}
                 {% if location.showDm == TRUE %}
-                <div class="col-4" id="{{ locationnames|join('-') }}">
+                <div class="col" id="{{ locationnames|join('-') }}">
                     <div class="card shadow p-3 mb-5 rounded  custom-color-orange">
                         <img src="{{ vich_uploader_asset(location, 'imageFile') }}" alt="{{ location.imageName }}" class="card-img-top">
                         <div class="card-body custom-color-orange">
                             <h6 class="card-title">{{ location.name }}</h6>
-                            <div class="card-text">{{ location.description }}</div>
-                            <a class="btn" href="{{ path('location_edit', { 'id': location.id }) }}">Edit</a>
+                            <div class="card-text">{{ location.description|raw }}</div>
+                            <a class="btn custom-color-blue" href="{{ path('location_edit', { 'id': location.id }) }}">Edit</a>
+                            <a class="btn custom-color-blue" href="{{ path('location_show', {'id': location.id}) }}">Show</a>
+                            {{ include('location/_delete_form.html.twig') }}
                         </div>
                     </div>
                 </div>
@@ -294,28 +302,32 @@
                 {% for item in items %}
                 {% set itemnames = item.name|split(' ') %}
                 {% if item.showDm == TRUE %}
-                <div class="col-4" id="{{ itemnames|join('-') }}">
+                <div class="col" id="{{ itemnames|join('-') }}">
                     <div class="card shadow p-3 mb-5 rounded custom-color-yellow">
                         <img src="{{ vich_uploader_asset(item, 'imageFile') }}" alt="{{ item.imageName }}" class="card-img-top">
                         <div class="card-body custom-color-yellow">
                             <h6 class="card-title">{{ item.name }}</h6>
-                            <div class="card-text">{{ item.description }}</div>
-                            <a class="btn" href="{{ path('item_edit', { 'id': item.id }) }}">Edit</a>
+                            <div class="card-text">{{ item.description|raw }}</div>
+                            <a class="btn custom-color-blue" href="{{ path('item_edit', { 'id': item.id }) }}">Edit</a>
+                            <a class="btn custom-color-blue" href="{{ path('item_show', {'id': item.id}) }}">Show</a>
+                            {{ include('item/_delete_form.html.twig') }}
                         </div>
                     </div>
                 </div>
                 {% endif %}
                 {% endfor %}
                 {% for other in others %}
-                {% set othernames = other.name|split(' ') %}
+                {% set othernames = other.heading|split(' ') %}
                 {% if other.showDm == TRUE %}
-                <div class="col-4" id="{{ othernames|join('-') }}">
+                <div class="col" id="{{ othernames|join('-') }}">
                     <div class="card shadow p-3 mb-5 rounded custom-color-green">
                         <img src="{{ vich_uploader_asset(other, 'imageFile') }}" alt="{{ other.imageName }}" class="card-img-top">
                         <div class="card-body custom-color-green">
-                            <h6 class="card-title">{{ other.name }}</h6>
-                            <div class="card-text">{{ other.description }}</div>
-                            <a class="btn" href="{{ path('other_edit', { 'id': other.id }) }}">Edit</a>
+                            <h6 class="card-title">{{ other.heading }}</h6>
+                            <div class="card-text">{{ other.description|raw }}</div>
+                            <a class="btn custom-color-blue" href="{{ path('other_edit', { 'id': other.id }) }}">Edit</a>
+                            <a class="btn custom-color-blue" href="{{ path('other_show', {'id': other.id}) }}">Show</a>
+                            {{ include('other/_delete_form.html.twig') }}
                         </div>
                     </div>
                 </div>

@@ -3,6 +3,7 @@
 {% block title %}Creature{% endblock %}
 
 {% block body %}
+<!-- creature show -->
     <h1>Creature</h1>
 
     <table class="table">
@@ -17,11 +18,11 @@
             </tr>
             <tr>
                 <th>Description</th>
-                <td>{{ creature.description }}</td>
+                <td>{{ creature.description|raw }}</td>
             </tr>
             <tr>
                 <th>Notes</th>
-                <td>{{ creature.notes }}</td>
+                <td>{{ creature.notes|raw }}</td>
             </tr>
             <tr>
                 <th>ShowPlayers</th>

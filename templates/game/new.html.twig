@@ -5,7 +5,7 @@
 {% block body %}
     <h1>Create new Game</h1>
 
-    {{ include('game/_form.html.twig') }}
+    {{ include('game/_new_form.html.twig') }}
 
-    <a href="{{ path('game_index') }}">back to list</a>
+    <a type="button" class="btn custom-color-green" href="{{ path('game_index') }}">back to list</a>
 {% endblock %}

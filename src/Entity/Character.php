@@ -2,7 +2,7 @@
 
 namespace App\Entity;
 
-use App\Repository\PlayerRepository;
+use App\Repository\CharacterRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -10,10 +10,10 @@ use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
- * @ORM\Entity(repositoryClass=PlayerRepository::class)
+ * @ORM\Entity(repositoryClass=CharacterRepository::class)
  * @Vich\Uploadable
  */
-class Player
+class Character
 {
     /**
      * @ORM\Id
@@ -26,11 +26,6 @@ class Player
      * @ORM\Column(type="string", length=255)
      */
     private $name;
-
-    /**
-     * @ORM\Column(type="boolean")
-     */
-    private $initiative;
 
     /**
      * @ORM\Column(type="text", nullable=true)
@@ -60,7 +55,7 @@ class Player
     /**
      * @ORM\Column(type="integer", nullable=true)
      */
-    private $initiativeRoll;
+    private $initiative;
 
     /**
      * @ORM\Column(type="array", nullable=true)
@@ -70,7 +65,7 @@ class Player
     /**
      * NOTE: This is not a mapped field of entity metadata, just a simple property.
      *
-     * @Vich\UploadableField(mapping="player_image", fileNameProperty="imageName", size="imageSize")
+     * @Vich\UploadableField(mapping="character_image", fileNameProperty="imageName", size="imageSize")
      *
      * @var File|null
      */
@@ -107,9 +102,18 @@ class Player
      */
     private $showDm;
 
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $isEnemy;
+
     public function __construct()
     {
         $this->encounters = new ArrayCollection();
+    }
+
+    public function __toString(): string {
+        return (string) $this->getName();
     }
 
     /**
@@ -182,18 +186,6 @@ class Player
         return $this->updatedAt;
     }
 
-    public function getInitiative(): ?bool
-    {
-        return $this->initiative;
-    }
-
-    public function setInitiative(bool $initiative): self
-    {
-        $this->initiative = $initiative;
-
-        return $this;
-    }
-
     public function getDescription(): ?string
     {
         return $this->description;
@@ -254,14 +246,14 @@ class Player
         return $this;
     }
 
-    public function getInitiativeRoll(): ?int
+    public function getInitiative(): ?int
     {
-        return $this->initiativeRoll;
+        return $this->initiative;
     }
 
-    public function setInitiativeRoll(?int $initiativeRoll): self
+    public function setInitiative(?int $initiative): self
     {
-        $this->initiativeRoll = $initiativeRoll;
+        $this->initiative = $initiative;
 
         return $this;
     }
@@ -313,6 +305,18 @@ class Player
     public function setShowDm(?bool $showDm): self
     {
         $this->showDm = $showDm;
+
+        return $this;
+    }
+
+    public function getIsEnemy(): ?bool
+    {
+        return $this->isEnemy;
+    }
+
+    public function setIsEnemy(?bool $isEnemy): self
+    {
+        $this->isEnemy = $isEnemy;
 
         return $this;
     }

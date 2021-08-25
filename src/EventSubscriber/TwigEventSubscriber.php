@@ -3,8 +3,7 @@
 namespace App\EventSubscriber;
 
 use App\Repository\NpcRepository;
-use App\Repository\SessionRepository;
-use App\Repository\PlayerRepository;
+use App\Repository\CharacterRepository;
 use App\Repository\LocationRepository;
 use App\Repository\ItemRepository;
 use App\Repository\OtherRepository;
@@ -20,22 +19,20 @@ class TwigEventSubscriber implements EventSubscriberInterface
 {
     private $twig;
     private $npcRepository;
-    private $playerRepository;
+    private $characterRepository;
     private $locationRepository;
     private $itemRepository;
     private $otherRepository;
     private $creatureRepository;
-    private $sessionRepository;
     private $gameRepository;
     private $dashRepository;
 
-    public function __construct(Environment $twig, PlayerRepository $playerRepository, NpcRepository $npcRepository, CreatureRepository $creatureRepository, SessionRepository $sessionRepository, ItemRepository $itemRepository, LocationRepository $locationRepository, OtherRepository $otherRepository, DashRepository $dashRepository, GameRepository $gameRepository)
+    public function __construct(Environment $twig, CharacterRepository $characterRepository, NpcRepository $npcRepository, CreatureRepository $creatureRepository, ItemRepository $itemRepository, LocationRepository $locationRepository, OtherRepository $otherRepository, DashRepository $dashRepository, GameRepository $gameRepository)
     {
         $this->twig = $twig;
-        $this->playerRepository = $playerRepository;
+        $this->characterRepository = $characterRepository;
         $this->npcRepository = $npcRepository;
         $this->creatureRepository = $creatureRepository;
-        $this->sessionRepository = $sessionRepository;
         $this->itemRepository = $itemRepository;
         $this->locationRepository = $locationRepository;
         $this->otherRepository = $otherRepository;
@@ -45,8 +42,7 @@ class TwigEventSubscriber implements EventSubscriberInterface
 
     public function onKernelController(ControllerEvent $event)
     {
-        $this->twig->addGlobal('players', $this->playerRepository->findAll());
-        $this->twig->addGlobal('sessions', $this->sessionRepository->findAll());
+        $this->twig->addGlobal('characters', $this->characterRepository->findAll());
         $this->twig->addGlobal('npcs', $this->npcRepository->findAll());
         $this->twig->addGlobal('creatures', $this->creatureRepository->findAll());
         $this->twig->addGlobal('items', $this->itemRepository->findAll());

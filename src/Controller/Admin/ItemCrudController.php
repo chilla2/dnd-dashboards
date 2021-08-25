@@ -23,16 +23,15 @@ class ItemCrudController extends AbstractCrudController
         return Item::class;
     }
 
-
     public function configureFields(string $pageName): iterable
     {
         return [
-        IdField::new('id')->hideOnForm(),
+        IdField::new('id')->hideOnForm()->hideOnIndex(),
         TextField::new('name'),
         TextEditorField::new('description'),
-        TextEditorField::new('notes'),
-        TextareaField::new('imageFile')->setFormType(VichImageType::class),
-        DateTimeField::new('updatedAt')->hideOnForm(),
+        TextEditorField::new('notes')->hideOnIndex(),
+        TextareaField::new('imageFile')->setFormType(VichImageType::class)->hideOnIndex(),
+        DateTimeField::new('updatedAt')->hideOnForm()->hideOnIndex(),
         ];
     }
 

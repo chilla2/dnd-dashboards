@@ -1,13 +1,101 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit Encounter{% endblock %}
+{% block title %}Edit Combat{% endblock %}
 
 {% block body %}
-    <h1>Edit Encounter</h1>
+    <div class="container-fluid justify-content-center align-items-center">
+        {#
+        {{ form_start(editCombatForm) }}
+            {{ form_widget(editCombatForm) }}
+            <button class="btn custom-color-red">{{ button_label|default('Next') }}</button>
+        {{ form_end(editCombatForm) }}
+        {{ include('encounter/_delete_form.html.twig') }}
+        #}
 
-    {{ include('encounter/_form.html.twig', {'button_label': 'Update'}) }}
+        {{ form_start(editCombatForm) }}
+        {#
+        <h2>Edit Combat</h2>
+        <table class="table table-sm">
+            <thead>
+            <tr>
+                <th scope="col">Initiative</th>
+                <th scope="col">Name</th>
+                <th scope="col">AC</th>
+                <th scope="col">HP</th>
+                <th scope="col">Enemy</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for character in editCombatForm.characters %}
+                <tr class="characters">
+                    <th scope="row">{{ form_row(character.initiative) }}</th>
+                    <td>{{ form_row(character.name) }}</td>
+                    <td>{{ form_row(character.armorClass) }}</td>
+                    <td>{{ form_row(character.hp) }}</td>
+                    <td>{{ form_row(character.isEnemy) }}</td>
+                </tr>
+            {% endfor %}
+            {% for npc in editCombatForm.npcs %}
+                <tr class="npcs">
+                    <th scope="row">{{ form_row(npc.initiative) }}</th>
+                    <td>{{ form_row(npc.name) }}</td>
+                    <td>{{ form_row(npc.armorClass) }}</td>
+                    <td>{{ form_row(npc.hp) }}</td>
+                    <td>{{ form_row(npc.isEnemy) }}</td>
+                </tr>
+            {% endfor %}
+            {% for creature in editCombatForm.creatures %}
+                <tr class="creatures">
+                    <th scope="row">{{ form_row(creature.initiative) }}</th>
+                    <td>{{ form_row(creature.name) }}</td>
+                    <td>{{ form_row(creature.armorClass) }}</td>
+                    <td>{{ form_row(creature.hp) }}</td>
+                    <td>{{ form_row(creature.isEnemy) }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        #}
+        <h2>Edit Combat</h2>
+        <h4>Characters</h4>
+        <div class="characters">
+            {% for character in editCombatForm.characters %}
+            <div class="row row-cols-auto justify-content-md-center">
+                <div class="col">{{ form_row(character.name) }}</div>
+                <div class="col">{{ form_row(character.initiative) }}</div>
+                <div class="col">{{ form_row(character.armorClass) }}</div>
+                <div class="col">{{ form_row(character.hp) }}</div>
+                <div class="col">{{ form_row(character.isEnemy) }}</div>
+            </div>
+            {% endfor %}
+        </div>
+        <h4>NPCs</h4>
+        <div class="npcs">
+            {% for npc in editCombatForm.npcs %}
+            <div class="row row-cols-auto justify-content-md-center">
+                <div class="col-">{{ form_row(npc.name) }}</div>
+                <div class="col">{{ form_row(npc.initiative) }}</div>
+                <div class="col">{{ form_row(npc.armorClass) }}</div>
+                <div class="col">{{ form_row(npc.hp) }}</div>
+                <div class="col">{{ form_row(npc.isEnemy) }}</div>
+            </div>
+            {% endfor %}
+        </div>
+        <h4>Creatures</h4>
+        <div class="creatures">
+            {% for creature in editCombatForm.creatures %}
+            <div class="row row-cols-auto justify-content-md-center">
+                <div class="col">{{ form_row(creature.name) }}</div>
+                <div class="col">{{ form_row(creature.initiative) }}</div>
+                <div class="col">{{ form_row(creature.armorClass) }}</div>
+                <div class="col">{{ form_row(creature.hp) }}</div>
+                <div class="col">{{ form_row(creature.isEnemy) }}</div>
+            </div>
+            {% endfor %}
+        </div>
 
-    <a href="{{ path('encounter_index') }}">back to list</a>
-
-    {{ include('encounter/_delete_form.html.twig') }}
+        <button class="btn custom-color-red">{{ button_label|default('Save') }}</button>
+        <a type="button" class="btn custom-color-red" href="{{ path('encounter_add_fighters', {'id': encounter.id}) }}">Add Fighters</a>
+        <a type="button" class="btn custom-color-red" href="{{ path('encounter_index') }}">Back to Encounters</a>
+    </div>
 {% endblock %}

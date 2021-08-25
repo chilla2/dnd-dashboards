@@ -10,16 +10,16 @@ vich_uploader:
             uri_prefix: /images/npcs
             upload_destination: '%kernel.project_dir%/public/images/npcs'
             namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
-        player_image:
-            uri_prefix: /images/players
-            upload_destination: '%kernel.project_dir%/public/images/players'
+        character_image:
+            uri_prefix: /images/characters
+            upload_destination: '%kernel.project_dir%/public/images/characters'
             namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
         creature_image:
             uri_prefix: /images/creatures
             upload_destination: '%kernel.project_dir%/public/images/creatures'
             namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
         location_image:
-            uri_prefix: /images/location
+            uri_prefix: /images/locations
             upload_destination: '%kernel.project_dir%/public/images/locations'
             namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
         item_image:

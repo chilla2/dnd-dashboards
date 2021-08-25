@@ -15,6 +15,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
 use Vich\UploaderBundle\Form\Type\VichFileType;
 use Vich\UploaderBundle\Form\Type\VichImageType;
 use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
+
 class GameCrudController extends AbstractCrudController
 {
     public static function getEntityFqcn(): string
@@ -29,7 +30,7 @@ class GameCrudController extends AbstractCrudController
         IdField::new('id')->hideOnForm(),
         TextField::new('name'),
         BooleanField::new('combatMode'),
-        TextareaField::new('imageFile')->setFormType(VichImageType::class),
+        TextareaField::new('imageFile')->setFormType(VichImageType::class)->hideOnIndex(),
         DateTimeField::new('updatedAt')->hideOnForm(),
         ];
     }

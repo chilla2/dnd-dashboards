@@ -35,10 +35,10 @@ class NpcController extends AbstractController
     public function new(Request $request): Response
     {
         $npc = new Npc();
-        $form = $this->createForm(NpcType::class, $npc);
-        $form->handleRequest($request);
+        $newNpcForm = $this->createForm(NpcType::class, $npc);
+        $newNpcForm->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($newNpcForm->isSubmitted() && $newNpcForm->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($npc);
             $entityManager->flush();
@@ -48,7 +48,7 @@ class NpcController extends AbstractController
 
         return $this->renderForm('npc/new.html.twig', [
             'npc' => $npc,
-            'form' => $form,
+            'newNpcForm' => $newNpcForm,
         ]);
     }
 
@@ -81,10 +81,10 @@ class NpcController extends AbstractController
      */
     public function edit(Request $request, Npc $npc): Response
     {
-        $form = $this->createForm(NpcType::class, $npc);
-        $form->handleRequest($request);
+        $editNpcForm = $this->createForm(NpcType::class, $npc);
+        $editNpcForm->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($editNpcForm->isSubmitted() && $editNpcForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('npc_index', [], Response::HTTP_SEE_OTHER);
@@ -92,7 +92,7 @@ class NpcController extends AbstractController
 
         return $this->renderForm('npc/edit.html.twig', [
             'npc' => $npc,
-            'form' => $form,
+            'editNpcForm' => $editNpcForm,
         ]);
     }
 
@@ -109,6 +109,4 @@ class NpcController extends AbstractController
 
         return $this->redirectToRoute('npc_index', [], Response::HTTP_SEE_OTHER);
     }
-
-
 }

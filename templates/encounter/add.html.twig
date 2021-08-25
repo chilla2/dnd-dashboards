@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Add Combatants{% endblock %}
+
+{% block body %}
+<div class="container-fluid">
+    {{ form_start(editEncounterForm) }}
+        {{ form_widget(editEncounterForm) }}
+        <button class="btn custom-color-red">{{ button_label|default('Next') }}</button>
+    {{ form_end(editEncounterForm) }}
+    {{ include('encounter/_delete_form.html.twig') }}
+</div>
+{% endblock %}
