@@ -1,0 +1,3 @@
+<?php //App%255CEntity%255CCharacter%2523setHp
+
+return [PHP_INT_MAX, []];

@@ -1,0 +1,3 @@
+<?php //App%255CEntity%255CCreature%2523getEncounters
+
+return [PHP_INT_MAX, []];

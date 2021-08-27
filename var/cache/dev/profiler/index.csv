@@ -2881,3 +2881,5 @@ e4a359,::1,GET,http://localhost/dash/player-display-control,1629855636,,200
 9253c4,::1,GET,http://localhost/dash/player-display-control/item/1/show-hide,1629855654,,302
 88a87d,::1,GET,http://localhost/dash/player-display-control,1629855654,,200
 290fb0,::1,GET,http://localhost/,1629855657,,200
+821e8d,::1,GET,http://localhost/,1630102037,,200
+2ef4c0,::1,GET,http://localhost/,1630102039,,200
