@@ -7864,12 +7864,6 @@
         <argument key="creature" type="service_closure" id=".errored..service_locator.BwK8duM.App\Entity\Creature"/>
       </argument>
     </service>
-    <service id=".service_locator.aOQT9Xi" class="Symfony\Component\DependencyInjection\ServiceLocator">
-      <tag name="container.service_locator"/>
-      <argument type="collection">
-        <argument key="dashRepository" type="service_closure" id="App\Repository\DashRepository"/>
-      </argument>
-    </service>
     <service id=".service_locator.jbhBKvu" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
@@ -7967,7 +7961,7 @@
         <argument key="authenticationUtils" type="service_closure" id="security.authentication_utils"/>
       </argument>
     </service>
-    <service id=".service_locator.DSzSTpd" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.HC.A0JJ" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="App\Controller\Admin\AdminCrudController::autocomplete" type="service_closure" id=".service_locator.ZOQ9v2d"/>
@@ -8213,7 +8207,6 @@
         <argument key="App\Controller\CreatureController::show" type="service_closure" id=".service_locator.BwK8duM"/>
         <argument key="App\Controller\DashController::delete" type="service_closure" id=".service_locator.jbhBKvu"/>
         <argument key="App\Controller\DashController::edit" type="service_closure" id=".service_locator.jbhBKvu"/>
-        <argument key="App\Controller\DashController::index" type="service_closure" id=".service_locator.aOQT9Xi"/>
         <argument key="App\Controller\DashController::show" type="service_closure" id=".service_locator.jbhBKvu"/>
         <argument key="App\Controller\EncounterController::addFighters" type="service_closure" id=".service_locator.hByM23c"/>
         <argument key="App\Controller\EncounterController::delete" type="service_closure" id=".service_locator.hByM23c"/>
@@ -8492,7 +8485,6 @@
         <argument key="App\Controller\CreatureController:show" type="service_closure" id=".service_locator.BwK8duM"/>
         <argument key="App\Controller\DashController:delete" type="service_closure" id=".service_locator.jbhBKvu"/>
         <argument key="App\Controller\DashController:edit" type="service_closure" id=".service_locator.jbhBKvu"/>
-        <argument key="App\Controller\DashController:index" type="service_closure" id=".service_locator.aOQT9Xi"/>
         <argument key="App\Controller\DashController:show" type="service_closure" id=".service_locator.jbhBKvu"/>
         <argument key="App\Controller\EncounterController:addFighters" type="service_closure" id=".service_locator.hByM23c"/>
         <argument key="App\Controller\EncounterController:delete" type="service_closure" id=".service_locator.hByM23c"/>
@@ -9260,12 +9252,12 @@
       <argument type="service" id="EasyCorp\Bundle\EasyAdminBundle\Router\AdminUrlGenerator"/>
     </service>
     <service id="debug.argument_resolver.service.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver">
-      <argument type="service" id=".service_locator.DSzSTpd"/>
+      <argument type="service" id=".service_locator.HC.A0JJ"/>
     </service>
     <service id="debug.argument_resolver.default.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver"/>
     <service id="debug.argument_resolver.variadic.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\VariadicValueResolver"/>
     <service id="debug.argument_resolver.not_tagged_controller.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\NotTaggedControllerValueResolver">
-      <argument type="service" id=".service_locator.DSzSTpd"/>
+      <argument type="service" id=".service_locator.HC.A0JJ"/>
     </service>
     <service id=".debug.http_client.inner" class="Symfony\Contracts\HttpClient\HttpClientInterface">
       <argument type="collection"/>
@@ -10274,7 +10266,7 @@
     <service id="Vich\UploaderBundle\Form\Type\VichImageType" alias="vich_uploader.form.type.image"/>
     <service id="container.env_var_processors_locator" alias=".service_locator.0GV1BZZ" public="true"/>
     <service id="twig.loader.filesystem" alias="twig.loader.native_filesystem"/>
-    <service id="argument_resolver.controller_locator" alias=".service_locator.DSzSTpd"/>
+    <service id="argument_resolver.controller_locator" alias=".service_locator.HC.A0JJ"/>
     <service id="session" alias=".session.do-not-use" public="true">
       <deprecated package="symfony/framework-bundle" version="5.3">The "%alias_id%" service and "SessionInterface" alias are deprecated, use "$requestStack-&gt;getSession()" instead.</deprecated>
     </service>
@@ -10335,7 +10327,6 @@
     <service id=".service_locator.nhVRAZi" alias=".service_locator.ky7FcZF"/>
     <service id=".service_locator._jLe.e." alias=".service_locator.dPbpGJg"/>
     <service id=".service_locator.dgYrLfk" alias=".service_locator.BwK8duM"/>
-    <service id=".service_locator.CQPfj_M" alias=".service_locator.aOQT9Xi"/>
     <service id=".service_locator.Ka2I_z1" alias=".service_locator.jbhBKvu"/>
     <service id=".service_locator.2B8W8Km" alias=".service_locator.DHT_cF9"/>
     <service id=".service_locator.kp3XxYM" alias=".service_locator.hByM23c"/>

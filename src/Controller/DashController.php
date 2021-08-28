@@ -29,11 +29,11 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 class DashController extends AbstractController
 {
     /**
-     * @Route("/", name="dash_index", methods={"GET"})
+     * @Route("/", name="homepage, methods={"GET"})
      */
-    public function index(DashRepository $dashRepository): Response
+    public function index(): Response
     {
-        return $this->render('dash/player_display.html.twig');
+        return $this->render('dash/index.html.twig');
 
     }
 

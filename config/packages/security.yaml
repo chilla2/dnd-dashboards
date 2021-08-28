@@ -43,7 +43,7 @@ security:
     access_control:
         - { path: ^/admin/login, roles: PUBLIC_ACCESS }
         - { path: ^/admin, roles: ROLE_ADMIN }
-        - { path: ^/private-dashboard, roles: ROLE_ADMIN }
+        - { path: ^/private-display-control, roles: ROLE_ADMIN }
         - { path: ^/control, roles: ROLE_ADMIN }
         - { path: ^/dash/player-display-control, roles: ROLE_ADMIN }
         - { path: ^/game, roles: ROLE_ADMIN }
