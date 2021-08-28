@@ -29,7 +29,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 class DashController extends AbstractController
 {
     /**
-     * @Route("/", name="homepage, methods={"GET"})
+     * @Route("/", name="homepage", methods={"GET"})
      */
     public function index(): Response
     {
