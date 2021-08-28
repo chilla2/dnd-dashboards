@@ -105,7 +105,7 @@ class Creature
     private $showDm;
 
     /**
-     * @ORM\Column(type="boolean", nullable=true, default="true")
+     * @ORM\Column(type="boolean", nullable=true)
      */
     private $isEnemy;
 
