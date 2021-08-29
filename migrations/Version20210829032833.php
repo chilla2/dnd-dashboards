@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20210824220018 extends AbstractMigration
+final class Version20210829032833 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -20,6 +20,12 @@ final class Version20210824220018 extends AbstractMigration
     public function up(Schema $schema): void
     {
         // this up() migration is auto-generated, please modify it to your needs
+        $this->addSql('CREATE TEMPORARY TABLE __temp__encounter AS SELECT id, fighters FROM encounter');
+        $this->addSql('DROP TABLE encounter');
+        $this->addSql('CREATE TABLE encounter (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, fighters CLOB DEFAULT NULL --(DC2Type:array)
+        )');
+        $this->addSql('INSERT INTO encounter (id, fighters) SELECT id, fighters FROM __temp__encounter');
+        $this->addSql('DROP TABLE __temp__encounter');
         $this->addSql('DROP INDEX IDX_C53FC3EE1136BE75');
         $this->addSql('DROP INDEX IDX_C53FC3EED6E2FADC');
         $this->addSql('CREATE TEMPORARY TABLE __temp__encounter_character AS SELECT encounter_id, character_id FROM encounter_character');
@@ -47,11 +53,6 @@ final class Version20210824220018 extends AbstractMigration
         $this->addSql('DROP TABLE __temp__encounter_creature');
         $this->addSql('CREATE INDEX IDX_DCDB93C1F9AB048 ON encounter_creature (creature_id)');
         $this->addSql('CREATE INDEX IDX_DCDB93C1D6E2FADC ON encounter_creature (encounter_id)');
-        $this->addSql('CREATE TEMPORARY TABLE __temp__other AS SELECT id, heading, show_players, description, notes, updated_at, show_dm, image_name FROM other');
-        $this->addSql('DROP TABLE other');
-        $this->addSql('CREATE TABLE other (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, heading VARCHAR(255) NOT NULL COLLATE BINARY, show_players BOOLEAN DEFAULT NULL, notes CLOB DEFAULT NULL COLLATE BINARY, updated_at DATETIME DEFAULT NULL, show_dm BOOLEAN DEFAULT NULL, image_name VARCHAR(255) DEFAULT NULL COLLATE BINARY, description CLOB DEFAULT NULL)');
-        $this->addSql('INSERT INTO other (id, heading, show_players, description, notes, updated_at, show_dm, image_name) SELECT id, heading, show_players, description, notes, updated_at, show_dm, image_name FROM __temp__other');
-        $this->addSql('DROP TABLE __temp__other');
         $this->addSql('DROP INDEX UNIQ_F454B6729EE1950E');
         $this->addSql('CREATE TEMPORARY TABLE __temp__private_dashboard AS SELECT id, public_dashboard_id, combat_mode, events FROM private_dashboard');
         $this->addSql('DROP TABLE private_dashboard');
@@ -65,6 +66,12 @@ final class Version20210824220018 extends AbstractMigration
     public function down(Schema $schema): void
     {
         // this down() migration is auto-generated, please modify it to your needs
+        $this->addSql('CREATE TEMPORARY TABLE __temp__encounter AS SELECT id, fighters FROM encounter');
+        $this->addSql('DROP TABLE encounter');
+        $this->addSql('CREATE TABLE encounter (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, fighters CLOB DEFAULT \'NULL --(DC2Type:array)\' COLLATE BINARY --(DC2Type:array)
+        )');
+        $this->addSql('INSERT INTO encounter (id, fighters) SELECT id, fighters FROM __temp__encounter');
+        $this->addSql('DROP TABLE __temp__encounter');
         $this->addSql('DROP INDEX IDX_C53FC3EED6E2FADC');
         $this->addSql('DROP INDEX IDX_C53FC3EE1136BE75');
         $this->addSql('CREATE TEMPORARY TABLE __temp__encounter_character AS SELECT encounter_id, character_id FROM encounter_character');
@@ -92,11 +99,6 @@ final class Version20210824220018 extends AbstractMigration
         $this->addSql('DROP TABLE __temp__encounter_npc');
         $this->addSql('CREATE INDEX IDX_A2EB62BAD6E2FADC ON encounter_npc (encounter_id)');
         $this->addSql('CREATE INDEX IDX_A2EB62BACA7D6B89 ON encounter_npc (npc_id)');
-        $this->addSql('CREATE TEMPORARY TABLE __temp__other AS SELECT id, heading, description, notes, show_players, image_name, updated_at, show_dm FROM other');
-        $this->addSql('DROP TABLE other');
-        $this->addSql('CREATE TABLE other (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, heading VARCHAR(255) NOT NULL, notes CLOB DEFAULT NULL, show_players BOOLEAN DEFAULT NULL, image_name VARCHAR(255) DEFAULT NULL, updated_at DATETIME DEFAULT NULL, show_dm BOOLEAN DEFAULT NULL, description CLOB NOT NULL COLLATE BINARY)');
-        $this->addSql('INSERT INTO other (id, heading, description, notes, show_players, image_name, updated_at, show_dm) SELECT id, heading, description, notes, show_players, image_name, updated_at, show_dm FROM __temp__other');
-        $this->addSql('DROP TABLE __temp__other');
         $this->addSql('DROP INDEX UNIQ_F454B6729EE1950E');
         $this->addSql('CREATE TEMPORARY TABLE __temp__private_dashboard AS SELECT id, public_dashboard_id, combat_mode, events FROM private_dashboard');
         $this->addSql('DROP TABLE private_dashboard');
