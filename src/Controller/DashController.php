@@ -67,12 +67,12 @@ class DashController extends AbstractController
             $game->setCombatMode(FALSE);
             $entityManager->persist($game);
             $entityManager->flush();
-            return $this->redirectToRoute('dash/player_display_control');
+            return $this->redirectToRoute('player_display_control');
         } else {
             $game->setCombatMode(TRUE);
             $entityManager->persist($game);
             $entityManager->flush();
-            return $this->redirectToRoute('dash/encounter_add_fighters', ['id' => '1']);
+            return $this->redirectToRoute('encounter_add_fighters', ['id' => '1']);
         }
     }
 
@@ -97,7 +97,7 @@ class DashController extends AbstractController
         }
         $entityManager->persist($item);
         $entityManager->flush();
-        return $this->redirectToRoute('dash/player_display_control');
+        return $this->redirectToRoute('player_display_control');
     }
 
     /**
@@ -130,7 +130,7 @@ class DashController extends AbstractController
         }
         $entityManager->persist($item);
         $entityManager->flush();
-        return $this->redirectToRoute('dash/player_display_control');
+        return $this->redirectToRoute('player_display_control');
     }
 
     /**

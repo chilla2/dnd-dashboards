@@ -2,6 +2,10 @@ homepage:
     path: /
     controller: App\Controller\DashController::index
 
+player_display_control:
+    path: /control
+    controller: App\Controller\DashController::playerDisplayControl
+
 admin:
     path: /admin
     controller: App\Controller\Admin\DashboardController::index
