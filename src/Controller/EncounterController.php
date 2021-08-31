@@ -62,8 +62,10 @@ class EncounterController extends AbstractController
 
     /**
      * @Route("/{id}/add-fighters", name="encounter_add_fighters", methods={"GET","POST"})
+     * @param Request $request
+     * @return Response
      */
-    public function addFighters(Request $request, Encounter $encounter): Response
+    public function addFighters(Encounter $encounter, Request $request): Response
     {
         $editEncounterForm = $this->createForm(EncounterType::class, $encounter);
         $editEncounterForm->handleRequest($request);
@@ -86,20 +88,23 @@ class EncounterController extends AbstractController
 
     /**
      * @Route("/{id}/edit-combat", name="combat_tracker_edit", methods={"GET","POST"})
+     * @param Request $request
+     * @return Response
      */
     public function editCombat(Request $request, Encounter $encounter): Response
     {
 
         $editCombatForm = $this->createForm(CombatTrackerType::class, $encounter);
         $editCombatForm->handleRequest($request);
+        $id = $encounter->getId();
 
-        if ($editCombatForm->isSubmitted() && $editCombatForm->isValid()) {
+        if ($editCombatForm->isSubmitted() && $editCombatForm->isValid() && $this->isCsrfTokenValid('edit-combat'.$encounter->getId(), $request->request->get('token'))) {
             $encounter->setFighters($encounter->getFighters());
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($encounter);
             $entityManager()->flush();
 
-            return $this->redirectToRoute('encounter_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('player_display_control', ['id' => $id], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('encounter/edit.html.twig', [
@@ -110,6 +115,7 @@ class EncounterController extends AbstractController
 
     /**
      * @Route("/{id}", name="encounter_delete", methods={"POST"})
+     * @param Request $request
      */
     public function delete(Request $request, Encounter $encounter): Response
     {

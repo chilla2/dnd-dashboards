@@ -93,9 +93,11 @@
             </div>
             {% endfor %}
         </div>
-
+        <input type="hidden" name="token" value="{{ csrf_token('edit-combat') }}"/>
         <button class="btn custom-color-red">{{ button_label|default('Save') }}</button>
         <a type="button" class="btn custom-color-red" href="{{ path('encounter_add_fighters', {'id': encounter.id}) }}">Add Fighters</a>
         <a type="button" class="btn custom-color-red" href="{{ path('encounter_index') }}">Back to Encounters</a>
+        {{ form_end(editCombatForm) }}
+
     </div>
 {% endblock %}
