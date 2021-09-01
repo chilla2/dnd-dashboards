@@ -47,9 +47,9 @@ class DashController extends AbstractController
     }
 
     /**
-     * @Route("/player-display-control", name="player_display_control", methods={"GET","POST"})
+     * @Route("/player-display-control", name="player_display_control", methods={"GET"})
      */
-    public function playerDisplayControl(Request $request): Response
+    public function playerDisplayControl(): Response
     {
         return $this->render('dash/player_display_control.html.twig');
     }

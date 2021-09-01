@@ -98,13 +98,13 @@ class EncounterController extends AbstractController
         $editCombatForm->handleRequest($request);
         $id = $encounter->getId();
 
-        if ($editCombatForm->isSubmitted() && $editCombatForm->isValid() && $this->isCsrfTokenValid('edit-combat'.$encounter->getId(), $request->request->get('token'))) {
+        if ($editCombatForm->isSubmitted() && $editCombatForm->isValid()) {
             $encounter->setFighters($encounter->getFighters());
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($encounter);
-            $entityManager()->flush();
+            $entityManager->flush();
 
-            return $this->redirectToRoute('player_display_control', ['id' => $id], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('player_display_control', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('encounter/edit.html.twig', [
