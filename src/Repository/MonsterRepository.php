@@ -2,25 +2,25 @@
 
 namespace App\Repository;
 
-use App\Entity\Creature;
+use App\Entity\Monster;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @method Creature|null find($id, $lockMode = null, $lockVersion = null)
- * @method Creature|null findOneBy(array $criteria, array $orderBy = null)
- * @method Creature[]    findAll()
- * @method Creature[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Monster|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Monster|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Monster[]    findAll()
+ * @method Monster[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class CreatureRepository extends ServiceEntityRepository
+class MonsterRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Creature::class);
+        parent::__construct($registry, Monster::class);
     }
 
     // /**
-    //  * @return Creature[] Returns an array of Creature objects
+    //  * @return Monster[] Returns an array of Monster objects
     //  */
     /*
     public function findByExampleField($value)
@@ -37,7 +37,7 @@ class CreatureRepository extends ServiceEntityRepository
     */
 
     /*
-    public function findOneBySomeField($value): ?Creature
+    public function findOneBySomeField($value): ?Monster
     {
         return $this->createQueryBuilder('c')
             ->andWhere('c.exampleField = :val')

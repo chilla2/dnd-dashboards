@@ -8,8 +8,8 @@ easy_admin:
             form:
               fields:
                   - { property: 'imageFile', type: 'vich_image' }
-        Creature:
-            class: App\Entity\Creature
+        Monster:
+            class: App\Entity\Monster
             form:
               fields:
                   - { property: 'imageFile', type: 'vich_image' }

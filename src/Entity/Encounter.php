@@ -35,15 +35,15 @@ class Encounter
     private $npcs;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Creature::class, inversedBy="encounters")
+     * @ORM\ManyToMany(targetEntity=Monster::class, inversedBy="encounters")
      */
-    private $creatures;
+    private $monsters;
 
     public function __construct()
     {
         $this->characters = new ArrayCollection();
         $this->npcs = new ArrayCollection();
-        $this->creatures = new ArrayCollection();
+        $this->monsters = new ArrayCollection();
     }
 
     public function __toString(): string {
@@ -65,8 +65,8 @@ class Encounter
         foreach (($this->npcs) as $npc){
             $this->fighters[] = $npc;
         }
-        foreach (($this->creatures) as $creature){
-            $this->fighters[] = $creature;
+        foreach (($this->monsters) as $monster){
+            $this->fighters[] = $monster;
         }
         return $this->fighters;
     }
@@ -133,25 +133,25 @@ class Encounter
     }
 
     /**
-     * @return Collection|Creature[]
+     * @return Collection|Monster[]
      */
-    public function getCreatures(): Collection
+    public function getMonsters(): Collection
     {
-        return $this->creatures;
+        return $this->monsters;
     }
 
-    public function addCreature(Creature $creature): self
+    public function addMonster(Monster $monster): self
     {
-        if (!$this->creatures->contains($creature)) {
-            $this->creatures[] = $creature;
+        if (!$this->monsters->contains($monster)) {
+            $this->monsters[] = $monster;
         }
 
         return $this;
     }
 
-    public function removeCreature(Creature $creature): self
+    public function removeMonster(Monster $monster): self
     {
-        $this->creatures->removeElement($creature);
+        $this->monsters->removeElement($monster);
 
         return $this;
     }

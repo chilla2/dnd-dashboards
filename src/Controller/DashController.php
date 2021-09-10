@@ -109,15 +109,15 @@ class DashController extends AbstractController
     {
         $entityManager = $this->getDoctrine()->getManager();
         $npcs = $entityManager->getRepository('App\Entity\Npc')->findAll();
-        $creatures = $entityManager->getRepository('App\Entity\Creature')->findAll();
+        $monsters = $entityManager->getRepository('App\Entity\Monster')->findAll();
         $locations = $entityManager->getRepository('App\Entity\Location')->findAll();
         $items = $entityManager->getRepository('App\Entity\Item')->findAll();
         $others = $entityManager->getRepository('App\Entity\Other')->findAll();
         foreach ($npcs as $npc) {
           $npc->setShowDm(FALSE);
         }
-        foreach ($creatures as $creature) {
-          $creature->setShowDm(FALSE);
+        foreach ($monsters as $monster) {
+          $monster->setShowDm(FALSE);
         }
         foreach ($locations as $location) {
           $location->setShowDm(FALSE);
@@ -142,15 +142,15 @@ class DashController extends AbstractController
     {
         $entityManager = $this->getDoctrine()->getManager();
         $npcs = $entityManager->getRepository('App\Entity\Npc')->findAll();
-        $creatures = $entityManager->getRepository('App\Entity\Creature')->findAll();
+        $monsters = $entityManager->getRepository('App\Entity\Monster')->findAll();
         $locations = $entityManager->getRepository('App\Entity\Location')->findAll();
         $items = $entityManager->getRepository('App\Entity\Item')->findAll();
         $others = $entityManager->getRepository('App\Entity\Other')->findAll();
         foreach ($npcs as $npc) {
           $npc->setShowPlayers(FALSE);
         }
-        foreach ($creatures as $creature) {
-          $creature->setShowPlayers(FALSE);
+        foreach ($monsters as $monster) {
+          $monster->setShowPlayers(FALSE);
         }
         foreach ($locations as $location) {
           $location->setShowPlayers(FALSE);

@@ -2,7 +2,7 @@
 
 namespace App\Entity;
 
-use App\Repository\CreatureRepository;
+use App\Repository\MonsterRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -12,10 +12,10 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Vich\UploaderBundle\Entity\File as EmbeddedFile;
 
 /**
- * @ORM\Entity(repositoryClass=CreatureRepository::class)
+ * @ORM\Entity(repositoryClass=MonsterRepository::class)
  * @Vich\Uploadable
  */
-class Creature
+class Monster
 {
     /**
      * @ORM\Id
@@ -67,7 +67,7 @@ class Creature
     /**
      * NOTE: This is not a mapped field of entity metadata, just a simple property.
      *
-     * @Vich\UploadableField(mapping="creature_image", fileNameProperty="imageName", size="imageSize")
+     * @Vich\UploadableField(mapping="monster_image", fileNameProperty="imageName", size="imageSize")
      *
      * @var File|null
      */
@@ -95,7 +95,7 @@ class Creature
     private $updatedAt;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Encounter::class, mappedBy="creatures")
+     * @ORM\ManyToMany(targetEntity=Encounter::class, mappedBy="monsters")
      */
     private $encounters;
 
@@ -284,7 +284,7 @@ class Creature
     {
         if (!$this->encounters->contains($encounter)) {
             $this->encounters[] = $encounter;
-            $encounter->addCreature($this);
+            $encounter->addMonster($this);
         }
 
         return $this;
@@ -293,7 +293,7 @@ class Creature
     public function removeEncounter(Encounter $encounter): self
     {
         if ($this->encounters->removeElement($encounter)) {
-            $encounter->removeCreature($this);
+            $encounter->removeMonster($this);
         }
 
         return $this;

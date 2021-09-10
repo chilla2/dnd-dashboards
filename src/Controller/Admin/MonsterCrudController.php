@@ -2,7 +2,7 @@
 
 namespace App\Controller\Admin;
 
-use App\Entity\Creature;
+use App\Entity\Monster;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\FormField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
@@ -16,11 +16,11 @@ use Vich\UploaderBundle\Form\Type\VichFileType;
 use Vich\UploaderBundle\Form\Type\VichImageType;
 use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 
-class CreatureCrudController extends AbstractCrudController
+class MonsterCrudController extends AbstractCrudController
 {
     public static function getEntityFqcn(): string
     {
-        return Creature::class;
+        return Monster::class;
     }
 
 

@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Monster index{% endblock %}
+
+{% block body %}
+<!-- monster index -->
+    <h1>Monster index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Notes</th>
+                <th>ShowPlayers</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for monster in monsters %}
+            <tr>
+                <td>{{ monster.id }}</td>
+                <td>{{ monster.name }}</td>
+                <td>{{ monster.description|raw }}</td>
+                <td>{{ monster.notes|raw }}</td>
+                <td>{{ monster.showPlayers ? 'Yes' : 'No' }}</td>
+                <td>
+                    <a href="{{ path('monster_show', {'id': monster.id}) }}">show</a>
+                    <a href="{{ path('monster_edit', {'id': monster.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('monster_new') }}">Create new</a>
+{% endblock %}

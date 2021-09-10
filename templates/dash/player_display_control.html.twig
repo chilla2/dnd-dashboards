@@ -29,12 +29,12 @@
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink2" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Creatures
+            Monsters
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink2">
-            {% for creature in creatures %}
-              {% set creaturenames = creature.name|split(' ') %}
-              <li><a class="dropdown-item" href="dash/player-display-control/creature/{{ creature.id }}/toggle-dm">{{ creature.name }}</a></li>
+            {% for monster in monsters %}
+              {% set monsternames = monster.name|split(' ') %}
+              <li><a class="dropdown-item" href="dash/player-display-control/monster/{{ monster.id }}/toggle-dm">{{ monster.name }}</a></li>
             {% endfor %}
           </ul>
         </li>
@@ -121,38 +121,38 @@
             </div>
             <div class="list-group">
                 <div class="list-group-item custom-color-red-orange p-1">
-                    Creatures
+                    Monsters
                 </div>
-                {% for creature in creatures %}
-                {% set creaturenames = creature.name|split(' ') %}
-                {% if creature.showPlayers == TRUE %}
+                {% for monster in monsters %}
+                {% set monsternames = monster.name|split(' ') %}
+                {% if monster.showPlayers == TRUE %}
                 <div class="show-players p-1 list-group-item">
-                    {{ creature.name }}
-                    <a href="dash/player-display-control/creature/{{ creature.id }}/show-hide">
+                    {{ monster.name }}
+                    <a href="dash/player-display-control/monster/{{ monster.id }}/show-hide">
                         <i class="bi bi-person-x show-hide-icon"></i>
                     </a>
-                    {% if creature.showDm == TRUE %}
-                    <a href="dash/player-display-control/creature/{{ creature.id }}/toggle-dm">
+                    {% if monster.showDm == TRUE %}
+                    <a href="dash/player-display-control/monster/{{ monster.id }}/toggle-dm">
                         <i class="bi bi-eye-slash show-hide-icon"></i>
                     </a>
                     {% else %}
-                    <a href="dash/player-display-control/creature/{{ creature.id }}/toggle-dm">
+                    <a href="dash/player-display-control/monster/{{ monster.id }}/toggle-dm">
                         <i class="bi bi-eye show-hide-icon"></i>
                     </a>
                     {% endif %}
                 </div>
                 {% else %}
                 <div class="p-1 list-group-item">
-                    {{ creature.name }}
-                    <a href="dash/player-display-control/creature/{{ creature.id }}/show-hide">
+                    {{ monster.name }}
+                    <a href="dash/player-display-control/monster/{{ monster.id }}/show-hide">
                         <i class="bi bi-person-check show-hide-icon"></i>
                     </a>
-                    {% if creature.showDm == TRUE %}
-                    <a href="dash/player-display-control/creature/{{ creature.id }}/toggle-dm">
+                    {% if monster.showDm == TRUE %}
+                    <a href="dash/player-display-control/monster/{{ monster.id }}/toggle-dm">
                         <i class="bi bi-eye-slash show-hide-icon"></i>
                     </a>
                     {% else %}
-                    <a href="dash/player-display-control/creature/{{ creature.id }}/toggle-dm">
+                    <a href="dash/player-display-control/monster/{{ monster.id }}/toggle-dm">
                         <i class="bi bi-eye show-hide-icon"></i>
                     </a>
                     {% endif %}
@@ -345,18 +345,18 @@
                 </div>
                 {% endif %}
                 {% endfor %}
-                {% for creature in creatures %}
-                {% set creaturenames = creature.name|split(' ') %}
-                {% if creature.showDm == TRUE %}
-                <div class="col" id="{{ creaturenames|join('-') }}">
+                {% for monster in monsters %}
+                {% set monsternames = monster.name|split(' ') %}
+                {% if monster.showDm == TRUE %}
+                <div class="col" id="{{ monsternames|join('-') }}">
                     <div class="card shadow p-3 mb-5 rounded custom-color-red-orange">
-                        <img src="{{ vich_uploader_asset(creature, 'imageFile') }}" alt="{{ creature.imageName }}" class="card-img-top">
+                        <img src="{{ vich_uploader_asset(monster, 'imageFile') }}" alt="{{ monster.imageName }}" class="card-img-top">
                         <div class="card-body  custom-color-red-orange">
-                            <h6 class="card-title">{{ creature.name }}</h6>
-                            <div class="card-text">{{ creature.description|raw }}</div>
-                            <a class="btn custom-color-blue" href="{{ path('creature_edit', { 'id': creature.id }) }}">Edit</a>
-                            <a class="btn custom-color-blue" href="dash/player-display-control/creature/{{ creature.id }}/show-hide">Show</a>
-                            {{ include('creature/_delete_form.html.twig') }}
+                            <h6 class="card-title">{{ monster.name }}</h6>
+                            <div class="card-text">{{ monster.description|raw }}</div>
+                            <a class="btn custom-color-blue" href="{{ path('monster_edit', { 'id': monster.id }) }}">Edit</a>
+                            <a class="btn custom-color-blue" href="dash/player-display-control/monster/{{ monster.id }}/show-hide">Show</a>
+                            {{ include('monster/_delete_form.html.twig') }}
                         </div>
                     </div>
                 </div>

@@ -45,15 +45,15 @@
                     <div class="accordion-item">
                         <h2 class="accordion-header" id="flush-headingThree">
                             <button class="accordion-button collapsed custom-dark text-white" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
-                                Creatures
+                                Mmonsters
                             </button>
                         </h2>
                         <div id="flush-collapseThree" class="accordion-collapse collapse custom-dark text-white" aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
                             <div class="accordion-body p-0">
                                 <ul class="list-group">
-                                    {% for creature in creatures %}
-                                    {% set creaturenames = creature.name|split(' ') %}
-                                        <li class="list-group-item list-group-item-action custom-dark text-white m-0 p-0" type="button" data-bs-toggle="collapse" data-bs-target="#{{ creaturenames|join('-') }}">{{ creature.name }}</li>
+                                    {% for monster in monsters %}
+                                    {% set monsternames = monster.name|split(' ') %}
+                                        <li class="list-group-item list-group-item-action custom-dark text-white m-0 p-0" type="button" data-bs-toggle="collapse" data-bs-target="#{{ monsternames|join('-') }}">{{ monster.name }}</li>
                                     {% endfor %}
                                 </ul>
                             </div>
@@ -144,11 +144,11 @@
                             </ul>
                         </li>
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Creatures</a>
+                            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Mmonsters</a>
                             <ul class="dropdown-menu">
-                                {% for creature in creatures %}
-                                {% set creaturenames = creature.name|split(' ') %}
-                                <button class="dropdown-item btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#{{ creaturenames|join('-') }}" >{{ creature.name }}</button>
+                                {% for monster in monsters %}
+                                {% set monsternames = monster.name|split(' ') %}
+                                <button class="dropdown-item btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#{{ monsternames|join('-') }}" >{{ monster.name }}</button>
                                 {% endfor %}
                             </ul>
                         </li>
@@ -215,14 +215,14 @@
                 {% endfor %}
             </div> <!--  end row 3 of grid 2 -->
             <div class="row row-cols-3"> <!--  start row 4 of grid 2 -->
-                {% for creature in creatures %}
-                {% set creaturenames = creature.name|split(' ') %}
-                <div class="col collapse multi-collapse" id="{{ creaturenames|join('-') }}">
+                {% for monster in monsters %}
+                {% set monsternames = monster.name|split(' ') %}
+                <div class="col collapse multi-collapse" id="{{ monsternames|join('-') }}">
                     <div class="card shadow p-3 mb-5 custom-dark rounded">
                         <div class="card-body custom-dark">
                             <button type="button" class="btn-close" aria-label="Close"></button>
-                            <h6 class="card-title">{{ creature.name }}</h6>
-                            <div class="card-title">{{ creature.description }}</div>
+                            <h6 class="card-title">{{ monster.name }}</h6>
+                            <div class="card-title">{{ monster.description }}</div>
                         </div>
                     </div>
                 </div>

@@ -27,19 +27,19 @@
                     {% endif %}
                 {% endif %}
             {% endfor %}
-            {% for creature in creatures %}
-            {% set creaturenames = creature.name|split(' ') %}
-                {% if creature.showPlayers == TRUE %}
-                    {% if creature.imageName is not null and creature.imageFile is defined %}
-                        <div class="col" id="{{ creaturenames|join('-') }}">
+            {% for monster in monsters %}
+            {% set monsternames = monster.name|split(' ') %}
+                {% if monster.showPlayers == TRUE %}
+                    {% if monster.imageName is not null and monster.imageFile is defined %}
+                        <div class="col" id="{{ monsternames|join('-') }}">
                             <div class="card shadow mb-5 rounded">
-                                <img src="{{ vich_uploader_asset(creature, 'imageFile') }}" alt="{{ creature.imageName }}" class="card-img-top">
+                                <img src="{{ vich_uploader_asset(monster, 'imageFile') }}" alt="{{ monster.imageName }}" class="card-img-top">
                             </div>
                         </div>
                         {# <!--
-                        <div class="col" id="{{ creaturenames|join('-') }}">
+                        <div class="col" id="{{ monsternames|join('-') }}">
                             <figure class="figure">
-                                <img class="figure-img img-fluid rounded" src="{{ vich_uploader_asset(creature, 'imageFile') }}" alt="{{ creature.imageName }}" />
+                                <img class="figure-img img-fluid rounded" src="{{ vich_uploader_asset(monster, 'imageFile') }}" alt="{{ monster.imageName }}" />
                             </figure>
                         </div>
                         --> #}

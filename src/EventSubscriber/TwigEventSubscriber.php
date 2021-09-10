@@ -7,7 +7,7 @@ use App\Repository\CharacterRepository;
 use App\Repository\LocationRepository;
 use App\Repository\ItemRepository;
 use App\Repository\OtherRepository;
-use App\Repository\CreatureRepository;
+use App\Repository\MonsterRepository;
 use App\Repository\DashRepository;
 use App\Repository\GameRepository;
 use App\Repository\EncounterRepository;
@@ -24,17 +24,17 @@ class TwigEventSubscriber implements EventSubscriberInterface
     private $locationRepository;
     private $itemRepository;
     private $otherRepository;
-    private $creatureRepository;
+    private $monsterRepository;
     private $gameRepository;
     private $dashRepository;
     private $encounterRepository;
 
-    public function __construct(Environment $twig, CharacterRepository $characterRepository, NpcRepository $npcRepository, CreatureRepository $creatureRepository, ItemRepository $itemRepository, LocationRepository $locationRepository, OtherRepository $otherRepository, DashRepository $dashRepository, GameRepository $gameRepository, EncounterRepository $encounterRepository)
+    public function __construct(Environment $twig, CharacterRepository $characterRepository, NpcRepository $npcRepository, MonsterRepository $monsterRepository, ItemRepository $itemRepository, LocationRepository $locationRepository, OtherRepository $otherRepository, DashRepository $dashRepository, GameRepository $gameRepository, EncounterRepository $encounterRepository)
     {
         $this->twig = $twig;
         $this->characterRepository = $characterRepository;
         $this->npcRepository = $npcRepository;
-        $this->creatureRepository = $creatureRepository;
+        $this->monsterRepository = $monsterRepository;
         $this->itemRepository = $itemRepository;
         $this->locationRepository = $locationRepository;
         $this->otherRepository = $otherRepository;
@@ -47,7 +47,7 @@ class TwigEventSubscriber implements EventSubscriberInterface
     {
         $this->twig->addGlobal('characters', $this->characterRepository->findAll());
         $this->twig->addGlobal('npcs', $this->npcRepository->findAll());
-        $this->twig->addGlobal('creatures', $this->creatureRepository->findAll());
+        $this->twig->addGlobal('monsters', $this->monsterRepository->findAll());
         $this->twig->addGlobal('items', $this->itemRepository->findAll());
         $this->twig->addGlobal('locations', $this->locationRepository->findAll());
         $this->twig->addGlobal('others', $this->otherRepository->findAll());

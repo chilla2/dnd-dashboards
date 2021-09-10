@@ -8,7 +8,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-use App\Entity\Creature;
+use App\Entity\Monster;
 use App\Entity\Npc;
 use App\Entity\Character;
 use App\Entity\Location;
@@ -41,7 +41,7 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linktoRoute('To Control', 'fas fa-home', 'player_display_control');
         yield MenuItem::linkToCrud('Characters', 'fas fa-map-marker-alt', Character::class);
         yield MenuItem::linkToCrud('NPCs', 'fas fa-comments', Npc::class);
-        yield MenuItem::linkToCrud('Creatures', 'fas fa-comments', Creature::class);
+        yield MenuItem::linkToCrud('Monsters', 'fas fa-comments', Monster::class);
         yield MenuItem::linkToCrud('Locations', 'fas fa-comments', Location::class);
         yield MenuItem::linkToCrud('Items', 'fas fa-comments', Item::class);
         yield MenuItem::linkToCrud('Others', 'fas fa-comments', Other::class);

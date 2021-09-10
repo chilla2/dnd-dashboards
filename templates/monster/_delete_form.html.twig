@@ -1,0 +1,5 @@
+<!-- monster _delete_form -->
+<form class="delete-form" method="post" action="{{ path('monster_delete', {'id': monster.id}) }}" onsubmit="return confirm('Are you sure you want to delete this item?');">
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ monster.id) }}">
+    <button class="btn custom-color-blue">Delete</button>
+</form>

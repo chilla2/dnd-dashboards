@@ -5,10 +5,10 @@ namespace App\Form;
 use App\Entity\Encounter;
 use App\Entity\Character;
 use App\Entity\Npc;
-use App\Entity\Creature;
+use App\Entity\Monster;
 use App\Form\CharacterType;
 use App\Form\NpcType;
-use App\Form\CreatureType;
+use App\Form\MonsterType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\AbstractType;
@@ -27,8 +27,8 @@ class CombatTrackerType extends AbstractType
         $builder->add('npcs', CollectionType::class, [
             'entry_type' => NpcType::class,
         ]);
-        $builder->add('creatures', CollectionType::class, [
-            'entry_type' => CreatureType::class,
+        $builder->add('monsters', CollectionType::class, [
+            'entry_type' => MonsterType::class,
         ]);
     }
 

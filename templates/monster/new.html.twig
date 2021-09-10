@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Monster{% endblock %}
+
+{% block body %}
+<!-- monster new -->
+
+    <h1>Create new Monster</h1>
+
+    {{ include('monster/_new_form.html.twig') }}
+
+    <a href="{{ path('monster_index') }}">back to list</a>
+{% endblock %}

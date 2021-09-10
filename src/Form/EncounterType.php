@@ -5,10 +5,10 @@ namespace App\Form;
 use App\Entity\Encounter;
 use App\Entity\Character;
 use App\Entity\Npc;
-use App\Entity\Creature;
+use App\Entity\Monster;
 use App\Form\CharacterType;
 use App\Form\NpcType;
-use App\Form\CreatureType;
+use App\Form\MonsterType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\AbstractType;
@@ -32,8 +32,8 @@ class EncounterType extends AbstractType
             'entry_type' => NpcType::class,
             'entry_options' => ['label' => false],
         ]);
-        $builder->add('creatures', CollectionType::class, [
-            'entry_type' => CreatureType::class,
+        $builder->add('monsters', CollectionType::class, [
+            'entry_type' => MonsterType::class,
             'entry_options' => ['label' => false],
         ]);
         */
@@ -55,9 +55,9 @@ class EncounterType extends AbstractType
             'multiple' => true,
             'expanded' => true,
         ]);
-        $builder->add('creatures', EntityType::class, [
+        $builder->add('monsters', EntityType::class, [
             // looks for choices from this entity
-            'class' => Creature::class,
+            'class' => Monster::class,
             'choice_label' => 'name',
             // used to render a select box, check boxes or radios
             'multiple' => true,
