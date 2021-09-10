@@ -18,6 +18,7 @@ use App\Entity\Admin;
 use App\Entity\Dash;
 use App\Entity\Game;
 use App\Entity\Encounter;
+use App\Entity\User;
 
 class DashboardController extends AbstractDashboardController
 {
@@ -44,8 +45,8 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('Locations', 'fas fa-comments', Location::class);
         yield MenuItem::linkToCrud('Items', 'fas fa-comments', Item::class);
         yield MenuItem::linkToCrud('Others', 'fas fa-comments', Other::class);
-        // yield MenuItem::linkToCrud('Admins', 'fas fa-comments', Admin::class);
-        // yield MenuItem::linkToCrud('Dashs', 'fas fa-comments', Dash::class);
+        yield MenuItem::linkToCrud('Admins', 'fas fa-comments', Admin::class);
+        yield MenuItem::linkToCrud('Users', 'fas fa-comments', User::class);
         // yield MenuItem::linkToCrud('Encounters', 'fas fa-comments', Encounter::class);
         // yield MenuItem::linkToCrud('The Label', 'fas fa-list', EntityClass::class);
     }

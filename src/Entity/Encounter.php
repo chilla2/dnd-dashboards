@@ -55,8 +55,9 @@ class Encounter
         return $this->id;
     }
 
+
     public function getFighters(): ?array
-    {
+    {   
         $this->fighters = array();
         foreach (($this->characters) as $character) {
             $this->fighters[] = $character;
@@ -70,8 +71,14 @@ class Encounter
         return $this->fighters;
     }
 
+    function sortFighters($a, $b)
+    {
+        return $a->initiative < $b->initiative;
+    }
+
     public function setFighters(?array $fighters): self
     {
+        $this->fighters = array();
         $this->fighters = $fighters;
 
         return $this;
@@ -147,5 +154,10 @@ class Encounter
         $this->creatures->removeElement($creature);
 
         return $this;
+    }
+
+    public static function cmp($a, $b) 
+    {
+        return strcmp($a->name, $b->name);
     }
 }

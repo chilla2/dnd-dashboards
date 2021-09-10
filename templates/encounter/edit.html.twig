@@ -60,44 +60,43 @@
         <h4>Characters</h4>
         <div class="characters">
             {% for character in editCombatForm.characters %}
-            <div class="row row-cols-auto justify-content-md-center">
+            <div class="row row-cols-auto align-items-center justify-content-md-center">
                 <div class="col">{{ form_row(character.name) }}</div>
-                <div class="col">{{ form_row(character.initiative) }}</div>
-                <div class="col">{{ form_row(character.armorClass) }}</div>
-                <div class="col">{{ form_row(character.hp) }}</div>
-                <div class="col">{{ form_row(character.isEnemy) }}</div>
+                <div class="col-1">{{ form_row(character.initiative) }}</div>
+                <div class="col-1">{{ form_row(character.armorClass) }}</div>
+                <div class="col-1">{{ form_row(character.hp) }}</div>
+                <div class="col-1">{{ form_row(character.isEnemy) }}</div>
             </div>
             {% endfor %}
         </div>
         <h4>NPCs</h4>
         <div class="npcs">
             {% for npc in editCombatForm.npcs %}
-            <div class="row row-cols-auto justify-content-md-center">
-                <div class="col-">{{ form_row(npc.name) }}</div>
-                <div class="col">{{ form_row(npc.initiative) }}</div>
-                <div class="col">{{ form_row(npc.armorClass) }}</div>
-                <div class="col">{{ form_row(npc.hp) }}</div>
-                <div class="col">{{ form_row(npc.isEnemy) }}</div>
+            <div class="row row-cols-auto align-items-center justify-content-md-center">
+                <div class="col">{{ form_row(npc.name) }}</div>
+                <div class="col-1">{{ form_row(npc.initiative) }}</div>
+                <div class="col-1">{{ form_row(npc.armorClass) }}</div>
+                <div class="col-1">{{ form_row(npc.hp) }}</div>
+                <div class="col-1">{{ form_row(npc.isEnemy) }}</div>
             </div>
             {% endfor %}
         </div>
         <h4>Creatures</h4>
         <div class="creatures">
             {% for creature in editCombatForm.creatures %}
-            <div class="row row-cols-auto justify-content-md-center">
+            <div class="row row-cols-auto align-items-center justify-content-md-center">
                 <div class="col">{{ form_row(creature.name) }}</div>
-                <div class="col">{{ form_row(creature.initiative) }}</div>
-                <div class="col">{{ form_row(creature.armorClass) }}</div>
-                <div class="col">{{ form_row(creature.hp) }}</div>
-                <div class="col">{{ form_row(creature.isEnemy) }}</div>
+                <div class="col-1">{{ form_row(creature.initiative) }}</div>
+                <div class="col-1">{{ form_row(creature.armorClass) }}</div>
+                <div class="col-1">{{ form_row(creature.hp) }}</div>
+                <div class="col-1">{{ form_row(creature.isEnemy) }}</div>
             </div>
             {% endfor %}
         </div>
         <input type="hidden" name="token" value="{{ csrf_token('edit-combat') }}"/>
         
-        <button class="btn custom-color-red">{{ button_label|default('Save') }}</button>
-        <a type="button" class="btn custom-color-red" href="{{ path('encounter_add_fighters', {'id': encounter.id}) }}">Add Fighters</a>
-        <a type="button" class="btn custom-color-red" href="{{ path('encounter_index') }}">Back to Encounters</a>
+        <button class="btn custom-color-maroon">{{ button_label|default('Save') }}</button>
+        <a type="button" class="btn custom-color-maroon" href="{{ path('encounter_add_fighters', {'id': encounter.id}) }}">Back to Add Fighters</a>
         <div class="hidden">
         {{ form_rest(editCombatForm) }}
         </div>

@@ -10,6 +10,7 @@ use App\Repository\OtherRepository;
 use App\Repository\CreatureRepository;
 use App\Repository\DashRepository;
 use App\Repository\GameRepository;
+use App\Repository\EncounterRepository;
 use Twig\Environment;
 
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -26,8 +27,9 @@ class TwigEventSubscriber implements EventSubscriberInterface
     private $creatureRepository;
     private $gameRepository;
     private $dashRepository;
+    private $encounterRepository;
 
-    public function __construct(Environment $twig, CharacterRepository $characterRepository, NpcRepository $npcRepository, CreatureRepository $creatureRepository, ItemRepository $itemRepository, LocationRepository $locationRepository, OtherRepository $otherRepository, DashRepository $dashRepository, GameRepository $gameRepository)
+    public function __construct(Environment $twig, CharacterRepository $characterRepository, NpcRepository $npcRepository, CreatureRepository $creatureRepository, ItemRepository $itemRepository, LocationRepository $locationRepository, OtherRepository $otherRepository, DashRepository $dashRepository, GameRepository $gameRepository, EncounterRepository $encounterRepository)
     {
         $this->twig = $twig;
         $this->characterRepository = $characterRepository;
@@ -38,6 +40,7 @@ class TwigEventSubscriber implements EventSubscriberInterface
         $this->otherRepository = $otherRepository;
         $this->dashRepository = $dashRepository;
         $this->gameRepository = $gameRepository;
+        $this->encounterRepository = $encounterRepository;
     }
 
     public function onKernelController(ControllerEvent $event)
@@ -50,6 +53,9 @@ class TwigEventSubscriber implements EventSubscriberInterface
         $this->twig->addGlobal('others', $this->otherRepository->findAll());
         $this->twig->addGlobal('dashs', $this->dashRepository->findAll());
         $this->twig->addGlobal('game', $this->gameRepository->findOneBy(['name' => 'current']));
+        $this->twig->addGlobal('encounter', $this->encounterRepository->findOneBy(['id' => '1']));
+        $this->twig->addGlobal('fighters', $this->encounterRepository->findOneBy(['id' => '1'])->getFighters());
+
     }
 
     public static function getSubscribedEvents()

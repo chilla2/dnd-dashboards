@@ -23,15 +23,12 @@ class CombatTrackerType extends AbstractType
     {
         $builder->add('characters', CollectionType::class, [
             'entry_type' => CharacterType::class,
-            'entry_options' => ['label' => false],
         ]);
         $builder->add('npcs', CollectionType::class, [
             'entry_type' => NpcType::class,
-            'entry_options' => ['label' => false],
         ]);
         $builder->add('creatures', CollectionType::class, [
             'entry_type' => CreatureType::class,
-            'entry_options' => ['label' => false],
         ]);
     }
 

@@ -18,10 +18,10 @@ class CharacterType extends AbstractType
         $builder
             ->add('name', TextType::class, ['label' => false])
             ->add('notes')
-            ->add('initiative', IntegerType::class, ['label' => false, 'required' => false])
-            ->add('isEnemy', CheckboxType::class, ['label' => false, 'required' => false])
-            ->add('armorClass', IntegerType::class, ['label' => false, 'required' => false])
-            ->add('hp', IntegerType::class, ['label' => false, 'required' => false])
+            ->add('initiative', IntegerType::class, ['required' => false, 'attr' => ['placeholder' => 'Initiative'], 'label' => false])
+            ->add('isEnemy', CheckboxType::class, ['label' => 'Enemy', 'required' => false])
+            ->add('armorClass', IntegerType::class, ['label' => false, 'attr' => ['placeholder' => 'AC'], 'required' => false])
+            ->add('hp', IntegerType::class, ['label' => false, 'attr' => ['placeholder' => 'HP'], 'required' => false])
             ->add('conditions')
             ->add('imageFile', VichImageType::class, [
                 'required' => false,
